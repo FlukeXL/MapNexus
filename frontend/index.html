@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUXTRAVEL - การเดินทางที่มีระดับ</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@200;300;400;500;600;700&family=Noto+Serif+Thai:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1 class="logo-text">NAKHON PHANOM</h1>
+                <p class="logo-subtitle">เมืองแห่งมนต์เสน่ห์โขง</p>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link active">หน้าหลัก</a></li>
+                <li><a href="explore.html" class="nav-link">นำเที่ยว</a></li>
+                <li><a href="checkin.html" class="nav-link">เช็คอิน</a></li>
+                <li><a href="weather.html" class="nav-link">พยากรณ์อากาศ</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button type="button" class="btn-icon search-btn" aria-label="ค้นหา">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+                <button type="button" class="btn-secondary">เข้าสู่ระบบ</button>
+            </div>
+            <button type="button" class="mobile-menu-toggle" aria-label="เมนู">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Info Bar Header -->
+    <div class="info-bar-header">
+        <div class="info-bar-container">
+            <!-- PM2.5 -->
+            <div class="info-bar-item">
+                <div class="info-bar-icon pm25-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                    </svg>
+                </div>
+                <div class="info-bar-content">
+                    <div class="info-bar-text">
+                        <span class="info-bar-label">PM2.5</span>
+                        <div class="info-bar-value-wrapper">
+                            <span class="info-bar-value" id="header-pm25">32</span>
+                            <span class="info-bar-unit">AQI</span>
+                        </div>
+                    </div>
+                    <div class="info-bar-progress good" id="header-pm25-status">
+                        <svg class="progress-ring" width="32" height="32">
+                            <circle class="progress-ring-fill" cx="16" cy="16" r="13" 
+                                    style="stroke-dasharray: 81.68; stroke-dashoffset: 69.43;" />
+                        </svg>
+                        <span class="progress-percent">15%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Traffic -->
+            <div class="info-bar-item">
+                <div class="info-bar-icon traffic-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                        <circle cx="7" cy="17" r="2"/>
+                        <circle cx="13" cy="17" r="2"/>
+                    </svg>
+                </div>
+                <div class="info-bar-content">
+                    <div class="info-bar-text">
+                        <span class="info-bar-label">การจราจร</span>
+                        <div class="info-bar-value-wrapper">
+                            <span class="info-bar-value" id="header-traffic">ราบรื่น</span>
+                        </div>
+                    </div>
+                    <div class="info-bar-progress smooth" id="header-traffic-status">
+                        <svg class="progress-ring" width="32" height="32">
+                            <circle class="progress-ring-fill" cx="16" cy="16" r="13" 
+                                    style="stroke-dasharray: 81.68; stroke-dashoffset: 65.34;" />
+                        </svg>
+                        <span class="progress-percent">20%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Temperature -->
+            <div class="info-bar-item">
+                <div class="info-bar-icon temp-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                </div>
+                <div class="info-bar-content">
+                    <div class="info-bar-text">
+                        <span class="info-bar-label">อุณหภูมิ</span>
+                        <div class="info-bar-value-wrapper">
+                            <span class="info-bar-value" id="header-temp">28</span>
+                            <span class="info-bar-unit">°C</span>
+                        </div>
+                    </div>
+                    <div class="info-bar-progress warm" id="header-temp-status">
+                        <svg class="progress-ring" width="32" height="32">
+                            <circle class="progress-ring-fill" cx="16" cy="16" r="13" 
+                                    style="stroke-dasharray: 81.68; stroke-dashoffset: 44.92;" />
+                        </svg>
+                        <span class="progress-percent">45%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-background">
+            <div class="hero-overlay"></div>
+            <video class="hero-video" autoplay muted loop playsinline preload="auto">
+                <!-- ใส่วิดีโอของคุณที่นี่ - เปลี่ยนชื่อไฟล์ให้ตรงกับวิดีโอของคุณ -->
+                <source src="assets\videos\Nakhonphanom.mp4" type="video/mp4">
+                <!-- สำรองถ้ามีไฟล์ WebM -->
+                <source src="assets/videos/hero-video.webm" type="video/webm">
+                <!-- ข้อความสำรองถ้า browser ไม่รองรับวิดีโอ -->
+                <p>เบราว์เซอร์ของคุณไม่รองรับการเล่นวิดีโอ</p>
+            </video>
+        </div>
+        <div class="hero-content">
+            <div class="hero-text">
+                <span class="hero-subtitle">ค้นพบ</span>
+                <h1 class="hero-title">
+                    <span class="title-line">มนต์เสน่ห์</span>
+                    <span class="title-line">แห่งแม่น้ำโขง</span>
+                </h1>
+                <p class="hero-description">
+                    สัมผัสความงามของนครพนม เมืองมรดกวัฒนธรรมริมโขง<br>
+                    ที่ผสมผสานระหว่างประวัติศาสตร์ ธรรมชาติ และวิถีชีวิตท้องถิ่น
+                </p>
+                <div class="hero-actions">
+                    <a href="explore.html" class="btn-primary">เริ่มต้นการเดินทาง</a>
+                    <button type="button" class="btn-outline">ดูวิดีโอ</button>
+                </div>
+            </div>
+            <div class="hero-scroll">
+                <span>เลื่อนลง</span>
+                <div class="scroll-line"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Destinations -->
+    <section class="featured-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">จุดหมายปลายทาง</span>
+                <h2 class="section-title">สถานที่ยอดนิยม</h2>
+            </div>
+            <div class="featured-grid">
+                <div class="featured-card large">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&q=80" alt="พระธาตุพนม">
+                        <div class="card-overlay"></div>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">วัดและศาสนสถาน</span>
+                        <h3 class="card-title">พระธาตุพนม</h3>
+                        <p class="card-description">สัญลักษณ์ศักดิ์สิทธิ์แห่งนครพนม ที่เคารพบูชามากว่า 2,000 ปี</p>
+                        <a href="#" class="card-link">
+                            <span>สำรวจเพิ่มเติม</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="แม่น้ำโขง">
+                        <div class="card-overlay"></div>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">ธรรมชาติ</span>
+                        <h3 class="card-title">ริมฝั่งโขง</h3>
+                        <p class="card-description">ชมพระอาทิตย์ตกริมโขงที่สวยงามที่สุด</p>
+                        <a href="#" class="card-link">
+                            <span>สำรวจเพิ่มเติม</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="featured-card">
+                    <div class="card-image">
+                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80" alt="ตลาดอินโดจีน">
+                        <div class="card-overlay"></div>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">วัฒนธรรม</span>
+                        <h3 class="card-title">ตลาดอินโดจีน</h3>
+                        <p class="card-description">สัมผัสวัฒนธรรมการค้าข้ามแดน</p>
+                        <a href="#" class="card-link">
+                            <span>สำรวจเพิ่มเติม</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience-section">
+        <div class="container-wide">
+            <div class="experience-content">
+                <div class="experience-text">
+                    <span class="section-subtitle">ประสบการณ์</span>
+                    <h2 class="section-title">สัมผัสเสน่ห์<br>แห่งนครพนม</h2>
+                    <p class="experience-description">
+                        นครพนมคือเมืองที่ผสมผสานระหว่างความเป็นไทย ลาว และเวียดนาม 
+                        สร้างเอกลักษณ์ทางวัฒนธรรมที่ไม่เหมือนใคร พร้อมด้วยธรรมชาติที่งดงาม
+                        และผู้คนที่อบอุ่น
+                    </p>
+                    <div class="experience-stats">
+                        <div class="stat-item">
+                            <h3 class="stat-number">50+</h3>
+                            <p class="stat-label">สถานที่ท่องเที่ยว</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3 class="stat-number">2,000+</h3>
+                            <p class="stat-label">ปีแห่งประวัติศาสตร์</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3 class="stat-number">365</h3>
+                            <p class="stat-label">วันแห่งความงาม</p>
+                        </div>
+                    </div>
+                    <a href="explore.html" class="btn-primary">เริ่มสำรวจ</a>
+                </div>
+                <div class="experience-images">
+                    <div class="exp-image-1">
+                        <img src="https://images.unsplash.com/photo-1528127269322-539801943592?w=600&q=80" alt="วัฒนธรรม">
+                    </div>
+                    <div class="exp-image-2">
+                        <img src="https://images.unsplash.com/photo-1563492065213-f0e6a0e0dc37?w=600&q=80" alt="ธรรมชาติ">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Temples Section - วัด 4 แห่ง -->
+    <section class="places-section">
+        <div class="container">
+            <div class="places-header">
+                <span class="places-subtitle">วัดและศาสนสถาน</span>
+                <h2 class="places-title">วัดศักดิ์สิทธิ์ในนครพนม</h2>
+                <p class="places-description">
+                    สัมผัสความศักดิ์สิทธิ์และสถาปัตยกรรมงดงามของวัดเก่าแก่ริมฝั่งโขง
+                </p>
+            </div>
+            <div class="places-grid" id="temples-grid">
+                <!-- วัดจะถูกแสดงที่นี่โดย JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Cafes Section - คาเฟ่ 12 แห่ง -->
+    <section class="places-section">
+        <div class="container">
+            <div class="places-header">
+                <span class="places-subtitle">คาเฟ่และร้านกาแฟ</span>
+                <h2 class="places-title">คาเฟ่สุดชิคในนครพนม</h2>
+                <p class="places-description">
+                    พักผ่อนและเติมพลังกับกาแฟหอมกรุ่นในบรรยากาศสบายๆ ริมแม่น้ำโขง
+                </p>
+            </div>
+            <div class="places-grid" id="cafes-grid">
+                <!-- คาเฟ่จะถูกแสดงที่นี่โดย JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Hotels Section - โรงแรม 5 แห่ง -->
+    <section class="places-section">
+        <div class="container">
+            <div class="places-header">
+                <span class="places-subtitle">ที่พัก</span>
+                <h2 class="places-title">โรงแรมและรีสอร์ทแนะนำ</h2>
+                <p class="places-description">
+                    เลือกที่พักคุณภาพพร้อมบริการดีเยี่ยมสำหรับการพักผ่อนของคุณ
+                </p>
+            </div>
+            <div class="places-grid" id="hotels-grid">
+                <!-- โรงแรมจะถูกแสดงที่นี่โดย JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Culture Section -->
+    <section class="culture-section">
+        <div class="container">
+            <div class="section-header centered">
+                <span class="section-subtitle">วัฒนธรรม</span>
+                <h2 class="section-title">มรดกแห่งอารยธรรม</h2>
+            </div>
+            <div class="culture-grid">
+                <div class="culture-card">
+                    <div class="culture-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h3 class="culture-title">สถาปัตยกรรม</h3>
+                    <p class="culture-description">ผสมผสานศิลปะไทย ลาว และฝรั่งเศส สร้างเอกลักษณ์ที่โดดเด่น</p>
+                </div>
+                <div class="culture-card">
+                    <div class="culture-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"/>
+                            <path d="M12 6v6l4 2"/>
+                        </svg>
+                    </div>
+                    <h3 class="culture-title">ประเพณี</h3>
+                    <p class="culture-description">งานบุญพระธาตุพนม ประเพณีที่สืบทอดมากว่า 2,000 ปี</p>
+                </div>
+                <div class="culture-card">
+                    <div class="culture-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                        </svg>
+                    </div>
+                    <h3 class="culture-title">อาหาร</h3>
+                    <p class="culture-description">รสชาติอาหารอีสานผสมผสานวัฒนธรรมข้ามแดน</p>
+                </div>
+                <div class="culture-card">
+                    <div class="culture-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3 class="culture-title">ผู้คน</h3>
+                    <p class="culture-description">ความอบอุ่นและมิตรไมตรีของชาวนครพนม</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <div class="newsletter-text">
+                    <h2 class="newsletter-title">ติดตามข่าวสาร</h2>
+                    <p class="newsletter-description">รับข้อมูลสถานที่ท่องเที่ยวใหม่ๆ และกิจกรรมพิเศษ</p>
+                </div>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="อีเมลของคุณ" class="newsletter-input">
+                    <button type="submit" class="btn-primary">สมัครสมาชิก</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3 class="footer-logo">NAKHON PHANOM</h3>
+                    <p class="footer-tagline">เมืองแห่งมนต์เสน่ห์โขง</p>
+                    <p class="footer-description">
+                        ค้นพบความงามและวัฒนธรรมอันยาวนาน<br>
+                        ของนครพนม เมืองมรดกริมแม่น้ำโขง
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-title">สำรวจ</h4>
+                        <ul class="footer-list">
+                            <li><a href="#">สถานที่ท่องเที่ยว</a></li>
+                            <li><a href="#">ที่พัก</a></li>
+                            <li><a href="#">ร้านอาหาร</a></li>
+                            <li><a href="#">กิจกรรม</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-title">ข้อมูล</h4>
+                        <ul class="footer-list">
+                            <li><a href="#">เกี่ยวกับเรา</a></li>
+                            <li><a href="#">ติดต่อเรา</a></li>
+                            <li><a href="#">คำถามที่พบบ่อย</a></li>
+                            <li><a href="#">แผนที่</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-title">ติดตาม</h4>
+                        <ul class="footer-list">
+                            <li><a href="#">Facebook</a></li>
+                            <li><a href="#">Instagram</a></li>
+                            <li><a href="#">Twitter</a></li>
+                            <li><a href="#">YouTube</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Nakhon Phanom Tourism. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">นโยบายความเป็นส่วนตัว</a>
+                    <a href="#">เงื่อนไขการใช้งาน</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script src="js/info-bar-header.js"></script>
+    <script src="js/places-data.js"></script>
+    <script src="js/places-display.js"></script>
+</body>
+</html>

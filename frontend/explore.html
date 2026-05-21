@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>นำเที่ยว - Nakhon Phanom</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@200;300;400;500;600;700&family=Noto+Serif+Thai:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h1 class="logo-text">NAKHON PHANOM</h1>
+                <p class="logo-subtitle">เมืองแห่งมนต์เสน่ห์โขง</p>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">หน้าหลัก</a></li>
+                <li><a href="explore.html" class="nav-link active">นำเที่ยว</a></li>
+                <li><a href="checkin.html" class="nav-link">เช็คอิน</a></li>
+                <li><a href="weather.html" class="nav-link">พยากรณ์อากาศ</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button type="button" class="btn-icon search-btn" aria-label="ค้นหา">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
+                <button type="button" class="btn-secondary">เข้าสู่ระบบ</button>
+            </div>
+            <button type="button" class="mobile-menu-toggle" aria-label="เมนู">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Info Bar Header -->
+    <div class="info-bar-header">
+        <div class="info-bar-container">
+            <!-- PM2.5 -->
+            <div class="info-bar-item">
+                <div class="info-bar-icon pm25-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                    </svg>
+                </div>
+                <div class="info-bar-content">
+                    <span class="info-bar-label">PM2.5</span>
+                    <div class="info-bar-value-wrapper">
+                        <span class="info-bar-value" id="header-pm25">32</span>
+                        <span class="info-bar-unit">AQI</span>
+                    </div>
+                    <div class="info-bar-progress good" id="header-pm25-status">
+                        <svg class="progress-ring" width="36" height="36">
+                            <circle class="progress-ring-bg" cx="18" cy="18" r="15" />
+                            <circle class="progress-ring-fill" cx="18" cy="18" r="15" 
+                                    style="stroke-dasharray: 94.25; stroke-dashoffset: 79.11;" />
+                        </svg>
+                        <span class="progress-percent">15%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="info-bar-divider"></div>
+
+            <!-- Traffic -->
+            <div class="info-bar-item">
+                <div class="info-bar-icon traffic-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                        <circle cx="7" cy="17" r="2"/>
+                        <circle cx="13" cy="17" r="2"/>
+                    </svg>
+                </div>
+                <div class="info-bar-content">
+                    <span class="info-bar-label">การจราจร</span>
+                    <div class="info-bar-value-wrapper">
+                        <span class="info-bar-value" id="header-traffic">ราบรื่น</span>
+                    </div>
+                    <div class="info-bar-progress smooth" id="header-traffic-status">
+                        <svg class="progress-ring" width="36" height="36">
+                            <circle class="progress-ring-bg" cx="18" cy="18" r="15" />
+                            <circle class="progress-ring-fill" cx="18" cy="18" r="15" 
+                                    style="stroke-dasharray: 94.25; stroke-dashoffset: 75.4;" />
+                        </svg>
+                        <span class="progress-percent">20%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="info-bar-divider"></div>
+
+            <!-- Temperature -->
+            <div class="info-bar-item">
+                <div class="info-bar-icon temp-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                </div>
+                <div class="info-bar-content">
+                    <span class="info-bar-label">อุณหภูมิ</span>
+                    <div class="info-bar-value-wrapper">
+                        <span class="info-bar-value" id="header-temp">28</span>
+                        <span class="info-bar-unit">°C</span>
+                    </div>
+                    <div class="info-bar-progress warm" id="header-temp-status">
+                        <svg class="progress-ring" width="36" height="36">
+                            <circle class="progress-ring-bg" cx="18" cy="18" r="15" />
+                            <circle class="progress-ring-fill" cx="18" cy="18" r="15" 
+                                    style="stroke-dasharray: 94.25; stroke-dashoffset: 51.84;" />
+                        </svg>
+                        <span class="progress-percent">45%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="page-header-bg">
+            <div class="page-header-overlay"></div>
+        </div>
+        <div class="container">
+            <div class="page-header-content">
+                <span class="page-subtitle">สำรวจ</span>
+                <h1 class="page-title">สถานที่ท่องเที่ยว</h1>
+                <p class="page-description">ค้นพบจุดหมายปลายทางที่น่าประทับใจในนครพนม</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-bar">
+                <div class="filter-tabs">
+                    <button type="button" class="filter-tab active" data-category="all">ทั้งหมด</button>
+                    <button type="button" class="filter-tab" data-category="temple">วัดและศาสนสถาน</button>
+                    <button type="button" class="filter-tab" data-category="nature">ธรรมชาติ</button>
+                    <button type="button" class="filter-tab" data-category="culture">วัฒนธรรม</button>
+                    <button type="button" class="filter-tab" data-category="food">อาหาร</button>
+                    <button type="button" class="filter-tab" data-category="shopping">ช้อปปิ้ง</button>
+                </div>
+                <div class="filter-controls">
+                    <select class="filter-select" aria-label="เรียงลำดับ">
+                        <option>เรียงตาม: ยอดนิยม</option>
+                        <option>ระยะทางใกล้สุด</option>
+                        <option>คะแนนสูงสุด</option>
+                        <option>ล่าสุด</option>
+                    </select>
+                    <button type="button" class="btn-icon filter-map-btn" aria-label="แสดงแผนที่">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+                            <line x1="8" y1="2" x2="8" y2="18"></line>
+                            <line x1="16" y1="6" x2="16" y2="22"></line>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destinations Grid -->
+    <section class="destinations-section">
+        <div class="container">
+            <div class="destinations-grid">
+                <!-- Destination Card 1 -->
+                <article class="destination-card" data-category="temple">
+                    <div class="dest-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&q=80" alt="พระธาตุพนม" class="dest-image">
+                        <div class="dest-badge">ยอดนิยม</div>
+                        <button type="button" class="dest-favorite" aria-label="เพิ่มในรายการโปรด">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="dest-content">
+                        <div class="dest-header">
+                            <div class="dest-category">วัดและศาสนสถาน</div>
+                            <div class="dest-rating">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                </svg>
+                                <span>4.9</span>
+                            </div>
+                        </div>
+                        <h3 class="dest-title">พระธาตุพนม</h3>
+                        <p class="dest-description">
+                            พระธาตุศักดิ์สิทธิ์คู่บ้านคู่เมืองนครพนม อายุกว่า 2,000 ปี 
+                            เป็นสถาปัตยกรรมแบบลาวที่งดงามและเป็นศูนย์รวมจิตใจของชาวอีสาน
+                        </p>
+                        <div class="dest-meta">
+                            <div class="dest-location">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                <span>อ.ธาตุพนม</span>
+                            </div>
+                            <div class="dest-distance">12 กม.</div>
+                        </div>
+                        <a href="#" class="dest-link">
+                            <span>ดูรายละเอียด</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Destination Card 2 -->
+                <article class="destination-card" data-category="nature">
+                    <div class="dest-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80" alt="ริมฝั่งโขง" class="dest-image">
+                        <button type="button" class="dest-favorite" aria-label="เพิ่มในรายการโปรด">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="dest-content">
+                        <div class="dest-header">
+                            <div class="dest-category">ธรรมชาติ</div>
+                            <div class="dest-rating">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                </svg>
+                                <span>4.8</span>
+                            </div>
+                        </div>
+                        <h3 class="dest-title">ริมฝั่งโขง</h3>
+                        <p class="dest-description">
+                            ชมพระอาทิตย์ตกริมแม่น้ำโขงที่สวยงามที่สุดในภาคอีสาน 
+                            พร้อมบรรยากาศสบายๆ และวิวประเทศลาวฝั่งตรงข้าม
+                        </p>
+                        <div class="dest-meta">
+                            <div class="dest-location">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                <span>อ.เมือง</span>
+                            </div>
+                            <div class="dest-distance">2 กม.</div>
+                        </div>
+                        <a href="#" class="dest-link">
+                            <span>ดูรายละเอียด</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Destination Card 3 -->
+                <article class="destination-card" data-category="culture">
+                    <div class="dest-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80" alt="ตลาดอินโดจีน" class="dest-image">
+                        <button type="button" class="dest-favorite" aria-label="เพิ่มในรายการโปรด">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="dest-content">
+                        <div class="dest-header">
+                            <div class="dest-category">วัฒนธรรม</div>
+                            <div class="dest-rating">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                </svg>
+                                <span>4.7</span>
+                            </div>
+                        </div>
+                        <h3 class="dest-title">ตลาดอินโดจีน</h3>
+                        <p class="dest-description">
+                            ตลาดการค้าข้ามแดนที่มีสินค้าหลากหลายจากไทย ลาว และเวียดนาม 
+                            สัมผัสวัฒนธรรมการค้าที่ผสมผสานกัน
+                        </p>
+                        <div class="dest-meta">
+                            <div class="dest-location">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                <span>อ.เมือง</span>
+                            </div>
+                            <div class="dest-distance">3 กม.</div>
+                        </div>
+                        <a href="#" class="dest-link">
+                            <span>ดูรายละเอียด</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Destination Card 4 -->
+                <article class="destination-card" data-category="temple">
+                    <div class="dest-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80" alt="วัดโพธิ์ชัย" class="dest-image">
+                        <button type="button" class="dest-favorite" aria-label="เพิ่มในรายการโปรด">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="dest-content">
+                        <div class="dest-header">
+                            <div class="dest-category">วัดและศาสนสถาน</div>
+                            <div class="dest-rating">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                </svg>
+                                <span>4.6</span>
+                            </div>
+                        </div>
+                        <h3 class="dest-title">วัดโพธิ์ชัย</h3>
+                        <p class="dest-description">
+                            วัดเก่าแก่ริมแม่น้ำโขง มีพระพุทธรูปศักดิ์สิทธิ์ 
+                            และเป็นจุดชมวิวพระอาทิตย์ขึ้นที่สวยงาม
+                        </p>
+                        <div class="dest-meta">
+                            <div class="dest-location">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                <span>อ.เมือง</span>
+                            </div>
+                            <div class="dest-distance">5 กม.</div>
+                        </div>
+                        <a href="#" class="dest-link">
+                            <span>ดูรายละเอียด</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Destination Card 5 -->
+                <article class="destination-card" data-category="nature">
+                    <div class="dest-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1563492065213-f0e6a0e0dc37?w=800&q=80" alt="ภูลังกา" class="dest-image">
+                        <div class="dest-badge">แนะนำ</div>
+                        <button type="button" class="dest-favorite" aria-label="เพิ่มในรายการโปรด">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="dest-content">
+                        <div class="dest-header">
+                            <div class="dest-category">ธรรมชาติ</div>
+                            <div class="dest-rating">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                </svg>
+                                <span>4.9</span>
+                            </div>
+                        </div>
+                        <h3 class="dest-title">ภูลังกา</h3>
+                        <p class="dest-description">
+                            อุทยานแห่งชาติที่มีทิวทัศน์สวยงาม ชมทะเลหมอกยามเช้า 
+                            และพระอาทิตย์ขึ้นที่สวยที่สุดในภาคอีสาน
+                        </p>
+                        <div class="dest-meta">
+                            <div class="dest-location">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                <span>อ.บ้านแพง</span>
+                            </div>
+                            <div class="dest-distance">45 กม.</div>
+                        </div>
+                        <a href="#" class="dest-link">
+                            <span>ดูรายละเอียด</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- Destination Card 6 -->
+                <article class="destination-card" data-category="food">
+                    <div class="dest-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80" alt="ร้านอาหารริมโขง" class="dest-image">
+                        <button type="button" class="dest-favorite" aria-label="เพิ่มในรายการโปรด">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="dest-content">
+                        <div class="dest-header">
+                            <div class="dest-category">อาหาร</div>
+                            <div class="dest-rating">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                                </svg>
+                                <span>4.8</span>
+                            </div>
+                        </div>
+                        <h3 class="dest-title">ร้านอาหารริมโขง</h3>
+                        <p class="dest-description">
+                            ลิ้มรสอาหารอีสานรสเด็ดริมแม่น้ำโขง 
+                            พร้อมบรรยากาศสบายๆ และวิวพระอาทิตย์ตกที่สวยงาม
+                        </p>
+                        <div class="dest-meta">
+                            <div class="dest-location">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                    <circle cx="12" cy="10" r="3"/>
+                                </svg>
+                                <span>อ.เมือง</span>
+                            </div>
+                            <div class="dest-distance">1 กม.</div>
+                        </div>
+                        <a href="#" class="dest-link">
+                            <span>ดูรายละเอียด</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Load More -->
+            <div class="load-more-section">
+                <button type="button" class="btn-outline">โหลดเพิ่มเติม</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3 class="footer-logo">NAKHON PHANOM</h3>
+                    <p class="footer-tagline">เมืองแห่งมนต์เสน่ห์โขง</p>
+                    <p class="footer-description">
+                        ค้นพบความงามและวัฒนธรรมอันยาวนาน<br>
+                        ของนครพนม เมืองมรดกริมแม่น้ำโขง
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-title">สำรวจ</h4>
+                        <ul class="footer-list">
+                            <li><a href="#">สถานที่ท่องเที่ยว</a></li>
+                            <li><a href="#">ที่พัก</a></li>
+                            <li><a href="#">ร้านอาหาร</a></li>
+                            <li><a href="#">กิจกรรม</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-title">ข้อมูล</h4>
+                        <ul class="footer-list">
+                            <li><a href="#">เกี่ยวกับเรา</a></li>
+                            <li><a href="#">ติดต่อเรา</a></li>
+                            <li><a href="#">คำถามที่พบบ่อย</a></li>
+                            <li><a href="#">แผนที่</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-title">ติดตาม</h4>
+                        <ul class="footer-list">
+                            <li><a href="#">Facebook</a></li>
+                            <li><a href="#">Instagram</a></li>
+                            <li><a href="#">Twitter</a></li>
+                            <li><a href="#">YouTube</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Nakhon Phanom Tourism. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">นโยบายความเป็นส่วนตัว</a>
+                    <a href="#">เงื่อนไขการใช้งาน</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script src="js/info-bar-header.js"></script>
+</body>
+</html>
