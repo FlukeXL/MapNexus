@@ -9,6 +9,11 @@ class PlacesDisplay {
         this.renderTemples();
         this.renderCafes();
         this.renderHotels();
+        
+        // Initialize carousel after rendering cafes
+        setTimeout(() => {
+            this.initCarousel();
+        }, 100);
     }
 
     // สร้าง HTML สำหรับ card
@@ -77,6 +82,14 @@ class PlacesDisplay {
         const html = PLACES_DATA.hotels.map(hotel => this.createPlaceCard(hotel)).join('');
         container.innerHTML = html;
     }
+    
+    // Initialize carousel for cafes
+    initCarousel() {
+        if (window.PlacesCarousel) {
+            new window.PlacesCarousel('cafes-grid', 'cafes-prev', 'cafes-next', 'cafes-indicators');
+            console.log('✅ Cafes Carousel initialized');
+        }
+    }
 }
 
 // เริ่มต้นเมื่อโหลดหน้าเว็บ
@@ -84,3 +97,4 @@ document.addEventListener('DOMContentLoaded', () => {
     new PlacesDisplay();
     console.log('✅ Places Display initialized');
 });
+

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUXTRAVEL - การเดินทางที่มีระดับ</title>
+    <title>MapNexus - การเดินทางที่มีระดับ</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,8 +14,8 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <h1 class="logo-text">NAKHON PHANOM</h1>
-                <p class="logo-subtitle">เมืองแห่งมนต์เสน่ห์โขง</p>
+                <h1 class="logo-text">MapNexus</h1>
+                <p class="logo-subtitle">การเดินทางที่มีระดับ</p>
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html" class="nav-link active">หน้าหลัก</a></li>
@@ -295,9 +295,22 @@
                     พักผ่อนและเติมพลังกับกาแฟหอมกรุ่นในบรรยากาศสบายๆ ริมแม่น้ำโขง
                 </p>
             </div>
-            <div class="places-grid" id="cafes-grid">
-                <!-- คาเฟ่จะถูกแสดงที่นี่โดย JavaScript -->
+            <div class="places-carousel-wrapper">
+                <button class="carousel-nav prev" id="cafes-prev" aria-label="Previous">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                </button>
+                <div class="places-carousel" id="cafes-grid">
+                    <!-- คาเฟ่จะถูกแสดงที่นี่โดย JavaScript -->
+                </div>
+                <button class="carousel-nav next" id="cafes-next" aria-label="Next">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                </button>
             </div>
+            <div class="carousel-indicators" id="cafes-indicators"></div>
         </div>
     </section>
 
@@ -441,5 +454,6 @@
     <script src="js/info-bar-header.js"></script>
     <script src="js/places-data.js"></script>
     <script src="js/places-display.js"></script>
+    <script src="js/carousel.js"></script>
 </body>
 </html>

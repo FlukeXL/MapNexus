@@ -2172,6 +2172,101 @@ section {
     margin-top: var(--spacing-lg);
 }
 
+/* Horizontal Scrollable Carousel for Cafes */
+.places-carousel-wrapper {
+    position: relative;
+    margin-top: var(--spacing-lg);
+}
+
+.places-carousel {
+    display: flex;
+    gap: var(--spacing-md);
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: var(--spacing-sm) 0;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.places-carousel::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.places-carousel .place-card {
+    flex: 0 0 320px;
+    min-width: 320px;
+}
+
+/* Carousel Navigation Buttons */
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    z-index: 10;
+    opacity: 0;
+}
+
+.carousel-nav:hover {
+    background: var(--gold);
+    color: var(--white);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+}
+
+.carousel-nav.prev {
+    left: -25px;
+}
+
+.carousel-nav.next {
+    right: -25px;
+}
+
+.places-carousel-wrapper:hover .carousel-nav {
+    opacity: 1;
+}
+
+.carousel-nav svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Carousel Indicators */
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: var(--spacing-md);
+}
+
+.carousel-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--light-gray);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+
+.carousel-indicator.active {
+    background: var(--gold);
+    width: 24px;
+    border-radius: 4px;
+}
+
+.carousel-indicator:hover {
+    background: var(--gold-light);
+}
+
 .place-card {
     background: var(--white);
     border-radius: 15px;
@@ -2324,5 +2419,29 @@ section {
     
     .places-title {
         font-size: 2rem;
+    }
+    
+    /* Carousel on mobile */
+    .places-carousel .place-card {
+        flex: 0 0 280px;
+        min-width: 280px;
+    }
+    
+    .carousel-nav {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .carousel-nav.prev {
+        left: -20px;
+    }
+    
+    .carousel-nav.next {
+        right: -20px;
+    }
+    
+    .carousel-nav svg {
+        width: 20px;
+        height: 20px;
     }
 }
