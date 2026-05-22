@@ -532,11 +532,12 @@ section {
 /* ========== Featured Section ========== */
 .featured-section {
     background: var(--off-white);
+    padding: var(--spacing-lg) 0;
 }
 
 .featured-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--spacing-md);
 }
 
@@ -545,20 +546,23 @@ section {
     overflow: hidden;
     background: var(--white);
     transition: var(--transition-normal);
+    border-radius: 12px;
 }
 
 .featured-card.large {
+    grid-column: span 1;
     grid-row: span 2;
 }
 
 .card-image {
     position: relative;
-    height: 400px;
+    height: 280px;
     overflow: hidden;
 }
 
 .featured-card.large .card-image {
     height: 100%;
+    min-height: 400px;
 }
 
 .card-image img {
@@ -595,13 +599,15 @@ section {
 }
 
 .card-title {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     margin-bottom: var(--spacing-sm);
 }
 
 .card-description {
     color: var(--dark-gray);
     margin-bottom: var(--spacing-md);
+    font-size: 0.95rem;
+    line-height: 1.6;
 }
 
 .card-link {
@@ -934,11 +940,17 @@ section {
 /* ========== Responsive Design ========== */
 @media (max-width: 1024px) {
     .featured-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
     }
     
     .featured-card.large {
+        grid-column: span 1;
         grid-row: span 1;
+    }
+    
+    .featured-card.large .card-image {
+        height: 280px;
+        min-height: 280px;
     }
     
     .experience-content {
@@ -965,6 +977,19 @@ section {
     
     .hero-actions {
         flex-direction: column;
+    }
+    
+    .featured-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .featured-card.large {
+        grid-row: span 1;
+    }
+    
+    .featured-card.large .card-image {
+        height: 280px;
+        min-height: 280px;
     }
     
     .culture-grid {

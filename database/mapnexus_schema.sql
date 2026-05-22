@@ -15,13 +15,17 @@ USE mapnexus;
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
+    email VARCHAR(100) UNIQUE,
+    password_hash VARCHAR(255),
     full_name VARCHAR(100),
-    phone VARCHAR(20),
+    phone VARCHAR(20) UNIQUE,
     profile_image VARCHAR(255),
     date_of_birth DATE,
     gender ENUM('male', 'female', 'other', 'prefer_not_to_say'),
+    
+    -- OAuth ข้อมูล
+    google_id VARCHAR(255) UNIQUE,
+    auth_provider ENUM('email', 'phone', 'google') DEFAULT 'email',
     
     -- ข้อมูลสมาชิก
     membership_type ENUM('free', 'premium', 'vip') DEFAULT 'free',
@@ -44,6 +48,8 @@ CREATE TABLE users (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     
     INDEX idx_email (email),
+    INDEX idx_phone (phone),
+    INDEX idx_google_id (google_id),
     INDEX idx_username (username),
     INDEX idx_membership (membership_type)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
