@@ -1,18 +1,39 @@
 {
-  "name": "nakhon-phanom-tourism",
+  "name": "mapnexus",
   "version": "1.0.0",
-  "description": "เว็บไซต์ท่องเที่ยวนครพนม - เมืองแห่งมนต์เสน่ห์โขง",
+  "description": "MapNexus - เว็บไซต์ท่องเที่ยวนครพนม พร้อมระบบสมาชิกพรีเมี่ยม",
+  "main": "backend/server.js",
   "scripts": {
-    "dev": "vercel dev",
-    "build": "echo 'Build complete'",
-    "start": "vercel dev"
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "tourism",
     "nakhon-phanom",
     "thailand",
-    "travel"
+    "travel",
+    "premium",
+    "subscription"
   ],
-  "author": "",
-  "license": "MIT"
+  "author": "MapNexus Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.6.5",
+    "bcrypt": "^5.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "dotenv": "^16.3.1",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "express-rate-limit": "^7.1.5",
+    "morgan": "^1.10.0",
+    "crypto": "^1.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
 }
