@@ -23,15 +23,116 @@
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html" class="nav-link">หน้าหลัก</a></li>
-                <li><a href="explore.html" class="nav-link">สำรวจ</a></li>
-                <li><a href="weather.html" class="nav-link active">พยากรณ์อากาศ</a></li>
+                <li><a href="explore.html" class="nav-link">นำเที่ยว</a></li>
                 <li><a href="checkin.html" class="nav-link">เช็คอิน</a></li>
+                <li><a href="weather.html" class="nav-link active">พยากรณ์อากาศ</a></li>
             </ul>
             <div class="nav-actions">
+                <button type="button" class="btn-icon search-btn" aria-label="ค้นหา">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.35-4.35"></path>
+                    </svg>
+                </button>
                 <button type="button" class="btn-secondary">เข้าสู่ระบบ</button>
             </div>
+            <button type="button" class="mobile-menu-toggle" aria-label="เมนู">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
+
+    <!-- Info Bar Header -->
+    <div class="info-bar-header">
+        <div class="info-bar-container">
+            <!-- PM2.5 -->
+            <div class="info-bar-item">
+                <div class="info-bar-icon pm25-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                    </svg>
+                </div>
+                <div class="info-bar-content">
+                    <div class="info-bar-text">
+                        <span class="info-bar-label">PM2.5</span>
+                        <div class="info-bar-value-wrapper">
+                            <span class="info-bar-value" id="header-pm25">32</span>
+                            <span class="info-bar-unit">µg/m³</span>
+                        </div>
+                    </div>
+                    <div class="info-bar-progress good" id="header-pm25-status">
+                        <svg class="progress-ring" width="32" height="32">
+                            <circle class="progress-ring-fill" cx="16" cy="16" r="13" 
+                                    style="stroke-dasharray: 81.68; stroke-dashoffset: 69.43;" />
+                        </svg>
+                        <span class="progress-percent">15%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Traffic -->
+            <div class="info-bar-item">
+                <div class="info-bar-icon traffic-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+                        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                        <circle cx="7" cy="17" r="2"/>
+                        <circle cx="13" cy="17" r="2"/>
+                    </svg>
+                </div>
+                <div class="info-bar-content">
+                    <div class="info-bar-text">
+                        <span class="info-bar-label">การจราจร</span>
+                        <div class="info-bar-value-wrapper">
+                            <span class="info-bar-value" id="header-traffic">ราบรื่น</span>
+                        </div>
+                    </div>
+                    <div class="info-bar-progress smooth" id="header-traffic-status">
+                        <svg class="progress-ring" width="32" height="32">
+                            <circle class="progress-ring-fill" cx="16" cy="16" r="13" 
+                                    style="stroke-dasharray: 81.68; stroke-dashoffset: 65.34;" />
+                        </svg>
+                        <span class="progress-percent">20%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Temperature -->
+            <div class="info-bar-item">
+                <div class="info-bar-icon temp-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                </div>
+                <div class="info-bar-content">
+                    <div class="info-bar-text">
+                        <span class="info-bar-label">อุณหภูมิ</span>
+                        <div class="info-bar-value-wrapper">
+                            <span class="info-bar-value" id="header-temp">28</span>
+                            <span class="info-bar-unit">°C</span>
+                        </div>
+                    </div>
+                    <div class="info-bar-progress warm" id="header-temp-status">
+                        <svg class="progress-ring" width="32" height="32">
+                            <circle class="progress-ring-fill" cx="16" cy="16" r="13" 
+                                    style="stroke-dasharray: 81.68; stroke-dashoffset: 44.92;" />
+                        </svg>
+                        <span class="progress-percent">45%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Page Header -->
     <section class="page-header weather-header">

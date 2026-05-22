@@ -1,57 +1,64 @@
 // ========================================
-// Google Maps Integration for Explore Page
+// OpenStreetMap Integration for Explore Page
+// Using Leaflet.js (No API Key Required!)
 // ========================================
 
 let map;
 let markers = [];
-let infoWindows = [];
 
 // Custom Marker Icons (สีสันสวยงาม)
 const markerIcons = {
     temple: {
-        path: 'M12 2L2 7l10 5 10-5-10-5z M2 17l10 5 10-5 M2 12l10 5 10-5',
-        fillColor: '#d4af37',
-        fillOpacity: 1,
-        strokeColor: '#ffffff',
-        strokeWeight: 2,
-        scale: 1.5,
-        anchor: new google.maps.Point(12, 12)
+        iconUrl: 'data:image/svg+xml;base64,' + btoa(`
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                <circle cx="16" cy="16" r="14" fill="#d4af37" stroke="#ffffff" stroke-width="3"/>
+                <text x="16" y="21" font-size="16" text-anchor="middle" fill="#ffffff" font-weight="bold">🛕</text>
+            </svg>
+        `),
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -32]
     },
     cafe: {
-        path: google.maps.SymbolPath.CIRCLE,
-        fillColor: '#2196F3',
-        fillOpacity: 1,
-        strokeColor: '#ffffff',
-        strokeWeight: 2,
-        scale: 10
+        iconUrl: 'data:image/svg+xml;base64,' + btoa(`
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                <circle cx="16" cy="16" r="14" fill="#2196F3" stroke="#ffffff" stroke-width="3"/>
+                <text x="16" y="21" font-size="16" text-anchor="middle" fill="#ffffff" font-weight="bold">☕</text>
+            </svg>
+        `),
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -32]
     },
     hotel: {
-        path: google.maps.SymbolPath.CIRCLE,
-        fillColor: '#4CAF50',
-        fillOpacity: 1,
-        strokeColor: '#ffffff',
-        strokeWeight: 2,
-        scale: 10
+        iconUrl: 'data:image/svg+xml;base64,' + btoa(`
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                <circle cx="16" cy="16" r="14" fill="#4CAF50" stroke="#ffffff" stroke-width="3"/>
+                <text x="16" y="21" font-size="16" text-anchor="middle" fill="#ffffff" font-weight="bold">🏨</text>
+            </svg>
+        `),
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -32]
     }
 };
 
 // Initialize Map
 function initMap() {
-    console.log('🗺️ Initializing Google Maps...');
+    console.log('🗺️ Initializing OpenStreetMap...');
 
     // Center of Nakhon Phanom
-    const nakhonPhanom = { lat: 17.4070, lng: 104.7720 };
+    const nakhonPhanom = [17.4070, 104.7720];
 
-    // Create Map
-    map = new google.maps.Map(document.getElementById('google-map'), {
-        center: nakhonPhanom,
-        zoom: 13,
-        styles: getMapStyles(),
-        mapTypeControl: true,
-        streetViewControl: false,
-        fullscreenControl: true,
-        zoomControl: true
-    });
+    // Create Map with OpenStreetMap tiles
+    map = L.map('openstreet-map').setView(nakhonPhanom, 13);
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 19,
+        minZoom: 10
+    }).addTo(map);
 
     // Add all places to map
     addPlacesToMap();
@@ -59,7 +66,7 @@ function initMap() {
     // Setup toggle button
     setupToggleButton();
 
-    console.log('✅ Google Maps initialized successfully');
+    console.log('✅ OpenStreetMap initialized successfully');
 }
 
 // Add all places to map
@@ -93,58 +100,28 @@ function addMarker(place, type) {
         return;
     }
 
-    const position = { lat: place.lat, lng: place.lng };
+    const position = [place.lat, place.lng];
 
-    // Create marker with custom icon
-    const marker = new google.maps.Marker({
-        position: position,
-        map: map,
-        title: place.name,
-        icon: {
-            path: google.maps.SymbolPath.CIRCLE,
-            fillColor: getMarkerColor(type),
-            fillOpacity: 1,
-            strokeColor: '#ffffff',
-            strokeWeight: 3,
-            scale: 12
-        },
-        animation: google.maps.Animation.DROP
-    });
+    // Create custom icon
+    const icon = L.icon(markerIcons[type]);
 
-    // Create info window
-    const infoWindow = new google.maps.InfoWindow({
-        content: createInfoWindowContent(place)
-    });
+    // Create marker
+    const marker = L.marker(position, { icon: icon }).addTo(map);
 
-    // Add click listener
-    marker.addListener('click', () => {
-        // Close all other info windows
-        closeAllInfoWindows();
-        
-        // Open this info window
-        infoWindow.open(map, marker);
-        
-        // Bounce animation
-        marker.setAnimation(google.maps.Animation.BOUNCE);
-        setTimeout(() => marker.setAnimation(null), 750);
+    // Create popup content
+    const popupContent = createPopupContent(place);
+
+    // Bind popup
+    marker.bindPopup(popupContent, {
+        maxWidth: 300,
+        className: 'custom-popup'
     });
 
     markers.push(marker);
-    infoWindows.push(infoWindow);
 }
 
-// Get marker color based on type
-function getMarkerColor(type) {
-    const colors = {
-        temple: '#d4af37', // Gold
-        cafe: '#2196F3',   // Blue
-        hotel: '#4CAF50'   // Green
-    };
-    return colors[type] || '#9E9E9E';
-}
-
-// Create info window content
-function createInfoWindowContent(place) {
+// Create popup content
+function createPopupContent(place) {
     const navigateUrl = `https://www.google.com/maps/dir/?api=1&destination=${place.lat},${place.lng}`;
     
     return `
@@ -178,34 +155,18 @@ function createInfoWindowContent(place) {
     `;
 }
 
-// Close all info windows
-function closeAllInfoWindows() {
-    infoWindows.forEach(infoWindow => infoWindow.close());
-}
-
 // Clear all markers
 function clearMarkers() {
-    markers.forEach(marker => marker.setMap(null));
+    markers.forEach(marker => map.removeLayer(marker));
     markers = [];
-    infoWindows = [];
 }
 
 // Fit map to show all markers
 function fitMapToMarkers() {
     if (markers.length === 0) return;
 
-    const bounds = new google.maps.LatLngBounds();
-    markers.forEach(marker => {
-        bounds.extend(marker.getPosition());
-    });
-    map.fitBounds(bounds);
-
-    // Adjust zoom if too close
-    google.maps.event.addListenerOnce(map, 'bounds_changed', () => {
-        if (map.getZoom() > 15) {
-            map.setZoom(15);
-        }
-    });
+    const group = L.featureGroup(markers);
+    map.fitBounds(group.getBounds().pad(0.1));
 }
 
 // Setup toggle button
@@ -222,55 +183,22 @@ function setupToggleButton() {
         // Trigger resize event to fix map rendering
         if (mapSection.classList.contains('active')) {
             setTimeout(() => {
-                google.maps.event.trigger(map, 'resize');
+                map.invalidateSize();
                 fitMapToMarkers();
             }, 100);
         }
     });
 }
 
-// Custom map styles (Gold theme)
-function getMapStyles() {
-    return [
-        {
-            "featureType": "all",
-            "elementType": "geometry",
-            "stylers": [{ "color": "#f5f5f5" }]
-        },
-        {
-            "featureType": "water",
-            "elementType": "geometry",
-            "stylers": [{ "color": "#c9e6f2" }]
-        },
-        {
-            "featureType": "water",
-            "elementType": "labels.text.fill",
-            "stylers": [{ "color": "#2c5f7c" }]
-        },
-        {
-            "featureType": "road",
-            "elementType": "geometry",
-            "stylers": [{ "color": "#ffffff" }]
-        },
-        {
-            "featureType": "road",
-            "elementType": "geometry.stroke",
-            "stylers": [{ "color": "#d4d4d4" }]
-        },
-        {
-            "featureType": "poi.park",
-            "elementType": "geometry",
-            "stylers": [{ "color": "#e5f3e0" }]
-        },
-        {
-            "featureType": "poi",
-            "elementType": "labels.text.fill",
-            "stylers": [{ "color": "#757575" }]
-        }
-    ];
-}
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    // Check if Leaflet is loaded
+    if (typeof L !== 'undefined') {
+        initMap();
+    } else {
+        console.error('❌ Leaflet.js not loaded');
+    }
+});
 
-// Export for global access
-window.initMap = initMap;
+console.log('✅ Explore Map script loaded (OpenStreetMap)');
 
-console.log('✅ Explore Map script loaded');

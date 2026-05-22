@@ -1,45 +1,23 @@
-# 🗺️ Google Maps Setup Guide
+# 🗺️ OpenStreetMap Setup Guide
 
-## การตั้งค่า Google Maps API
+## การใช้งาน OpenStreetMap (ไม่ต้อง API Key!)
 
-### ขั้นตอนที่ 1: สร้าง API Key
-
-1. ไปที่ [Google Cloud Console](https://console.cloud.google.com/)
-2. สร้างโปรเจกต์ใหม่หรือเลือกโปรเจกต์ที่มีอยู่
-3. ไปที่ **APIs & Services** > **Credentials**
-4. คลิก **Create Credentials** > **API Key**
-5. คัดลอก API Key ที่ได้
-
-### ขั้นตอนที่ 2: เปิดใช้งาน Google Maps JavaScript API
-
-1. ไปที่ **APIs & Services** > **Library**
-2. ค้นหา **Maps JavaScript API**
-3. คลิก **Enable**
-
-### ขั้นตอนที่ 3: ใส่ API Key ในโค้ด
-
-แก้ไขไฟล์ `frontend/explore.html` บรรทัดที่มี:
-
-```html
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
-```
-
-เปลี่ยน `YOUR_API_KEY` เป็น API Key ของคุณ:
-
-```html
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&callback=initMap" async defer></script>
-```
+MapNexus ใช้ **OpenStreetMap** ผ่าน **Leaflet.js** ซึ่ง:
+- ✅ **ฟรี 100%** - ไม่ต้องสมัคร API Key
+- ✅ **ไม่มีค่าใช้จ่าย** - ไม่มี quota limit
+- ✅ **Open Source** - ใช้งานได้ทันที
+- ✅ **นำทางด้วย Google Maps** - เมื่อคลิกปุ่มนำทาง
 
 ---
 
 ## 🎨 ฟีเจอร์ของแผนที่
 
 ### 1. **Custom Markers สีสันสวยงาม**
-- 🟡 **วัดและศาสนสถาน** - สีทอง (#d4af37)
-- 🔵 **คาเฟ่** - สีน้ำเงิน (#2196F3)
-- 🟢 **โรงแรม** - สีเขียว (#4CAF50)
+- 🟡 **วัดและศาสนสถาน** - สีทอง (#d4af37) + emoji 🛕
+- 🔵 **คาเฟ่** - สีน้ำเงิน (#2196F3) + emoji ☕
+- 🟢 **โรงแรม** - สีเขียว (#4CAF50) + emoji 🏨
 
-### 2. **Info Window**
+### 2. **Popup Window**
 เมื่อคลิกที่ Marker จะแสดง:
 - รูปภาพสถานที่
 - ชื่อสถานที่
@@ -109,14 +87,18 @@ https://www.google.com/maps/dir/?api=1&destination=LAT,LNG
 แก้ไขไฟล์ `frontend/js/explore-map.js`:
 
 ```javascript
-function getMarkerColor(type) {
-    const colors = {
-        temple: '#d4af37', // ← เปลี่ยนสีทอง
-        cafe: '#2196F3',   // ← เปลี่ยนสีน้ำเงิน
-        hotel: '#4CAF50'   // ← เปลี่ยนสีเขียว
-    };
-    return colors[type] || '#9E9E9E';
-}
+const markerIcons = {
+    temple: {
+        // เปลี่ยนสีใน SVG
+        fill="#d4af37"  // ← เปลี่ยนสีทอง
+    },
+    cafe: {
+        fill="#2196F3"  // ← เปลี่ยนสีน้ำเงิน
+    },
+    hotel: {
+        fill="#4CAF50"  // ← เปลี่ยนสีเขียว
+    }
+};
 ```
 
 ### เปลี่ยนขนาดของแผนที่:
@@ -129,6 +111,21 @@ function getMarkerColor(type) {
 }
 ```
 
+### เปลี่ยน Map Tiles:
+
+แก้ไขไฟล์ `frontend/js/explore-map.js`:
+
+```javascript
+// OpenStreetMap (Default)
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png')
+
+// CartoDB Positron (สีอ่อน)
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png')
+
+// CartoDB Dark Matter (สีเข้ม)
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png')
+```
+
 ---
 
 ## 🚀 การทดสอบ
@@ -136,21 +133,24 @@ function getMarkerColor(type) {
 1. เปิดไฟล์ `frontend/explore.html` ในเบราว์เซอร์
 2. คลิกปุ่มแผนที่ในแถบ Filter
 3. แผนที่จะแสดงพร้อม Markers ทั้งหมด
-4. คลิกที่ Marker เพื่อดู Info Window
+4. คลิกที่ Marker เพื่อดู Popup
 5. คลิกปุ่ม "นำทางด้วย Google Maps" เพื่อทดสอบการนำทาง
 
 ---
 
-## ⚠️ หมายเหตุ
+## ⚠️ ข้อดีของ OpenStreetMap
 
-- **API Key ฟรี:** Google ให้ใช้ฟรี $200/เดือน (ประมาณ 28,000 ครั้ง)
-- **Quota:** ตรวจสอบ quota ที่ Google Cloud Console
-- **Security:** ควรจำกัด API Key ให้ใช้ได้เฉพาะโดเมนของคุณ
+- ✅ **ฟรี 100%** - ไม่มีค่าใช้จ่าย
+- ✅ **ไม่ต้อง API Key** - ใช้งานได้ทันที
+- ✅ **ไม่มี Quota** - ไม่จำกัดจำนวนครั้ง
+- ✅ **Open Source** - ชุมชนใหญ่
+- ✅ **นำทางด้วย Google Maps** - เมื่อต้องการนำทางจริง
 
 ---
 
 ## 📞 ติดต่อ
 
 หากมีปัญหาหรือต้องการความช่วยเหลือ:
-- อ่าน [Google Maps Documentation](https://developers.google.com/maps/documentation/javascript)
-- ดู [API Key Best Practices](https://developers.google.com/maps/api-security-best-practices)
+- อ่าน [Leaflet Documentation](https://leafletjs.com/)
+- ดู [OpenStreetMap Wiki](https://wiki.openstreetmap.org/)
+

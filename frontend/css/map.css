@@ -1,5 +1,5 @@
 /* ========================================
-   Google Maps Section Styles
+   OpenStreetMap Section Styles
    ======================================== */
 
 /* Map Section */
@@ -41,9 +41,10 @@
     border: 2px solid var(--light-gray);
 }
 
-.google-map {
+.openstreet-map {
     width: 100%;
     height: 100%;
+    z-index: 1;
 }
 
 /* Map Legend */
@@ -100,6 +101,36 @@
 .custom-info-window {
     max-width: 280px;
     padding: 0;
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: 12px;
+    padding: 0;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.leaflet-popup-content {
+    margin: 0;
+    width: 280px !important;
+}
+
+.leaflet-popup-tip {
+    background: white;
+}
+
+/* Custom Popup Styles */
+.custom-popup .leaflet-popup-content-wrapper {
+    border-radius: 12px;
+}
+
+.custom-popup .leaflet-popup-close-button {
+    color: var(--primary);
+    font-size: 24px;
+    padding: 8px;
+}
+
+.custom-popup .leaflet-popup-close-button:hover {
+    color: var(--gold);
 }
 
 .info-window-content {
