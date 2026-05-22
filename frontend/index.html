@@ -55,7 +55,7 @@
                         <span class="info-bar-label">PM2.5</span>
                         <div class="info-bar-value-wrapper">
                             <span class="info-bar-value" id="header-pm25">32</span>
-                            <span class="info-bar-unit">AQI</span>
+                            <span class="info-bar-unit">µg/m³</span>
                         </div>
                     </div>
                     <div class="info-bar-progress good" id="header-pm25-status">
@@ -130,8 +130,8 @@
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
+    <!-- Hero Section - Compact -->
+    <section class="hero hero-compact">
         <div class="hero-background">
             <div class="hero-overlay"></div>
             <video class="hero-video" autoplay muted loop playsinline preload="auto">
@@ -158,10 +158,6 @@
                     <a href="explore.html" class="btn-primary">เริ่มต้นการเดินทาง</a>
                     <button type="button" class="btn-outline">ดูวิดีโอ</button>
                 </div>
-            </div>
-            <div class="hero-scroll">
-                <span>เลื่อนลง</span>
-                <div class="scroll-line"></div>
             </div>
         </div>
     </section>
@@ -229,17 +225,16 @@
         </div>
     </section>
 
-    <!-- Experience Section -->
-    <section class="experience-section">
+    <!-- Experience Section - Compact -->
+    <section class="experience-section experience-compact">
         <div class="container-wide">
             <div class="experience-content">
                 <div class="experience-text">
                     <span class="section-subtitle">ประสบการณ์</span>
-                    <h2 class="section-title">สัมผัสเสน่ห์<br>แห่งนครพนม</h2>
+                    <h2 class="section-title">สัมผัสเสน่ห์แห่งนครพนม</h2>
                     <p class="experience-description">
                         นครพนมคือเมืองที่ผสมผสานระหว่างความเป็นไทย ลาว และเวียดนาม 
-                        สร้างเอกลักษณ์ทางวัฒนธรรมที่ไม่เหมือนใคร พร้อมด้วยธรรมชาติที่งดงาม
-                        และผู้คนที่อบอุ่น
+                        สร้างเอกลักษณ์ทางวัฒนธรรมที่ไม่เหมือนใคร
                     </p>
                     <div class="experience-stats">
                         <div class="stat-item">
@@ -269,8 +264,8 @@
         </div>
     </section>
 
-    <!-- Temples Section - วัด 4 แห่ง -->
-    <section class="places-section">
+    <!-- Temples Section - วัด 4 แห่ง - Compact -->
+    <section class="places-section places-compact">
         <div class="container">
             <div class="places-header">
                 <span class="places-subtitle">วัดและศาสนสถาน</span>
@@ -279,14 +274,14 @@
                     สัมผัสความศักดิ์สิทธิ์และสถาปัตยกรรมงดงามของวัดเก่าแก่ริมฝั่งโขง
                 </p>
             </div>
-            <div class="places-grid" id="temples-grid">
+            <div class="places-grid places-grid-4" id="temples-grid">
                 <!-- วัดจะถูกแสดงที่นี่โดย JavaScript -->
             </div>
         </div>
     </section>
 
-    <!-- Cafes Section - คาเฟ่ 12 แห่ง -->
-    <section class="places-section">
+    <!-- Cafes Section - คาเฟ่ 6 แห่ง - Compact -->
+    <section class="places-section places-compact">
         <div class="container">
             <div class="places-header">
                 <span class="places-subtitle">คาเฟ่และร้านกาแฟ</span>
@@ -296,7 +291,7 @@
                 </p>
             </div>
             <div class="places-carousel-wrapper">
-                <button class="carousel-nav prev" id="cafes-prev" aria-label="Previous">
+                <button type="button" class="carousel-nav prev" id="cafes-prev" aria-label="Previous">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M15 18l-6-6 6-6"/>
                     </svg>
@@ -304,18 +299,21 @@
                 <div class="places-carousel" id="cafes-grid">
                     <!-- คาเฟ่จะถูกแสดงที่นี่โดย JavaScript -->
                 </div>
-                <button class="carousel-nav next" id="cafes-next" aria-label="Next">
+                <button type="button" class="carousel-nav next" id="cafes-next" aria-label="Next">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M9 18l6-6-6-6"/>
                     </svg>
                 </button>
             </div>
             <div class="carousel-indicators" id="cafes-indicators"></div>
+            <div class="section-footer">
+                <a href="explore.html?category=cafe" class="btn-outline">ดูคาเฟ่ทั้งหมด</a>
+            </div>
         </div>
     </section>
 
-    <!-- Hotels Section - โรงแรม 5 แห่ง -->
-    <section class="places-section">
+    <!-- Hotels Section - โรงแรม 3 แห่ง - Compact -->
+    <section class="places-section places-compact">
         <div class="container">
             <div class="places-header">
                 <span class="places-subtitle">ที่พัก</span>
@@ -324,14 +322,17 @@
                     เลือกที่พักคุณภาพพร้อมบริการดีเยี่ยมสำหรับการพักผ่อนของคุณ
                 </p>
             </div>
-            <div class="places-grid" id="hotels-grid">
+            <div class="places-grid places-grid-3" id="hotels-grid">
                 <!-- โรงแรมจะถูกแสดงที่นี่โดย JavaScript -->
+            </div>
+            <div class="section-footer">
+                <a href="explore.html?category=hotel" class="btn-outline">ดูที่พักทั้งหมด</a>
             </div>
         </div>
     </section>
 
-    <!-- Culture Section -->
-    <section class="culture-section">
+    <!-- Culture Section - Compact -->
+    <section class="culture-section culture-compact">
         <div class="container">
             <div class="section-header centered">
                 <span class="section-subtitle">วัฒนธรรม</span>
@@ -346,7 +347,7 @@
                         </svg>
                     </div>
                     <h3 class="culture-title">สถาปัตยกรรม</h3>
-                    <p class="culture-description">ผสมผสานศิลปะไทย ลาว และฝรั่งเศส สร้างเอกลักษณ์ที่โดดเด่น</p>
+                    <p class="culture-description">ผสมผสานศิลปะไทย ลาว และฝรั่งเศส</p>
                 </div>
                 <div class="culture-card">
                     <div class="culture-icon">
@@ -356,7 +357,7 @@
                         </svg>
                     </div>
                     <h3 class="culture-title">ประเพณี</h3>
-                    <p class="culture-description">งานบุญพระธาตุพนม ประเพณีที่สืบทอดมากว่า 2,000 ปี</p>
+                    <p class="culture-description">งานบุญพระธาตุพนม สืบทอดมา 2,000 ปี</p>
                 </div>
                 <div class="culture-card">
                     <div class="culture-icon">
@@ -365,7 +366,7 @@
                         </svg>
                     </div>
                     <h3 class="culture-title">อาหาร</h3>
-                    <p class="culture-description">รสชาติอาหารอีสานผสมผสานวัฒนธรรมข้ามแดน</p>
+                    <p class="culture-description">รสชาติอีสานผสมวัฒนธรรมข้ามแดน</p>
                 </div>
                 <div class="culture-card">
                     <div class="culture-icon">
@@ -376,14 +377,14 @@
                         </svg>
                     </div>
                     <h3 class="culture-title">ผู้คน</h3>
-                    <p class="culture-description">ความอบอุ่นและมิตรไมตรีของชาวนครพนม</p>
+                    <p class="culture-description">ความอบอุ่นของชาวนครพนม</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Newsletter Section -->
-    <section class="newsletter-section">
+    <!-- Newsletter Section - Compact -->
+    <section class="newsletter-section newsletter-compact">
         <div class="container">
             <div class="newsletter-content">
                 <div class="newsletter-text">
@@ -391,7 +392,7 @@
                     <p class="newsletter-description">รับข้อมูลสถานที่ท่องเที่ยวใหม่ๆ และกิจกรรมพิเศษ</p>
                 </div>
                 <form class="newsletter-form">
-                    <input type="email" placeholder="อีเมลของคุณ" class="newsletter-input">
+                    <input type="email" placeholder="อีเมลของคุณ" class="newsletter-input" required>
                     <button type="submit" class="btn-primary">สมัครสมาชิก</button>
                 </form>
             </div>

@@ -2,25 +2,30 @@
 <html lang="th">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>พยากรณ์อากาศ - Nakhon Phanom</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#d4af37">
+    <title>พยากรณ์อากาศ - MapNexus Nakhon Phanom</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/weather.css">
+    <link rel="stylesheet" href="css/bottom-nav.css">
+    <link rel="stylesheet" href="css/mobile.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@200;300;400;500;600;700&family=Noto+Serif+Thai:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <h1 class="logo-text">NAKHON PHANOM</h1>
-                <p class="logo-subtitle">เมืองแห่งมนต์เสน่ห์โขง</p>
+                <h1 class="logo-text">MapNexus</h1>
+                <p class="logo-subtitle">การเดินทางที่มีระดับ</p>
             </div>
             <ul class="nav-menu">
                 <li><a href="index.html" class="nav-link">หน้าหลัก</a></li>
-                <li><a href="explore.html" class="nav-link">นำเที่ยว</a></li>
-                <li><a href="checkin.html" class="nav-link">เช็คอิน</a></li>
+                <li><a href="explore.html" class="nav-link">สำรวจ</a></li>
                 <li><a href="weather.html" class="nav-link active">พยากรณ์อากาศ</a></li>
+                <li><a href="checkin.html" class="nav-link">เช็คอิน</a></li>
             </ul>
             <div class="nav-actions">
                 <button type="button" class="btn-secondary">เข้าสู่ระบบ</button>
@@ -28,237 +33,416 @@
         </div>
     </nav>
 
-    <!-- Info Bar Header -->
-    <div class="info-bar-header">
-        <div class="info-bar-container">
-            <!-- PM2.5 -->
-            <div class="info-bar-item">
-                <div class="info-bar-icon pm25-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                    </svg>
-                </div>
-                <div class="info-bar-content">
-                    <span class="info-bar-label">PM2.5</span>
-                    <div class="info-bar-value-wrapper">
-                        <span class="info-bar-value" id="header-pm25">32</span>
-                        <span class="info-bar-unit">AQI</span>
-                    </div>
-                    <div class="info-bar-progress good" id="header-pm25-status">
-                        <svg class="progress-ring" width="36" height="36">
-                            <circle class="progress-ring-bg" cx="18" cy="18" r="15" />
-                            <circle class="progress-ring-fill" cx="18" cy="18" r="15" 
-                                    style="stroke-dasharray: 94.25; stroke-dashoffset: 79.11;" />
-                        </svg>
-                        <span class="progress-percent">15%</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Divider -->
-            <div class="info-bar-divider"></div>
-
-            <!-- Traffic -->
-            <div class="info-bar-item">
-                <div class="info-bar-icon traffic-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
-                        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
-                        <circle cx="7" cy="17" r="2"/>
-                        <circle cx="13" cy="17" r="2"/>
-                    </svg>
-                </div>
-                <div class="info-bar-content">
-                    <span class="info-bar-label">การจราจร</span>
-                    <div class="info-bar-value-wrapper">
-                        <span class="info-bar-value" id="header-traffic">ราบรื่น</span>
-                    </div>
-                    <div class="info-bar-progress smooth" id="header-traffic-status">
-                        <svg class="progress-ring" width="36" height="36">
-                            <circle class="progress-ring-bg" cx="18" cy="18" r="15" />
-                            <circle class="progress-ring-fill" cx="18" cy="18" r="15" 
-                                    style="stroke-dasharray: 94.25; stroke-dashoffset: 75.4;" />
-                        </svg>
-                        <span class="progress-percent">20%</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Divider -->
-            <div class="info-bar-divider"></div>
-
-            <!-- Temperature -->
-            <div class="info-bar-item">
-                <div class="info-bar-icon temp-icon">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="5"/>
-                        <line x1="12" y1="1" x2="12" y2="3"/>
-                        <line x1="12" y1="21" x2="12" y2="23"/>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-                        <line x1="1" y1="12" x2="3" y2="12"/>
-                        <line x1="21" y1="12" x2="23" y2="12"/>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-                    </svg>
-                </div>
-                <div class="info-bar-content">
-                    <span class="info-bar-label">อุณหภูมิ</span>
-                    <div class="info-bar-value-wrapper">
-                        <span class="info-bar-value" id="header-temp">28</span>
-                        <span class="info-bar-unit">°C</span>
-                    </div>
-                    <div class="info-bar-progress warm" id="header-temp-status">
-                        <svg class="progress-ring" width="36" height="36">
-                            <circle class="progress-ring-bg" cx="18" cy="18" r="15" />
-                            <circle class="progress-ring-fill" cx="18" cy="18" r="15" 
-                                    style="stroke-dasharray: 94.25; stroke-dashoffset: 51.84;" />
-                        </svg>
-                        <span class="progress-percent">45%</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Page Header -->
+    <section class="page-header weather-header">
         <div class="page-header-bg"></div>
+        <div class="page-header-overlay"></div>
         <div class="container">
             <div class="page-header-content">
-                <span class="page-subtitle">สภาพอากาศ</span>
-                <h1 class="page-title">พยากรณ์อากาศ</h1>
-                <p class="page-description">ข้อมูลสภาพอากาศและคุณภาพอากาศนครพนม</p>
+                <span class="page-subtitle">สภาพอากาศและสิ่งแวดล้อม</span>
+                <h1 class="page-title">พยากรณ์อากาศนครพนม</h1>
+                <p class="page-description">ข้อมูลสภาพอากาศ คุณภาพอากาศ และสิ่งแวดล้อมแบบเรียลไทม์</p>
             </div>
         </div>
     </section>
 
-    <!-- Weather Status Section -->
-    <section class="weather-status-section">
+    <!-- ========== 1. PM2.5 ทุกอำเภอ ========== -->
+    <section class="weather-section pm25-section">
         <div class="container">
-            <div class="status-grid">
-                <!-- PM2.5 Card -->
-                <div class="status-card pm25-card">
-                    <div class="status-header">
-                        <div class="status-icon">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
-                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-                                <line x1="12" y1="22.08" x2="12" y2="12"/>
-                            </svg>
-                        </div>
-                        <h3 class="status-title">คุณภาพอากาศ PM2.5</h3>
+            <div class="section-header">
+                <div class="section-title-group">
+                    <span class="section-subtitle">คุณภาพอากาศ</span>
+                    <h2 class="section-title">ค่าฝุ่น PM2.5 ทุกอำเภอ</h2>
+                    <p class="section-description">ข้อมูลคุณภาพอากาศแบบเรียลไทม์จากสถานีตรวจวัดทั่วจังหวัดนครพนม</p>
+                </div>
+                <div class="section-actions">
+                    <button class="btn-refresh" id="refresh-pm25">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+                        </svg>
+                        <span>อัปเดต</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- PM2.5 Grid -->
+            <div class="pm25-grid" id="pm25-districts">
+                <!-- จะถูกเติมด้วย JavaScript -->
+                <div class="pm25-card loading">
+                    <div class="pm25-card-header">
+                        <h3 class="district-name">กำลังโหลด...</h3>
+                        <span class="update-time">--:--</span>
                     </div>
-                    <div class="status-body">
-                        <div class="circular-progress">
-                            <svg class="progress-ring" width="200" height="200">
-                                <circle class="progress-ring-bg" cx="100" cy="100" r="85" />
-                                <circle class="progress-ring-circle pm25-ring" cx="100" cy="100" r="85" />
-                            </svg>
-                            <div class="progress-content">
-                                <span class="progress-value" id="pm25-value">25</span>
-                                <span class="progress-unit">%</span>
-                                <span class="progress-label" id="pm25-status">ดี</span>
-                            </div>
+                    <div class="pm25-value-wrapper">
+                        <div class="pm25-value">--</div>
+                        <div class="pm25-unit">AQI</div>
+                    </div>
+                    <div class="pm25-status">กำลังโหลดข้อมูล</div>
+                    <div class="pm25-bar">
+                        <div class="pm25-bar-fill" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 2. สภาพอากาศนครพนม ========== -->
+    <section class="weather-section current-weather-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-title-group">
+                    <span class="section-subtitle">สภาพอากาศปัจจุบัน</span>
+                    <h2 class="section-title">อากาศนครพนม</h2>
+                    <p class="section-description">ข้อมูลสภาพอากาศแบบเรียลไทม์</p>
+                </div>
+            </div>
+
+            <div class="current-weather-grid">
+                <!-- Main Weather Card -->
+                <div class="weather-main-card">
+                    <div class="weather-icon-wrapper">
+                        <img src="" alt="Weather" class="weather-icon-large" id="weather-icon">
+                    </div>
+                    <div class="weather-main-info">
+                        <div class="temperature-display">
+                            <span class="temp-value" id="current-temp">--</span>
+                            <span class="temp-unit">°C</span>
                         </div>
-                        <div class="status-details">
-                            <div class="detail-item">
-                                <span class="detail-label">ค่า AQI</span>
-                                <span class="detail-value" id="pm25-aqi">32</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">PM2.5</span>
-                                <span class="detail-value" id="pm25-raw">15 µg/m³</span>
-                            </div>
+                        <div class="weather-description" id="weather-desc">กำลังโหลด...</div>
+                        <div class="weather-location">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <span>นครพนม, ประเทศไทย</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Traffic Card -->
-                <div class="status-card traffic-card">
-                    <div class="status-header">
-                        <div class="status-icon">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <!-- Weather Details Grid -->
+                <div class="weather-details-grid">
+                    <div class="weather-detail-card">
+                        <div class="detail-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="detail-info">
+                            <span class="detail-label">รู้สึกเหมือน</span>
+                            <span class="detail-value" id="feels-like">--°C</span>
+                        </div>
+                    </div>
+
+                    <div class="weather-detail-card">
+                        <div class="detail-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="detail-info">
+                            <span class="detail-label">ความชื้น</span>
+                            <span class="detail-value" id="humidity">--%</span>
+                        </div>
+                    </div>
+
+                    <div class="weather-detail-card">
+                        <div class="detail-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"></path>
+                            </svg>
+                        </div>
+                        <div class="detail-info">
+                            <span class="detail-label">ความเร็วลม</span>
+                            <span class="detail-value" id="wind-speed">-- m/s</span>
+                        </div>
+                    </div>
+
+                    <div class="weather-detail-card">
+                        <div class="detail-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
+                            </svg>
+                        </div>
+                        <div class="detail-info">
+                            <span class="detail-label">เมฆ</span>
+                            <span class="detail-value" id="clouds">--%</span>
+                        </div>
+                    </div>
+
+                    <div class="weather-detail-card">
+                        <div class="detail-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="5"></circle>
+                                <line x1="12" y1="1" x2="12" y2="3"></line>
+                                <line x1="12" y1="21" x2="12" y2="23"></line>
+                            </svg>
+                        </div>
+                        <div class="detail-info">
+                            <span class="detail-label">ความกดอากาศ</span>
+                            <span class="detail-value" id="pressure">-- hPa</span>
+                        </div>
+                    </div>
+
+                    <div class="weather-detail-card">
+                        <div class="detail-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </div>
+                        <div class="detail-info">
+                            <span class="detail-label">ทัศนวิสัย</span>
+                            <span class="detail-value" id="visibility">-- km</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 3. พยากรณ์พายุ ฝน ========== -->
+    <section class="weather-section forecast-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-title-group">
+                    <span class="section-subtitle">พยากรณ์อากาศ</span>
+                    <h2 class="section-title">คาดการณ์พายุและฝน</h2>
+                    <p class="section-description">พยากรณ์อากาศ 5 วันข้างหน้า</p>
+                </div>
+            </div>
+
+            <!-- Rain Alert -->
+            <div class="rain-alert" id="rain-alert" style="display: none;">
+                <div class="alert-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                        <line x1="12" y1="9" x2="12" y2="13"></line>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                </div>
+                <div class="alert-content">
+                    <h3 class="alert-title">แจ้งเตือนฝน</h3>
+                    <p class="alert-message" id="rain-alert-message">กำลังโหลดข้อมูล...</p>
+                </div>
+            </div>
+
+            <!-- Forecast Cards -->
+            <div class="forecast-grid" id="forecast-grid">
+                <!-- จะถูกเติมด้วย JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== 4. การจราจร (เตรียมไว้) ========== -->
+    <section class="weather-section traffic-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-title-group">
+                    <span class="section-subtitle">การจราจร</span>
+                    <h2 class="section-title">สถานการณ์จราจรแบบเรียลไทม์</h2>
+                    <p class="section-description">ข้อมูลการจราจรและคาดการณ์ใน 1 ชั่วโมงข้างหน้า</p>
+                </div>
+            </div>
+
+            <div class="traffic-grid">
+                <!-- Current Traffic -->
+                <div class="traffic-card current-traffic">
+                    <div class="traffic-header">
+                        <h3>สถานการณ์ปัจจุบัน</h3>
+                        <span class="traffic-time" id="traffic-update-time">อัปเดต: --:--</span>
+                    </div>
+                    <div class="traffic-status-display">
+                        <div class="traffic-icon-large" id="traffic-icon">
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
                                 <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
                                 <circle cx="7" cy="17" r="2"/>
                                 <circle cx="13" cy="17" r="2"/>
                             </svg>
                         </div>
-                        <h3 class="status-title">การจราจร</h3>
+                        <div class="traffic-status-text">
+                            <div class="traffic-level" id="traffic-level">กำลังโหลด...</div>
+                            <div class="traffic-description" id="traffic-desc">รอข้อมูล API</div>
+                        </div>
                     </div>
-                    <div class="status-body">
-                        <div class="circular-progress">
-                            <svg class="progress-ring" width="200" height="200">
-                                <circle class="progress-ring-bg" cx="100" cy="100" r="85" />
-                                <circle class="progress-ring-circle traffic-ring" cx="100" cy="100" r="85" />
-                            </svg>
-                            <div class="progress-content">
-                                <span class="progress-value" id="traffic-value">20</span>
-                                <span class="progress-unit">%</span>
-                                <span class="progress-label" id="traffic-status">ราบรื่น</span>
-                            </div>
-                        </div>
-                        <div class="status-details">
-                            <div class="detail-item">
-                                <span class="detail-label">สถานะ</span>
-                                <span class="detail-value" id="traffic-text">ปกติ</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">อัพเดท</span>
-                                <span class="detail-value">2 นาทีที่แล้ว</span>
-                            </div>
-                        </div>
+                    <div class="traffic-bar">
+                        <div class="traffic-bar-fill" id="traffic-bar-fill" style="width: 0%"></div>
                     </div>
                 </div>
 
-                <!-- Temperature Card -->
-                <div class="status-card temp-card">
-                    <div class="status-header">
-                        <div class="status-icon">
-                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <circle cx="12" cy="12" r="5"/>
-                                <line x1="12" y1="1" x2="12" y2="3"/>
-                                <line x1="12" y1="21" x2="12" y2="23"/>
-                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-                                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-                                <line x1="1" y1="12" x2="3" y2="12"/>
-                                <line x1="21" y1="12" x2="23" y2="12"/>
-                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-                                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-                            </svg>
-                        </div>
-                        <h3 class="status-title">อุณหภูมิ</h3>
+                <!-- Traffic Forecast -->
+                <div class="traffic-card forecast-traffic">
+                    <div class="traffic-header">
+                        <h3>คาดการณ์ใน 1 ชั่วโมง</h3>
+                        <span class="forecast-badge">พยากรณ์</span>
                     </div>
-                    <div class="status-body">
-                        <div class="circular-progress">
-                            <svg class="progress-ring" width="200" height="200">
-                                <circle class="progress-ring-bg" cx="100" cy="100" r="85" />
-                                <circle class="progress-ring-circle temp-ring" cx="100" cy="100" r="85" />
-                            </svg>
-                            <div class="progress-content">
-                                <span class="progress-value" id="temp-value">33</span>
-                                <span class="progress-unit">%</span>
-                                <span class="progress-label" id="temp-status">อบอุ่น</span>
-                            </div>
+                    <div class="traffic-forecast-content">
+                        <div class="forecast-item">
+                            <span class="forecast-time">+15 นาที</span>
+                            <span class="forecast-status" id="traffic-15min">--</span>
                         </div>
-                        <div class="status-details">
-                            <div class="detail-item">
-                                <span class="detail-label">อุณหภูมิ</span>
-                                <span class="detail-value" id="temp-celsius">28°C</span>
-                            </div>
-                            <div class="detail-item">
-                                <span class="detail-label">ความชื้น</span>
-                                <span class="detail-value" id="temp-humidity">65%</span>
-                            </div>
+                        <div class="forecast-item">
+                            <span class="forecast-time">+30 นาที</span>
+                            <span class="forecast-status" id="traffic-30min">--</span>
                         </div>
+                        <div class="forecast-item">
+                            <span class="forecast-time">+45 นาที</span>
+                            <span class="forecast-status" id="traffic-45min">--</span>
+                        </div>
+                        <div class="forecast-item">
+                            <span class="forecast-time">+60 นาที</span>
+                            <span class="forecast-status" id="traffic-60min">--</span>
+                        </div>
+                    </div>
+                    <div class="api-status">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        <span>รอเชื่อมต่อ Traffic API</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- ========== 5. ระดับน้ำแม่น้ำโขง (เตรียมไว้) ========== -->
+    <section class="weather-section river-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-title-group">
+                    <span class="section-subtitle">ระดับน้ำ</span>
+                    <h2 class="section-title">ระดับน้ำแม่น้ำโขง</h2>
+                    <p class="section-description">ข้อมูลระดับน้ำแบบเรียลไทม์และคาดการณ์ 7 วันข้างหน้า</p>
+                </div>
+            </div>
+
+            <div class="river-grid">
+                <!-- Current Water Level -->
+                <div class="river-card current-level">
+                    <div class="river-header">
+                        <h3>ระดับน้ำปัจจุบัน</h3>
+                        <span class="river-station">สถานีวัดน้ำนครพนม</span>
+                    </div>
+                    <div class="water-level-display">
+                        <div class="water-level-visual">
+                            <div class="water-container">
+                                <div class="water-fill" id="water-fill" style="height: 0%">
+                                    <div class="water-wave"></div>
+                                </div>
+                                <div class="water-markers">
+                                    <div class="marker critical"><span>วิกฤต</span><span>12m</span></div>
+                                    <div class="marker warning"><span>เฝ้าระวัง</span><span>10m</span></div>
+                                    <div class="marker normal"><span>ปกติ</span><span>8m</span></div>
+                                    <div class="marker low"><span>ต่ำ</span><span>5m</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="water-level-info">
+                            <div class="level-value">
+                                <span class="level-number" id="water-level">--</span>
+                                <span class="level-unit">เมตร</span>
+                            </div>
+                            <div class="level-status" id="water-status">กำลังโหลด...</div>
+                            <div class="level-change" id="water-change">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                </svg>
+                                <span>-- ซม. จากเมื่อวาน</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="river-details">
+                        <div class="detail-row">
+                            <span class="detail-label">อัปเดตล่าสุด:</span>
+                            <span class="detail-value" id="water-update-time">--:--</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">แนวโน้ม:</span>
+                            <span class="detail-value" id="water-trend">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Water Level Forecast -->
+                <div class="river-card forecast-level">
+                    <div class="river-header">
+                        <h3>คาดการณ์ระดับน้ำ 7 วัน</h3>
+                        <span class="forecast-badge">พยากรณ์</span>
+                    </div>
+                    <div class="water-forecast-chart" id="water-forecast-chart">
+                        <!-- Chart จะถูกสร้างด้วย JavaScript -->
+                        <div class="chart-placeholder">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                            </svg>
+                            <p>กราฟคาดการณ์ระดับน้ำ</p>
+                        </div>
+                    </div>
+                    <div class="forecast-list" id="water-forecast-list">
+                        <!-- จะถูกเติมด้วย JavaScript -->
+                        <div class="forecast-day">
+                            <span class="day-label">วันนี้</span>
+                            <span class="day-level">-- ม.</span>
+                            <span class="day-trend">--</span>
+                        </div>
+                    </div>
+                    <div class="api-status">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="16" x2="12" y2="12"></line>
+                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                        </svg>
+                        <span>รอเชื่อมต่อ River Level API</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3 class="footer-logo">MapNexus</h3>
+                    <p class="footer-tagline">การเดินทางที่มีระดับ</p>
+                    <p class="footer-description">
+                        ข้อมูลสภาพอากาศและสิ่งแวดล้อม<br>
+                        จังหวัดนครพนม แบบเรียลไทม์
+                    </p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-title">ข้อมูล</h4>
+                        <ul class="footer-list">
+                            <li><a href="#">PM2.5</a></li>
+                            <li><a href="#">สภาพอากาศ</a></li>
+                            <li><a href="#">การจราจร</a></li>
+                            <li><a href="#">ระดับน้ำโขง</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-title">เกี่ยวกับ</h4>
+                        <ul class="footer-list">
+                            <li><a href="#">เกี่ยวกับเรา</a></li>
+                            <li><a href="#">แหล่งข้อมูล</a></li>
+                            <li><a href="#">API</a></li>
+                            <li><a href="#">ติดต่อเรา</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MapNexus. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
     <script src="js/app.js"></script>
     <script src="js/info-bar-header.js"></script>
-    <script src="js/weather-status.js"></script>
+    <script src="js/weather-page.js"></script>
+    <script src="js/mobile-nav.js"></script>
 </body>
 </html>

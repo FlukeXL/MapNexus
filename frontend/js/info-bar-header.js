@@ -26,11 +26,12 @@ class InfoBarHeader {
             // 🌡️ OpenWeatherMap API
             // ========================================
             // เว็บไซต์: https://openweathermap.org/api
-            // ข้อมูล: อุณหภูมิ, ความชื้น, สภาพอากาศ
+            // ข้อมูล: อุณหภูมิ, ความชื้น, สภาพอากาศ, พยากรณ์ฝน
             // ฟรี: 1,000 calls/วัน
             
             WEATHER_API: 'https://api.openweathermap.org/data/2.5/weather',
-            WEATHER_API_KEY: '88474214df0769fa95ff82dc52946122', // ⚠️ ใส่ API Key ของคุณที่นี่
+            FORECAST_API: 'https://api.openweathermap.org/data/2.5/forecast',
+            WEATHER_API_KEY: '88474214df0769fa95ff82dc52946122',
             
             // พิกัดนครพนม
             LOCATION: {
@@ -48,7 +49,8 @@ class InfoBarHeader {
 
     init() {
         this.updatePM25();
-        this.updateTemperature();
+        this.updateWeather(); // อัปเดตอุณหภูมิและสภาพอากาศ
+        this.updateRainForecast(); // พยากรณ์ฝน
         this.updateTraffic(); // ยังใช้ข้อมูลจำลอง
     }
 
@@ -80,12 +82,19 @@ class InfoBarHeader {
             console.log('🏛️ Source:', data.data.attributions[0]?.name || 'Government');
             console.log('📈 Full Data:', data.data);
             
-            // ใช้ AQI ที่ได้จาก API
+            // ใช้ค่า PM2.5 จริง (µg/m³) แทน AQI
+            const pm25Value = data.data.iaqi?.pm25?.v || parseInt(data.data.aqi);
             const aqi = parseInt(data.data.aqi);
             
             const valueElement = document.getElementById('header-pm25');
             if (valueElement) {
-                valueElement.textContent = aqi;
+                valueElement.textContent = pm25Value;
+            }
+            
+            // เปลี่ยน unit เป็น µg/m³
+            const unitElement = document.querySelector('#header-pm25 + .info-bar-unit');
+            if (unitElement) {
+                unitElement.textContent = 'µg/m³';
             }
             
             const status = this.getPM25Status(aqi);
@@ -94,7 +103,8 @@ class InfoBarHeader {
             // เก็บข้อมูลเพิ่มเติม (สามารถใช้แสดงในอนาคต)
             this.lastPM25Data = {
                 aqi: aqi,
-                pm25: data.data.iaqi?.pm25?.v || null,
+                pm25: pm25Value,
+                pm25_raw: data.data.iaqi?.pm25?.v || null,
                 pm10: data.data.iaqi?.pm10?.v || null,
                 temperature: data.data.iaqi?.t?.v || null,
                 humidity: data.data.iaqi?.h?.v || null,
@@ -193,9 +203,9 @@ class InfoBarHeader {
     }
 
     // ========================================
-    // 🌡️ Update Temperature - ใช้ OpenWeatherMap API
+    // 🌡️ Update Weather - ใช้ OpenWeatherMap API
     // ========================================
-    async updateTemperature() {
+    async updateWeather() {
         try {
             const { lat, lon } = this.API_CONFIG.LOCATION;
             const apiKey = this.API_CONFIG.WEATHER_API_KEY;
@@ -211,7 +221,7 @@ class InfoBarHeader {
             
             const url = `${this.API_CONFIG.WEATHER_API}?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=th`;
             
-            console.log('🔄 Fetching temperature data from OpenWeatherMap...');
+            console.log('🔄 Fetching weather data from OpenWeatherMap...');
             const response = await fetch(url);
             
             if (!response.ok) {
@@ -219,15 +229,119 @@ class InfoBarHeader {
             }
             
             const data = await response.json();
-            console.log('✅ Temperature data received:', data.main.temp + '°C');
+            console.log('✅ Weather data received:', data);
             
+            // อุณหภูมิ
             const temp = Math.round(data.main.temp);
-            
             this.updateTemperatureDisplay(temp);
             
+            // เก็บข้อมูลสภาพอากาศ
+            this.lastWeatherData = {
+                temp: temp,
+                feels_like: Math.round(data.main.feels_like),
+                humidity: data.main.humidity,
+                pressure: data.main.pressure,
+                weather: data.weather[0].main,
+                description: data.weather[0].description,
+                icon: data.weather[0].icon,
+                clouds: data.clouds.all,
+                wind_speed: data.wind.speed,
+                rain: data.rain ? data.rain['1h'] || data.rain['3h'] : 0
+            };
+            
+            console.log('💾 Weather data stored:', this.lastWeatherData);
+            
         } catch (error) {
-            console.error('❌ Error updating temperature:', error);
+            console.error('❌ Error updating weather:', error);
             this.updateTemperatureSimulated();
+        }
+    }
+    
+    // ========================================
+    // 🌧️ Update Rain Forecast - พยากรณ์ฝน
+    // ========================================
+    async updateRainForecast() {
+        try {
+            const { lat, lon } = this.API_CONFIG.LOCATION;
+            const apiKey = this.API_CONFIG.WEATHER_API_KEY;
+            
+            if (!apiKey || apiKey === 'YOUR_OPENWEATHERMAP_API_KEY') {
+                console.warn('⚠️ OpenWeatherMap API Key not configured for forecast.');
+                return;
+            }
+            
+            const url = `${this.API_CONFIG.FORECAST_API}?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=th&cnt=8`;
+            
+            console.log('🔄 Fetching rain forecast from OpenWeatherMap...');
+            const response = await fetch(url);
+            
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            
+            const data = await response.json();
+            console.log('✅ Forecast data received');
+            
+            // วิเคราะห์โอกาสฝนใน 24 ชั่วโมงข้างหน้า
+            let rainChance = 0;
+            let willRain = false;
+            let rainTime = null;
+            
+            data.list.forEach((forecast, index) => {
+                const weather = forecast.weather[0].main;
+                const pop = forecast.pop * 100; // Probability of precipitation
+                
+                if (weather === 'Rain' || weather === 'Drizzle' || weather === 'Thunderstorm') {
+                    willRain = true;
+                    if (!rainTime) {
+                        const hours = index * 3; // แต่ละ forecast ห่างกัน 3 ชั่วโมง
+                        rainTime = hours;
+                    }
+                }
+                
+                if (pop > rainChance) {
+                    rainChance = pop;
+                }
+            });
+            
+            // เก็บข้อมูลพยากรณ์ฝน
+            this.rainForecast = {
+                willRain: willRain,
+                rainChance: Math.round(rainChance),
+                rainTime: rainTime,
+                message: this.getRainMessage(willRain, rainChance, rainTime)
+            };
+            
+            console.log('🌧️ Rain Forecast:', this.rainForecast);
+            
+            // แสดงข้อความพยากรณ์ฝน (ถ้ามี element)
+            const rainElement = document.getElementById('rain-forecast');
+            if (rainElement) {
+                rainElement.textContent = this.rainForecast.message;
+            }
+            
+        } catch (error) {
+            console.error('❌ Error updating rain forecast:', error);
+        }
+    }
+    
+    getRainMessage(willRain, rainChance, rainTime) {
+        if (willRain && rainTime !== null) {
+            if (rainTime === 0) {
+                return '🌧️ กำลังฝนตก';
+            } else if (rainTime <= 3) {
+                return `🌧️ ฝนจะตกใน ${rainTime} ชม.`;
+            } else if (rainTime <= 6) {
+                return `☁️ มีโอกาสฝนตก ${rainChance}%`;
+            } else {
+                return `⛅ อากาศแปรปรวน ${rainChance}%`;
+            }
+        } else if (rainChance > 50) {
+            return `☁️ มีโอกาสฝนตก ${rainChance}%`;
+        } else if (rainChance > 30) {
+            return `⛅ อากาศแปรปรวน ${rainChance}%`;
+        } else {
+            return '☀️ อากาศแจ่มใส';
         }
     }
 
@@ -286,24 +400,52 @@ class InfoBarHeader {
         // อัปเดตทุก 5 นาที (PM2.5)
         setInterval(() => this.updatePM25(), 5 * 60 * 1000);
         
+        // อัปเดตทุก 10 นาที (Weather)
+        setInterval(() => this.updateWeather(), 10 * 60 * 1000);
+        
+        // อัปเดตทุก 30 นาที (Rain Forecast)
+        setInterval(() => this.updateRainForecast(), 30 * 60 * 1000);
+        
         // อัปเดตทุก 2 นาที (Traffic)
         setInterval(() => this.updateTraffic(), 2 * 60 * 1000);
-        
-        // อัปเดตทุก 10 นาที (Temperature)
-        setInterval(() => this.updateTemperature(), 10 * 60 * 1000);
+    }
+    
+    // ========================================
+    // 📊 Public Methods - เรียกใช้จากภายนอก
+    // ========================================
+    
+    // ดึงข้อมูล PM2.5 ล่าสุด
+    getPM25Data() {
+        return this.lastPM25Data || null;
+    }
+    
+    // ดึงข้อมูลสภาพอากาศล่าสุด
+    getWeatherData() {
+        return this.lastWeatherData || null;
+    }
+    
+    // ดึงข้อมูลพยากรณ์ฝนล่าสุด
+    getRainForecastData() {
+        return this.rainForecast || null;
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    new InfoBarHeader();
+    window.infoBarHeader = new InfoBarHeader();
     console.log('✅ Info Bar Header initialized');
     console.log('📊 Data Sources:');
     console.log('   - PM2.5: WAQI (World Air Quality Index) - Thailand Government Data');
-    console.log('   - Temperature: OpenWeatherMap API');
+    console.log('   - Weather: OpenWeatherMap API (Temperature, Humidity, Conditions)');
+    console.log('   - Rain Forecast: OpenWeatherMap API (24-hour forecast)');
     console.log('   - Traffic: Simulated (no API connected)');
     console.log('');
     console.log('🔗 References:');
     console.log('   - WAQI: https://aqicn.org/city/thailand/nakhon-phanom/');
     console.log('   - Station: Meteorological stations, Nakhon Phanom (ID: @13630)');
     console.log('   - Source: Pollution Control Department (กรมควบคุมมลพิษ)');
+    console.log('');
+    console.log('💡 Usage:');
+    console.log('   - window.infoBarHeader.getPM25Data() - ดึงข้อมูล PM2.5');
+    console.log('   - window.infoBarHeader.getWeatherData() - ดึงข้อมูลสภาพอากาศ');
+    console.log('   - window.infoBarHeader.getRainForecastData() - ดึงข้อมูลพยากรณ์ฝน');
 });

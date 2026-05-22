@@ -65,21 +65,23 @@ class PlacesDisplay {
         container.innerHTML = html;
     }
 
-    // แสดงคาเฟ่
+    // แสดงคาเฟ่ (เฉพาะ 6 แห่งแรก)
     renderCafes() {
         const container = document.getElementById('cafes-grid');
         if (!container) return;
 
-        const html = PLACES_DATA.cafes.map(cafe => this.createPlaceCard(cafe)).join('');
+        const cafesToShow = PLACES_DATA.cafes.slice(0, 6); // แสดงเฉพาะ 6 แห่งแรก
+        const html = cafesToShow.map(cafe => this.createPlaceCard(cafe)).join('');
         container.innerHTML = html;
     }
 
-    // แสดงโรงแรม
+    // แสดงโรงแรม (เฉพาะ 3 แห่งแรก)
     renderHotels() {
         const container = document.getElementById('hotels-grid');
         if (!container) return;
 
-        const html = PLACES_DATA.hotels.map(hotel => this.createPlaceCard(hotel)).join('');
+        const hotelsToShow = PLACES_DATA.hotels.slice(0, 3); // แสดงเฉพาะ 3 แห่งแรก
+        const html = hotelsToShow.map(hotel => this.createPlaceCard(hotel)).join('');
         container.innerHTML = html;
     }
     

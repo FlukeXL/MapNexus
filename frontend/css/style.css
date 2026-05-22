@@ -329,6 +329,12 @@ p {
     overflow: hidden;
 }
 
+/* Hero Compact Version */
+.hero-compact {
+    height: 70vh;
+    min-height: 500px;
+}
+
 .hero-background {
     position: absolute;
     top: 0;
@@ -462,6 +468,36 @@ p {
 /* ========== Section Styles ========== */
 section {
     padding: var(--spacing-xl) 0;
+}
+
+/* Compact Sections */
+.places-compact {
+    padding: var(--spacing-lg) 0;
+}
+
+.experience-compact {
+    padding: var(--spacing-lg) 0;
+}
+
+.culture-compact {
+    padding: var(--spacing-lg) 0;
+}
+
+.culture-compact .culture-card {
+    padding: var(--spacing-md);
+}
+
+.culture-compact .culture-description {
+    font-size: 0.9rem;
+}
+
+.newsletter-compact {
+    padding: var(--spacing-lg) 0;
+}
+
+.section-footer {
+    text-align: center;
+    margin-top: var(--spacing-lg);
 }
 
 .section-header {
@@ -641,6 +677,11 @@ section {
     position: relative;
     overflow: hidden;
     height: 400px;
+}
+
+.experience-compact .exp-image-1,
+.experience-compact .exp-image-2 {
+    height: 300px;
 }
 
 .exp-image-1 {
@@ -2170,6 +2211,28 @@ section {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: var(--spacing-md);
     margin-top: var(--spacing-lg);
+}
+
+/* Grid Variations */
+.places-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.places-grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 1200px) {
+    .places-grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .places-grid-3,
+    .places-grid-4 {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* Horizontal Scrollable Carousel for Cafes */

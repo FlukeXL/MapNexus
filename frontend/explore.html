@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>นำเที่ยว - Nakhon Phanom</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/map.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@200;300;400;500;600;700&family=Noto+Serif+Thai:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
@@ -166,13 +167,40 @@
                         <option>คะแนนสูงสุด</option>
                         <option>ล่าสุด</option>
                     </select>
-                    <button type="button" class="btn-icon filter-map-btn" aria-label="แสดงแผนที่">
+                    <button type="button" class="btn-icon filter-map-btn" id="toggle-map-btn" aria-label="แสดงแผนที่">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
                             <line x1="8" y1="2" x2="8" y2="18"></line>
                             <line x1="16" y1="6" x2="16" y2="22"></line>
                         </svg>
                     </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Google Maps Section -->
+    <section class="map-section" id="map-section">
+        <div class="container">
+            <div class="map-header">
+                <h3 class="map-title">แผนที่สถานที่ท่องเที่ยว</h3>
+                <p class="map-description">คลิกที่ปักหมุดเพื่อดูรายละเอียดและนำทางด้วย Google Maps</p>
+            </div>
+            <div class="map-container">
+                <div id="google-map" class="google-map"></div>
+                <div class="map-legend">
+                    <div class="legend-item">
+                        <span class="legend-marker temple-marker"></span>
+                        <span class="legend-label">วัดและศาสนสถาน</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-marker cafe-marker"></span>
+                        <span class="legend-label">คาเฟ่</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-marker hotel-marker"></span>
+                        <span class="legend-label">โรงแรม</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -510,5 +538,8 @@
 
     <script src="js/app.js"></script>
     <script src="js/info-bar-header.js"></script>
+    <script src="js/places-data.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+    <script src="js/explore-map.js"></script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 // ข้อมูลสถานที่ท่องเที่ยวในจังหวัดนครพนม
 // แบ่งเป็น 3 หมวด: วัด, คาเฟ่, โรงแรม
+// พิกัด GPS: ใช้พิกัดประมาณของนครพนม (สามารถอัพเดทพิกัดจริงทีหลัง)
 
 const PLACES_DATA = {
     temples: [
@@ -11,7 +12,9 @@ const PLACES_DATA = {
             image: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&q=80',
             location: 'อำเภอธาตุพนม',
             rating: 4.9,
-            reviews: 2500
+            reviews: 2500,
+            lat: 16.9286,
+            lng: 104.7142
         },
         {
             id: 2,
@@ -21,7 +24,9 @@ const PLACES_DATA = {
             image: 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800&q=80',
             location: 'เมืองนครพนม',
             rating: 4.7,
-            reviews: 850
+            reviews: 850,
+            lat: 17.3917,
+            lng: 104.7794
         },
         {
             id: 3,
@@ -31,7 +36,9 @@ const PLACES_DATA = {
             image: 'https://images.unsplash.com/photo-1563979036-4a537e0c6c89?w=800&q=80',
             location: 'เมืองนครพนม',
             rating: 4.6,
-            reviews: 650
+            reviews: 650,
+            lat: 17.4050,
+            lng: 104.7700
         },
         {
             id: 4,
@@ -41,7 +48,9 @@ const PLACES_DATA = {
             image: 'https://images.unsplash.com/photo-1580537659466-0a9bfa916a54?w=800&q=80',
             location: 'เมืองนครพนม',
             rating: 4.5,
-            reviews: 420
+            reviews: 420,
+            lat: 17.3800,
+            lng: 104.7850
         }
     ],
     
@@ -54,7 +63,9 @@ const PLACES_DATA = {
             image: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&q=80',
             location: 'เมืองนครพนม',
             rating: 4.8,
-            reviews: 1200
+            reviews: 1200,
+            lat: 17.4100,
+            lng: 104.7800
         },
         {
             id: 6,
@@ -64,7 +75,9 @@ const PLACES_DATA = {
             image: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800&q=80',
             location: 'เมืองนครพนม',
             rating: 4.7,
-            reviews: 980
+            reviews: 980,
+            lat: 17.4000,
+            lng: 104.7750
         },
         {
             id: 7,
@@ -74,7 +87,9 @@ const PLACES_DATA = {
             image: 'https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=800&q=80',
             location: 'เมืองนครพนม',
             rating: 4.6,
-            reviews: 750
+            reviews: 750,
+            lat: 17.4120,
+            lng: 104.7680
         },
         {
             id: 8,
@@ -84,7 +99,9 @@ const PLACES_DATA = {
             image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80',
             location: 'เมืองนครพนม',
             rating: 4.5,
-            reviews: 620
+            reviews: 620,
+            lat: 17.3950,
+            lng: 104.7600
         },
         {
             id: 9,
@@ -94,7 +111,9 @@ const PLACES_DATA = {
             image: 'https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=800&q=80',
             location: 'เมืองนครพนม',
             rating: 4.7,
-            reviews: 890
+            reviews: 890,
+            lat: 17.4080,
+            lng: 104.7720
         },
         {
             id: 10,
@@ -104,7 +123,9 @@ const PLACES_DATA = {
             image: 'https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=800&q=80',
             location: 'เมืองนครพนม',
             rating: 4.6,
-            reviews: 710
+            reviews: 710,
+            lat: 17.3980,
+            lng: 104.7820
         },
         {
             id: 11,
@@ -114,7 +135,9 @@ const PLACES_DATA = {
             image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&q=80',
             location: 'เมืองนครพนม',
             rating: 4.5,
-            reviews: 580
+            reviews: 580,
+            lat: 17.4150,
+            lng: 104.7650
         },
         {
             id: 12,
@@ -124,7 +147,9 @@ const PLACES_DATA = {
             image: 'https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=800&q=80',
             location: 'เมืองนครพนม',
             rating: 4.8,
-            reviews: 1100
+            reviews: 1100,
+            lat: 17.4070,
+            lng: 104.7700
         },
         {
             id: 13,
@@ -134,7 +159,9 @@ const PLACES_DATA = {
             image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80',
             location: 'เมืองนครพนม',
             rating: 4.4,
-            reviews: 490
+            reviews: 490,
+            lat: 17.4020,
+            lng: 104.7630
         },
         {
             id: 14,
@@ -144,7 +171,9 @@ const PLACES_DATA = {
             image: 'https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800&q=80',
             location: 'เมืองนครพนม',
             rating: 4.9,
-            reviews: 1350
+            reviews: 1350,
+            lat: 17.4110,
+            lng: 104.7760
         },
         {
             id: 15,
@@ -154,7 +183,9 @@ const PLACES_DATA = {
             image: 'https://images.unsplash.com/photo-1453614512568-c4024d13c247?w=800&q=80',
             location: 'เมืองนครพนม',
             rating: 4.5,
-            reviews: 670
+            reviews: 670,
+            lat: 17.3990,
+            lng: 104.7670
         },
         {
             id: 16,
@@ -164,7 +195,9 @@ const PLACES_DATA = {
             image: 'https://images.unsplash.com/photo-1511920170033-f8396924c348?w=800&q=80',
             location: 'เมืองนครพนม',
             rating: 4.7,
-            reviews: 820
+            reviews: 820,
+            lat: 17.4060,
+            lng: 104.7780
         }
     ],
     
@@ -178,7 +211,9 @@ const PLACES_DATA = {
             location: 'เมืองนครพนม',
             rating: 4.8,
             reviews: 2100,
-            price: '2,500 - 4,500 บาท/คืน'
+            price: '2,500 - 4,500 บาท/คืน',
+            lat: 17.4090,
+            lng: 104.7790
         },
         {
             id: 18,
@@ -189,7 +224,9 @@ const PLACES_DATA = {
             location: 'เมืองนครพนม',
             rating: 4.6,
             reviews: 1500,
-            price: '1,800 - 3,200 บาท/คืน'
+            price: '1,800 - 3,200 บาท/คืน',
+            lat: 17.4050,
+            lng: 104.7710
         },
         {
             id: 19,
@@ -200,7 +237,9 @@ const PLACES_DATA = {
             location: 'เมืองนครพนม',
             rating: 4.7,
             reviews: 980,
-            price: '2,200 - 3,800 บาท/คืน'
+            price: '2,200 - 3,800 บาท/คืน',
+            lat: 17.4030,
+            lng: 104.7770
         },
         {
             id: 20,
@@ -211,8 +250,23 @@ const PLACES_DATA = {
             location: 'เมืองนครพนม',
             rating: 4.5,
             reviews: 750,
-            price: '1,500 - 2,800 บาท/คืน'
+            price: '1,500 - 2,800 บาท/คืน',
+            lat: 17.3970,
+            lng: 104.7650
         },
+        {
+            id: 21,
+            name: 'Riverside Paradise Hotel',
+            category: 'โรงแรม',
+            description: 'โรงแรมริมโขง บรรยากาศสงบ เหมาะพักผ่อน',
+            image: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800&q=80',
+            location: 'เมืองนครพนม',
+            rating: 4.6,
+            reviews: 890,
+            price: '2,000 - 3,500 บาท/คืน',
+            lat: 17.4120,
+            lng: 104.7810
+        }
     ]
 };
 
