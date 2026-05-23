@@ -1,197 +1,221 @@
 // ========================================
-// OpenStreetMap Integration for Explore Page
-// Using Leaflet.js (No API Key Required!)
+// Explore Page — Map + Cards + Carousel
 // ========================================
 
 let map;
 let markers = [];
 
-// Custom Marker Icons (สีสันสวยงาม)
+// ---- Marker Icons ----
 const markerIcons = {
     temple: {
-        iconUrl: 'data:image/svg+xml;base64,' + btoa(`
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-                <circle cx="16" cy="16" r="14" fill="#d4af37" stroke="#ffffff" stroke-width="3"/>
-                <text x="16" y="21" font-size="16" text-anchor="middle" fill="#ffffff" font-weight="bold">🛕</text>
-            </svg>
-        `),
-        iconSize: [32, 32],
-        iconAnchor: [16, 32],
-        popupAnchor: [0, -32]
+        iconUrl: 'data:image/svg+xml;base64,' + btoa('<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><circle cx="18" cy="18" r="16" fill="#d4af37" stroke="#fff" stroke-width="3"/><text x="18" y="24" font-size="16" text-anchor="middle" fill="#fff">🛕</text></svg>'),
+        iconSize: [36, 36], iconAnchor: [18, 36], popupAnchor: [0, -36]
     },
     cafe: {
-        iconUrl: 'data:image/svg+xml;base64,' + btoa(`
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-                <circle cx="16" cy="16" r="14" fill="#2196F3" stroke="#ffffff" stroke-width="3"/>
-                <text x="16" y="21" font-size="16" text-anchor="middle" fill="#ffffff" font-weight="bold">☕</text>
-            </svg>
-        `),
-        iconSize: [32, 32],
-        iconAnchor: [16, 32],
-        popupAnchor: [0, -32]
+        iconUrl: 'data:image/svg+xml;base64,' + btoa('<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><circle cx="18" cy="18" r="16" fill="#2196F3" stroke="#fff" stroke-width="3"/><text x="18" y="24" font-size="16" text-anchor="middle" fill="#fff">☕</text></svg>'),
+        iconSize: [36, 36], iconAnchor: [18, 36], popupAnchor: [0, -36]
     },
     hotel: {
-        iconUrl: 'data:image/svg+xml;base64,' + btoa(`
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-                <circle cx="16" cy="16" r="14" fill="#4CAF50" stroke="#ffffff" stroke-width="3"/>
-                <text x="16" y="21" font-size="16" text-anchor="middle" fill="#ffffff" font-weight="bold">🏨</text>
-            </svg>
-        `),
-        iconSize: [32, 32],
-        iconAnchor: [16, 32],
-        popupAnchor: [0, -32]
+        iconUrl: 'data:image/svg+xml;base64,' + btoa('<svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 36 36"><circle cx="18" cy="18" r="16" fill="#4CAF50" stroke="#fff" stroke-width="3"/><text x="18" y="24" font-size="16" text-anchor="middle" fill="#fff">🏨</text></svg>'),
+        iconSize: [36, 36], iconAnchor: [18, 36], popupAnchor: [0, -36]
     }
 };
 
-// Initialize Map
+// ---- Init Map ----
 function initMap() {
-    console.log('🗺️ Initializing OpenStreetMap...');
+    const center = [17.4070, 104.7720];
+    map = L.map('openstreet-map', { zoomControl: true }).setView(center, 13);
 
-    // Center of Nakhon Phanom
-    const nakhonPhanom = [17.4070, 104.7720];
-
-    // Create Map with OpenStreetMap tiles
-    map = L.map('openstreet-map').setView(nakhonPhanom, 13);
-
-    // Add OpenStreetMap tiles
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        maxZoom: 19,
-        minZoom: 10
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        maxZoom: 19
     }).addTo(map);
 
-    // Add all places to map
     addPlacesToMap();
 
-    // Setup toggle button
-    setupToggleButton();
-
-    console.log('✅ OpenStreetMap initialized successfully');
+    // Invalidate size after render
+    setTimeout(() => {
+        map.invalidateSize();
+        if (markers.length > 0) {
+            const group = L.featureGroup(markers);
+            map.fitBounds(group.getBounds().pad(0.15));
+        }
+    }, 300);
 }
 
-// Add all places to map
 function addPlacesToMap() {
-    // Clear existing markers
-    clearMarkers();
+    if (typeof PLACES_DATA === 'undefined') return;
 
-    // Add temples
-    PLACES_DATA.temples.forEach(place => {
-        addMarker(place, 'temple');
-    });
-
-    // Add cafes
-    PLACES_DATA.cafes.forEach(place => {
-        addMarker(place, 'cafe');
-    });
-
-    // Add hotels
-    PLACES_DATA.hotels.forEach(place => {
-        addMarker(place, 'hotel');
-    });
-
-    // Fit bounds to show all markers
-    fitMapToMarkers();
+    PLACES_DATA.temples.forEach(p => addMarker(p, 'temple'));
+    PLACES_DATA.cafes.forEach(p => addMarker(p, 'cafe'));
+    PLACES_DATA.hotels.forEach(p => addMarker(p, 'hotel'));
 }
 
-// Add marker to map
 function addMarker(place, type) {
-    if (!place.lat || !place.lng) {
-        console.warn(`⚠️ Missing coordinates for ${place.name}`);
-        return;
-    }
-
-    const position = [place.lat, place.lng];
-
-    // Create custom icon
+    if (!place.lat || !place.lng) return;
     const icon = L.icon(markerIcons[type]);
-
-    // Create marker
-    const marker = L.marker(position, { icon: icon }).addTo(map);
-
-    // Create popup content
-    const popupContent = createPopupContent(place);
-
-    // Bind popup
-    marker.bindPopup(popupContent, {
-        maxWidth: 300,
-        className: 'custom-popup'
-    });
-
-    markers.push(marker);
-}
-
-// Create popup content
-function createPopupContent(place) {
-    const navigateUrl = `https://www.google.com/maps/dir/?api=1&destination=${place.lat},${place.lng}`;
-    
-    return `
+    const marker = L.marker([place.lat, place.lng], { icon }).addTo(map);
+    const navUrl = `https://www.google.com/maps/dir/?api=1&destination=${place.lat},${place.lng}`;
+    marker.bindPopup(`
         <div class="custom-info-window">
             <div class="info-window-content">
                 <img src="${place.image}" alt="${place.name}" class="info-window-image" loading="lazy">
                 <h4 class="info-window-title">${place.name}</h4>
                 <div class="info-window-rating">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                    </svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                     <span>${place.rating} (${place.reviews.toLocaleString()} รีวิว)</span>
                 </div>
                 <div class="info-window-location">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                        <circle cx="12" cy="10" r="3"></circle>
-                    </svg>
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                     <span>${place.location}</span>
                 </div>
-                <a href="${navigateUrl}" target="_blank" rel="noopener noreferrer" class="info-window-navigate">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                        <path d="M2 17l10 5 10-5"/>
-                        <path d="M2 12l10 5 10-5"/>
-                    </svg>
-                    <span>นำทางด้วย Google Maps</span>
+                <a href="${navUrl}" target="_blank" rel="noopener noreferrer" class="info-window-navigate">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    นำทางด้วย Google Maps
                 </a>
             </div>
         </div>
+    `, { maxWidth: 280, className: 'custom-popup' });
+    markers.push(marker);
+}
+
+// ========================================
+// Card Builder — สไตล์เหมือนหน้าหลัก
+// ========================================
+function buildCard(place, badge) {
+    const images = [place.image];
+    const imagesJson = JSON.stringify(images);
+    const badgeHtml = badge
+        ? `<span class="explore-place-badge">${badge}</span>`
+        : '';
+
+    return `
+        <article class="explore-place-card">
+            <div class="explore-place-image">
+                <img src="${place.image}" alt="${place.name}" loading="lazy">
+                <div class="explore-place-overlay"></div>
+                ${badgeHtml}
+                <button type="button" class="explore-place-fav" aria-label="เพิ่มในรายการโปรด">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                </button>
+                <button type="button" class="explore-gallery-btn"
+                    data-name="${place.name}"
+                    data-images='${imagesJson}'>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2"/>
+                        <circle cx="8.5" cy="8.5" r="1.5"/>
+                        <polyline points="21 15 16 10 5 21"/>
+                    </svg>
+                    รูปภาพ
+                </button>
+            </div>
+            <div class="explore-place-content">
+                <div class="explore-place-meta">
+                    <span class="explore-place-category">${place.category}</span>
+                    <div class="explore-place-stars">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        ${place.rating}
+                    </div>
+                </div>
+                <h3 class="explore-place-title">${place.name}</h3>
+                <p class="explore-place-desc">${place.description}</p>
+                <div class="explore-place-footer">
+                    <div class="explore-place-location">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        ${place.location}
+                    </div>
+                    <span class="explore-place-distance">${place.reviews.toLocaleString()} รีวิว</span>
+                </div>
+                <a href="#" class="explore-place-link">
+                    ดูรายละเอียด
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+        </article>
     `;
 }
 
-// Clear all markers
-function clearMarkers() {
-    markers.forEach(marker => map.removeLayer(marker));
-    markers = [];
+// ========================================
+// Render Carousels
+// ========================================
+function renderCarousels() {
+    if (typeof PLACES_DATA === 'undefined') return;
+
+    // แนะนำ — top rated จากทุกหมวด
+    const recommended = [
+        ...PLACES_DATA.temples,
+        ...PLACES_DATA.cafes,
+        ...PLACES_DATA.hotels
+    ].sort((a, b) => b.rating - a.rating).slice(0, 8);
+
+    renderCarousel('carousel-recommended', recommended, 'ยอดนิยม');
+
+    // วัฒนธรรม — temples
+    renderCarousel('carousel-culture', PLACES_DATA.temples, null);
+
+    // คาเฟ่
+    renderCarousel('carousel-cafe', PLACES_DATA.cafes, null);
+
+    // โรงแรม
+    renderCarousel('carousel-hotel', PLACES_DATA.hotels, null);
+
+    // ธรรมชาติ — ใช้ temples + nature places
+    const nature = [
+        ...PLACES_DATA.temples.slice(0, 2),
+        ...PLACES_DATA.cafes.slice(0, 2)
+    ];
+    renderCarousel('carousel-nature', nature, null);
+
+    // Setup carousel nav buttons
+    setupCarouselNavs();
+
+    // Setup favorites + gallery
+    setupFavorites();
+    setupGallery();
 }
 
-// Fit map to show all markers
-function fitMapToMarkers() {
-    if (markers.length === 0) return;
-
-    const group = L.featureGroup(markers);
-    map.fitBounds(group.getBounds().pad(0.1));
-}
-
-// Setup toggle button — ลบออก แผนที่แสดงเลย
-function setupToggleButton() {
-    // ไม่ต้องใช้ toggle แล้ว แผนที่แสดงตลอด
-    // Trigger resize เพื่อให้แผนที่แสดงผลถูกต้อง
-    setTimeout(() => {
-        if (map) {
-            map.invalidateSize();
-            fitMapToMarkers();
-        }
-    }, 200);
+function renderCarousel(containerId, places, badge) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.innerHTML = places.map(p => buildCard(p, badge)).join('');
 }
 
 // ========================================
-// Favorites — กดได้จริง
+// Carousel Navigation
+// ========================================
+function setupCarouselNavs() {
+    document.querySelectorAll('.explore-carousel-wrapper').forEach(wrapper => {
+        const carousel = wrapper.querySelector('.explore-carousel');
+        const prevBtn = wrapper.querySelector('.explore-nav.prev');
+        const nextBtn = wrapper.querySelector('.explore-nav.next');
+        if (!carousel || !prevBtn || !nextBtn) return;
+
+        const scrollAmount = 320;
+
+        prevBtn.addEventListener('click', () => {
+            carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        });
+
+        nextBtn.addEventListener('click', () => {
+            carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        });
+    });
+}
+
+// ========================================
+// Favorites
 // ========================================
 function setupFavorites() {
-    document.querySelectorAll('.dest-favorite').forEach(btn => {
+    document.querySelectorAll('.explore-place-fav').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
             btn.classList.toggle('active');
-            const isActive = btn.classList.contains('active');
-            btn.setAttribute('aria-label', isActive ? 'ลบออกจากรายการโปรด' : 'เพิ่มในรายการโปรด');
+            btn.setAttribute('aria-label',
+                btn.classList.contains('active') ? 'ลบออกจากรายการโปรด' : 'เพิ่มในรายการโปรด'
+            );
         });
     });
 }
@@ -205,30 +229,24 @@ function setupGallery() {
     const mainImg = document.getElementById('gallery-main-image');
     const thumbsContainer = document.getElementById('gallery-thumbnails');
     const titleEl = document.getElementById('gallery-modal-title');
-
     if (!modal) return;
 
-    // เปิด modal เมื่อกดปุ่ม gallery
-    document.querySelectorAll('.dest-gallery-btn').forEach(btn => {
+    document.querySelectorAll('.explore-gallery-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
-
             const name = btn.dataset.name || 'รูปภาพ';
             const images = JSON.parse(btn.dataset.images || '[]');
-
-            if (images.length === 0) return;
+            if (!images.length) return;
 
             titleEl.textContent = name;
             mainImg.src = images[0];
             mainImg.alt = name;
 
-            // สร้าง thumbnails
-            thumbsContainer.innerHTML = images.map((src, i) => `
-                <img src="${src}" alt="${name} ${i + 1}" class="gallery-thumb ${i === 0 ? 'active' : ''}" data-index="${i}" loading="lazy">
-            `).join('');
+            thumbsContainer.innerHTML = images.map((src, i) =>
+                `<img src="${src}" alt="${name} ${i+1}" class="gallery-thumb ${i===0?'active':''}" data-index="${i}" loading="lazy">`
+            ).join('');
 
-            // กด thumbnail เปลี่ยนรูปหลัก
             thumbsContainer.querySelectorAll('.gallery-thumb').forEach(thumb => {
                 thumb.addEventListener('click', () => {
                     mainImg.src = images[parseInt(thumb.dataset.index)];
@@ -242,58 +260,67 @@ function setupGallery() {
         });
     });
 
-    // ปิด modal
     function closeModal() {
         modal.classList.remove('open');
         document.body.style.overflow = '';
     }
 
-    closeBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-    });
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeModal();
-    });
+    if (closeBtn) closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 }
 
 // ========================================
-// Filter Tabs
+// Filter Tabs — ซ่อน/แสดง section
 // ========================================
 function setupFilterTabs() {
     const tabs = document.querySelectorAll('.filter-tab');
-    const cards = document.querySelectorAll('.destination-card');
+    const sections = document.querySelectorAll('.explore-category-section');
+
+    const sectionMap = {
+        all: null,
+        recommended: 'recommended',
+        culture: 'culture',
+        cafe: 'cafe',
+        hotel: 'hotel',
+        nature: 'nature',
+        food: 'food'
+    };
 
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
             tabs.forEach(t => t.classList.remove('active'));
             tab.classList.add('active');
 
-            const category = tab.dataset.category;
+            const cat = tab.dataset.category;
 
-            cards.forEach(card => {
-                if (category === 'all') {
-                    card.style.display = '';
+            sections.forEach(sec => {
+                if (cat === 'all') {
+                    sec.style.display = '';
                 } else {
-                    const cardCategories = card.dataset.category || '';
-                    card.style.display = cardCategories.includes(category) ? '' : 'none';
+                    sec.style.display = sec.dataset.section === sectionMap[cat] ? '' : 'none';
                 }
             });
         });
     });
 }
 
-// Initialize when DOM is ready
+// ========================================
+// Init
+// ========================================
 document.addEventListener('DOMContentLoaded', () => {
+    // Map
     if (typeof L !== 'undefined') {
         initMap();
     } else {
         console.error('❌ Leaflet.js not loaded');
     }
-    setupFavorites();
-    setupGallery();
+
+    // Cards
+    renderCarousels();
+
+    // Filter
     setupFilterTabs();
 });
 
-console.log('✅ Explore Map script loaded (OpenStreetMap)');
-
+console.log('✅ Explore page loaded');
