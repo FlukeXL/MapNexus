@@ -206,9 +206,8 @@
 
     <!-- Page Header -->
     <section class="page-header checkin-header">
-        <div class="page-header-bg">
-            <div class="page-header-overlay"></div>
-        </div>
+        <div class="page-header-bg"></div>
+        <div class="page-header-overlay"></div>
         <div class="container">
             <div class="page-header-content">
                 <span class="page-subtitle">บันทึกการเดินทาง</span>
@@ -218,7 +217,294 @@
         </div>
     </section>
 
-    <!-- Check-in Form Section -->
+    <!-- Main Content — 2 คอลัมน์ -->
+    <section class="checkin-main-section">
+        <div class="container">
+            <div class="checkin-layout">
+
+                <!-- คอลัมน์ซ้าย: ฟอร์มเช็คอิน -->
+                <div class="checkin-form-col">
+                    <div class="checkin-card">
+                        <div class="checkin-card-header">
+                            <h2 class="checkin-card-title">สร้างเช็คอิน</h2>
+                            <p class="checkin-card-desc">บันทึกช่วงเวลาพิเศษของคุณที่นครพนม</p>
+                        </div>
+
+                        <form class="checkin-form" id="checkin-form">
+                            <!-- สถานที่ -->
+                            <div class="ci-form-group">
+                                <label class="ci-label">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                    สถานที่
+                                </label>
+                                <div class="ci-location-wrap">
+                                    <input type="text" placeholder="ค้นหาสถานที่..." class="ci-input" id="location-input" autocomplete="off">
+                                    <div class="ci-suggestions" id="location-suggestions">
+                                        <div class="ci-suggestion-item" data-place="พระธาตุพนม">พระธาตุพนม</div>
+                                        <div class="ci-suggestion-item" data-place="ริมฝั่งโขง">ริมฝั่งโขง</div>
+                                        <div class="ci-suggestion-item" data-place="ตลาดอินโดจีน">ตลาดอินโดจีน</div>
+                                        <div class="ci-suggestion-item" data-place="ภูลังกา">ภูลังกา</div>
+                                        <div class="ci-suggestion-item" data-place="วัดโพธิ์ชัย">วัดโพธิ์ชัย</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- อัปโหลดรูป -->
+                            <div class="ci-form-group">
+                                <label class="ci-label">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                                    รูปภาพ
+                                </label>
+                                <label for="photo-upload" class="ci-upload-area">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                                    <span class="ci-upload-text">คลิกหรือลากรูปภาพมาที่นี่</span>
+                                    <span class="ci-upload-hint">JPG, PNG สูงสุด 5MB</span>
+                                    <input type="file" id="photo-upload" class="ci-file-input" accept="image/*" multiple aria-label="อัปโหลดรูปภาพ">
+                                </label>
+                                <div class="ci-photo-preview" id="photo-preview"></div>
+                            </div>
+
+                            <!-- คำบรรยาย -->
+                            <div class="ci-form-group">
+                                <label class="ci-label" for="caption-input">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                                    คำบรรยาย
+                                </label>
+                                <textarea class="ci-textarea" id="caption-input" rows="3" placeholder="เล่าประสบการณ์ของคุณ..." maxlength="500"></textarea>
+                                <div class="ci-counter"><span id="caption-count">0</span> / 500</div>
+                            </div>
+
+                            <!-- ให้คะแนน -->
+                            <div class="ci-form-group">
+                                <label class="ci-label">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                                    ให้คะแนน
+                                </label>
+                                <div class="ci-stars" id="star-rating">
+                                    <button type="button" class="ci-star" data-rating="1" aria-label="1 ดาว"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
+                                    <button type="button" class="ci-star" data-rating="2" aria-label="2 ดาว"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
+                                    <button type="button" class="ci-star" data-rating="3" aria-label="3 ดาว"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
+                                    <button type="button" class="ci-star" data-rating="4" aria-label="4 ดาว"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
+                                    <button type="button" class="ci-star" data-rating="5" aria-label="5 ดาว"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></button>
+                                </div>
+                            </div>
+
+                            <!-- แท็ก -->
+                            <div class="ci-form-group">
+                                <label class="ci-label">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+                                    แท็ก
+                                </label>
+                                <div class="ci-tags-wrap" id="tags-wrap">
+                                    <span class="ci-tag">วัด <button type="button" class="ci-tag-remove" aria-label="ลบ">×</button></span>
+                                    <input type="text" class="ci-tag-input" id="tag-input" placeholder="เพิ่มแท็ก...">
+                                </div>
+                                <div class="ci-tag-suggestions">
+                                    <button type="button" class="ci-tag-suggest">#วัด</button>
+                                    <button type="button" class="ci-tag-suggest">#ธรรมชาติ</button>
+                                    <button type="button" class="ci-tag-suggest">#อาหาร</button>
+                                    <button type="button" class="ci-tag-suggest">#วัฒนธรรม</button>
+                                    <button type="button" class="ci-tag-suggest">#ริมโขง</button>
+                                </div>
+                            </div>
+
+                            <!-- ความเป็นส่วนตัว -->
+                            <div class="ci-form-group">
+                                <label class="ci-label">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                    ความเป็นส่วนตัว
+                                </label>
+                                <div class="ci-privacy-row">
+                                    <label class="ci-privacy-opt">
+                                        <input type="radio" name="privacy" value="public" checked>
+                                        <span class="ci-privacy-label">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                                            สาธารณะ
+                                        </span>
+                                    </label>
+                                    <label class="ci-privacy-opt">
+                                        <input type="radio" name="privacy" value="friends">
+                                        <span class="ci-privacy-label">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                                            เพื่อน
+                                        </span>
+                                    </label>
+                                    <label class="ci-privacy-opt">
+                                        <input type="radio" name="privacy" value="private">
+                                        <span class="ci-privacy-label">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                                            ส่วนตัว
+                                        </span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- ปุ่ม -->
+                            <div class="ci-actions">
+                                <button type="button" class="btn-outline">ยกเลิก</button>
+                                <button type="submit" class="btn-primary">เผยแพร่เช็คอิน</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- คอลัมน์ขวา: เช็คอินล่าสุด -->
+                <div class="checkin-feed-col">
+                    <div class="checkin-feed-header">
+                        <h3 class="checkin-feed-title">เช็คอินล่าสุด</h3>
+                        <a href="#" class="checkin-feed-viewall">ดูทั้งหมด →</a>
+                    </div>
+
+                    <div class="checkin-feed">
+
+                        <!-- Feed Item 1 -->
+                        <div class="ci-feed-item">
+                            <img src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=600&q=80" alt="เช็คอิน" class="ci-feed-img" loading="lazy">
+                            <div class="ci-feed-body">
+                                <div class="ci-feed-user">
+                                    <img src="https://i.pravatar.cc/150?img=1" alt="User" class="ci-avatar">
+                                    <div>
+                                        <div class="ci-username">สมชาย ใจดี</div>
+                                        <div class="ci-time">2 ชั่วโมงที่แล้ว</div>
+                                    </div>
+                                </div>
+                                <div class="ci-feed-location">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                    พระธาตุพนม
+                                </div>
+                                <p class="ci-feed-caption">สถานที่ศักดิ์สิทธิ์ที่สวยงามมาก บรรยากาศดีมาก แนะนำเลยครับ</p>
+                                <div class="ci-feed-stats">
+                                    <button type="button" class="ci-stat-btn" aria-label="ถูกใจ">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                                        24
+                                    </button>
+                                    <button type="button" class="ci-stat-btn" aria-label="ความคิดเห็น">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                                        5
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Feed Item 2 -->
+                        <div class="ci-feed-item">
+                            <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80" alt="เช็คอิน" class="ci-feed-img" loading="lazy">
+                            <div class="ci-feed-body">
+                                <div class="ci-feed-user">
+                                    <img src="https://i.pravatar.cc/150?img=5" alt="User" class="ci-avatar">
+                                    <div>
+                                        <div class="ci-username">สมหญิง รักเที่ยว</div>
+                                        <div class="ci-time">5 ชั่วโมงที่แล้ว</div>
+                                    </div>
+                                </div>
+                                <div class="ci-feed-location">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                    ริมฝั่งโขง
+                                </div>
+                                <p class="ci-feed-caption">พระอาทิตย์ตกสวยมากๆ บรรยากาศโรแมนติก 🌅</p>
+                                <div class="ci-feed-stats">
+                                    <button type="button" class="ci-stat-btn" aria-label="ถูกใจ">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                                        42
+                                    </button>
+                                    <button type="button" class="ci-stat-btn" aria-label="ความคิดเห็น">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                                        8
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Feed Item 3 -->
+                        <div class="ci-feed-item">
+                            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80" alt="เช็คอิน" class="ci-feed-img" loading="lazy">
+                            <div class="ci-feed-body">
+                                <div class="ci-feed-user">
+                                    <img src="https://i.pravatar.cc/150?img=8" alt="User" class="ci-avatar">
+                                    <div>
+                                        <div class="ci-username">ประยุทธ์ ชอบกิน</div>
+                                        <div class="ci-time">1 วันที่แล้ว</div>
+                                    </div>
+                                </div>
+                                <div class="ci-feed-location">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                                    ตลาดอินโดจีน
+                                </div>
+                                <p class="ci-feed-caption">ของเยอะมาก ราคาถูก ต้องมาช้อปปิ้งที่นี่!</p>
+                                <div class="ci-feed-stats">
+                                    <button type="button" class="ci-stat-btn" aria-label="ถูกใจ">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                                        18
+                                    </button>
+                                    <button type="button" class="ci-stat-btn" aria-label="ความคิดเห็น">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                                        3
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3 class="footer-logo">MapNexus</h3>
+                    <p class="footer-tagline">การเดินทางที่มีระดับ</p>
+                    <p class="footer-description">ค้นพบความงามและวัฒนธรรมอันยาวนาน<br>ของนครพนม เมืองมรดกริมแม่น้ำโขง</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 class="footer-title">สำรวจ</h4>
+                        <ul class="footer-list">
+                            <li><a href="#">สถานที่ท่องเที่ยว</a></li>
+                            <li><a href="#">ที่พัก</a></li>
+                            <li><a href="#">ร้านอาหาร</a></li>
+                            <li><a href="#">กิจกรรม</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-title">ข้อมูล</h4>
+                        <ul class="footer-list">
+                            <li><a href="#">เกี่ยวกับเรา</a></li>
+                            <li><a href="#">ติดต่อเรา</a></li>
+                            <li><a href="#">คำถามที่พบบ่อย</a></li>
+                            <li><a href="#">แผนที่</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-column">
+                        <h4 class="footer-title">ติดตาม</h4>
+                        <ul class="footer-list">
+                            <li><a href="#">Facebook</a></li>
+                            <li><a href="#">Instagram</a></li>
+                            <li><a href="#">Twitter</a></li>
+                            <li><a href="#">YouTube</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 MapNexus. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="#">นโยบายความเป็นส่วนตัว</a>
+                    <a href="#">เงื่อนไขการใช้งาน</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script src="js/info-bar-header.js"></script>
+    <script src="js/checkin.js"></script>
+</body>
+</html>
     <section class="checkin-section">
         <div class="container-narrow">
             <div class="checkin-card">

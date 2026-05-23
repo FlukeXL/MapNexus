@@ -169,35 +169,130 @@ function fitMapToMarkers() {
     map.fitBounds(group.getBounds().pad(0.1));
 }
 
-// Setup toggle button
+// Setup toggle button — ลบออก แผนที่แสดงเลย
 function setupToggleButton() {
-    const toggleBtn = document.getElementById('toggle-map-btn');
-    const mapSection = document.getElementById('map-section');
-
-    if (!toggleBtn || !mapSection) return;
-
-    toggleBtn.addEventListener('click', () => {
-        mapSection.classList.toggle('active');
-        toggleBtn.classList.toggle('active');
-
-        // Trigger resize event to fix map rendering
-        if (mapSection.classList.contains('active')) {
-            setTimeout(() => {
-                map.invalidateSize();
-                fitMapToMarkers();
-            }, 100);
+    // ไม่ต้องใช้ toggle แล้ว แผนที่แสดงตลอด
+    // Trigger resize เพื่อให้แผนที่แสดงผลถูกต้อง
+    setTimeout(() => {
+        if (map) {
+            map.invalidateSize();
+            fitMapToMarkers();
         }
+    }, 200);
+}
+
+// ========================================
+// Favorites — กดได้จริง
+// ========================================
+function setupFavorites() {
+    document.querySelectorAll('.dest-favorite').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            btn.classList.toggle('active');
+            const isActive = btn.classList.contains('active');
+            btn.setAttribute('aria-label', isActive ? 'ลบออกจากรายการโปรด' : 'เพิ่มในรายการโปรด');
+        });
+    });
+}
+
+// ========================================
+// Gallery Modal
+// ========================================
+function setupGallery() {
+    const modal = document.getElementById('gallery-modal');
+    const closeBtn = document.getElementById('gallery-modal-close');
+    const mainImg = document.getElementById('gallery-main-image');
+    const thumbsContainer = document.getElementById('gallery-thumbnails');
+    const titleEl = document.getElementById('gallery-modal-title');
+
+    if (!modal) return;
+
+    // เปิด modal เมื่อกดปุ่ม gallery
+    document.querySelectorAll('.dest-gallery-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const name = btn.dataset.name || 'รูปภาพ';
+            const images = JSON.parse(btn.dataset.images || '[]');
+
+            if (images.length === 0) return;
+
+            titleEl.textContent = name;
+            mainImg.src = images[0];
+            mainImg.alt = name;
+
+            // สร้าง thumbnails
+            thumbsContainer.innerHTML = images.map((src, i) => `
+                <img src="${src}" alt="${name} ${i + 1}" class="gallery-thumb ${i === 0 ? 'active' : ''}" data-index="${i}" loading="lazy">
+            `).join('');
+
+            // กด thumbnail เปลี่ยนรูปหลัก
+            thumbsContainer.querySelectorAll('.gallery-thumb').forEach(thumb => {
+                thumb.addEventListener('click', () => {
+                    mainImg.src = images[parseInt(thumb.dataset.index)];
+                    thumbsContainer.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+                    thumb.classList.add('active');
+                });
+            });
+
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    // ปิด modal
+    function closeModal() {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+    });
+}
+
+// ========================================
+// Filter Tabs
+// ========================================
+function setupFilterTabs() {
+    const tabs = document.querySelectorAll('.filter-tab');
+    const cards = document.querySelectorAll('.destination-card');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            tabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            const category = tab.dataset.category;
+
+            cards.forEach(card => {
+                if (category === 'all') {
+                    card.style.display = '';
+                } else {
+                    const cardCategories = card.dataset.category || '';
+                    card.style.display = cardCategories.includes(category) ? '' : 'none';
+                }
+            });
+        });
     });
 }
 
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    // Check if Leaflet is loaded
     if (typeof L !== 'undefined') {
         initMap();
     } else {
         console.error('❌ Leaflet.js not loaded');
     }
+    setupFavorites();
+    setupGallery();
+    setupFilterTabs();
 });
 
 console.log('✅ Explore Map script loaded (OpenStreetMap)');
