@@ -416,60 +416,153 @@ class WeatherPage {
     }
     
     // ========================================
-    // 5. ระดับน้ำแม่น้ำโขง (เตรียมไว้สำหรับ API)
+    // 5. ระดับน้ำแม่น้ำโขง (3D Gauge)
     // ========================================
     initRiverLevelSection() {
         // TODO: เชื่อมต่อ River Level API
         // ตอนนี้ใช้ข้อมูลจำลอง
         
         const waterLevel = (Math.random() * 4 + 6).toFixed(2); // 6-10 เมตร
-        const percent = ((waterLevel - 5) / 7) * 100; // 5-12 เมตร
+        const waterLevelNum = parseFloat(waterLevel);
         
-        this.updateElement('water-level', waterLevel);
-        this.updateElement('water-status', this.getWaterStatus(waterLevel));
-        this.updateElement('water-change', '+15 ซม. จากเมื่อวาน');
+        // Get status and color
+        const statusInfo = this.getWaterStatusInfo(waterLevelNum);
+        
+        // Calculate percentage for gauge (0-100%)
+        // Range: 0-14 meters, display 0-100%
+        const percent = Math.min(Math.max((waterLevelNum / 14) * 100, 0), 100);
+        
+        // Update 3D Gauge
+        const gaugeContainer = document.getElementById('water-gauge');
+        if (gaugeContainer) {
+            gaugeContainer.innerHTML = this.createWaterGauge(waterLevel, percent, statusInfo.class);
+        }
+        
+        // Update status badge
+        const statusBadge = document.getElementById('water-status-badge');
+        const statusIcon = document.getElementById('water-status-icon');
+        const statusText = document.getElementById('water-status');
+        
+        if (statusIcon) statusIcon.textContent = statusInfo.icon;
+        if (statusText) statusText.textContent = statusInfo.text;
+        if (statusBadge) {
+            statusBadge.style.background = `linear-gradient(135deg, ${statusInfo.color}22, ${statusInfo.color}44)`;
+            statusBadge.style.color = statusInfo.color;
+            statusBadge.style.borderLeft = `4px solid ${statusInfo.color}`;
+        }
+        
+        // Update change indicator
+        const changeElement = document.getElementById('water-change');
+        const changeValue = (Math.random() * 30 - 10).toFixed(0); // -10 to +20 cm
+        const isRising = changeValue > 0;
+        
+        if (changeElement) {
+            changeElement.className = `level-change ${isRising ? 'up' : 'down'}`;
+            changeElement.innerHTML = `
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="${isRising ? '18 15 12 9 6 15' : '6 9 12 15 18 9'}"></polyline>
+                </svg>
+                <span>${isRising ? '+' : ''}${changeValue} ซม. จากเมื่อวาน</span>
+            `;
+        }
+        
+        // Update details
         this.updateElement('water-update-time', new Date().toLocaleTimeString('th-TH', { 
             hour: '2-digit', 
             minute: '2-digit' 
         }));
-        this.updateElement('water-trend', 'มีแนวโน้มสูงขึ้น');
+        this.updateElement('water-trend', isRising ? 'มีแนวโน้มสูงขึ้น' : 'มีแนวโน้มลดลง');
         
-        // Water fill animation
-        const waterFillElement = document.getElementById('water-fill');
-        if (waterFillElement) {
-            waterFillElement.style.height = Math.min(percent, 100) + '%';
+        // Display warning levels table
+        this.displayWarningLevels(waterLevelNum);
+    }
+    
+    getWaterStatusInfo(level) {
+        const statuses = [
+            { min: 12, text: 'น้ำวิกฤตรุนแรง', icon: '🔴', color: '#d32f2f', class: 'critical-high' },
+            { min: 10, text: 'เฝ้าระวังน้ำล้นตลิ่ง', icon: '🟠', color: '#f57c00', class: 'warning' },
+            { min: 8, text: 'น้ำเริ่มสูง', icon: '🟡', color: '#fbc02d', class: 'rising' },
+            { min: 6, text: 'ระดับน้ำปกติ', icon: '🟢', color: '#388e3c', class: 'normal' },
+            { min: 4, text: 'น้ำน้อย', icon: '🔵', color: '#1976d2', class: 'low' },
+            { min: 2, text: 'น้ำน้อยมาก', icon: '🟣', color: '#7b1fa2', class: 'very-low' },
+            { min: 0, text: 'น้ำน้อยขั้นวิกฤต', icon: '⚫', color: '#424242', class: 'critical-low' }
+        ];
+        
+        for (const status of statuses) {
+            if (level >= status.min) {
+                return status;
+            }
         }
         
-        // Forecast list
-        this.displayWaterForecast();
+        return statuses[statuses.length - 1];
     }
     
-    getWaterStatus(level) {
-        if (level >= 12) return 'วิกฤต';
-        if (level >= 10) return 'เฝ้าระวัง';
-        if (level >= 8) return 'ปกติ';
-        return 'ต่ำ';
+    createWaterGauge(value, percentage, statusClass) {
+        const size = 140;
+        const strokeWidth = 12;
+        const radius = (size - strokeWidth) / 2;
+        const circumference = 2 * Math.PI * radius;
+        const offset = circumference - (percentage / 100) * circumference;
+        
+        return `
+            <svg class="gauge-circle" width="${size}" height="${size}">
+                <circle class="gauge-bg" 
+                        cx="${size/2}" 
+                        cy="${size/2}" 
+                        r="${radius}" 
+                        stroke-width="${strokeWidth}" />
+                <circle class="gauge-fill ${statusClass}" 
+                        cx="${size/2}" 
+                        cy="${size/2}" 
+                        r="${radius}"
+                        stroke-width="${strokeWidth}"
+                        stroke-dasharray="${circumference}" 
+                        stroke-dashoffset="${offset}" />
+            </svg>
+            <div class="gauge-center">
+                <div class="gauge-value">${value}</div>
+                <div class="gauge-unit">เมตร</div>
+            </div>
+        `;
     }
     
-    displayWaterForecast() {
-        const container = document.getElementById('water-forecast-list');
+    displayWarningLevels(currentLevel) {
+        const container = document.getElementById('warning-levels-grid');
         if (!container) return;
         
-        const days = ['วันนี้', 'พรุ่งนี้', 'มะรืนนี้', '+3 วัน', '+4 วัน', '+5 วัน', '+6 วัน'];
-        let currentLevel = 8.5;
+        const levels = [
+            { text: 'น้ำวิกฤตรุนแรง', icon: '🔴', range: '>12 ม.', min: 12 },
+            { text: 'เฝ้าระวังน้ำล้นตลิ่ง', icon: '🟠', range: '10-12 ม.', min: 10, max: 12 },
+            { text: 'น้ำเริ่มสูง', icon: '🟡', range: '8-10 ม.', min: 8, max: 10 },
+            { text: 'ระดับน้ำปกติ', icon: '🟢', range: '6-8 ม.', min: 6, max: 8 },
+            { text: 'น้ำน้อย', icon: '🔵', range: '4-6 ม.', min: 4, max: 6 },
+            { text: 'น้ำน้อยมาก', icon: '🟣', range: '2-4 ม.', min: 2, max: 4 },
+            { text: 'น้ำน้อยขั้นวิกฤต', icon: '⚫', range: '<2 ม.', max: 2 }
+        ];
         
-        container.innerHTML = days.map(day => {
-            currentLevel += (Math.random() - 0.5) * 0.5;
-            const trend = currentLevel > 8.5 ? '↑ สูงขึ้น' : '↓ ลดลง';
+        container.innerHTML = levels.map(level => {
+            const isActive = (level.min !== undefined && level.max !== undefined) 
+                ? (currentLevel >= level.min && currentLevel < level.max)
+                : (level.min !== undefined) 
+                    ? (currentLevel >= level.min)
+                    : (currentLevel < level.max);
             
             return `
-                <div class="forecast-day">
-                    <span class="day-label">${day}</span>
-                    <span class="day-level">${currentLevel.toFixed(2)} ม.</span>
-                    <span class="day-trend">${trend}</span>
+                <div class="warning-level-item ${isActive ? 'active' : ''}">
+                    <span class="level-icon">${level.icon}</span>
+                    <span class="level-text">${level.text}</span>
+                    <span class="level-range">${level.range}</span>
                 </div>
             `;
         }).join('');
+    }
+    
+    getWaterStatus(level) {
+        return this.getWaterStatusInfo(level).text;
+    }
+    
+    displayWaterForecast() {
+        // Removed - no longer needed for compact design
     }
     
     // ========================================

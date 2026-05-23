@@ -413,94 +413,59 @@
         </div>
     </section>
 
-    <!-- ========== 5. ระดับน้ำแม่น้ำโขง (เตรียมไว้) ========== -->
+    <!-- ========== 5. ระดับน้ำแม่น้ำโขง (3D Gauge) ========== -->
     <section class="weather-section river-section">
         <div class="container">
-            <div class="section-header">
-                <div class="section-title-group">
-                    <span class="section-subtitle">ระดับน้ำ</span>
-                    <h2 class="section-title">ระดับน้ำแม่น้ำโขง</h2>
-                    <p class="section-description">ข้อมูลระดับน้ำแบบเรียลไทม์และคาดการณ์ 7 วันข้างหน้า</p>
-                </div>
-            </div>
-
             <div class="river-grid">
-                <!-- Current Water Level -->
-                <div class="river-card current-level">
+                <!-- Single Compact Card -->
+                <div class="river-card">
                     <div class="river-header">
-                        <h3>ระดับน้ำปัจจุบัน</h3>
+                        <h3>ระดับน้ำแม่น้ำโขง</h3>
                         <span class="river-station">สถานีวัดน้ำนครพนม</span>
                     </div>
+                    
+                    <!-- Water Level Display with 3D Gauge -->
                     <div class="water-level-display">
-                        <div class="water-level-visual">
-                            <div class="water-container">
-                                <div class="water-fill" id="water-fill" style="height: 0%">
-                                    <div class="water-wave"></div>
-                                </div>
-                                <div class="water-markers">
-                                    <div class="marker critical"><span>วิกฤต</span><span>12m</span></div>
-                                    <div class="marker warning"><span>เฝ้าระวัง</span><span>10m</span></div>
-                                    <div class="marker normal"><span>ปกติ</span><span>8m</span></div>
-                                    <div class="marker low"><span>ต่ำ</span><span>5m</span></div>
-                                </div>
+                        <!-- 3D Circular Gauge -->
+                        <div class="water-gauge-container">
+                            <div class="water-gauge" id="water-gauge">
+                                <!-- SVG Gauge will be inserted by JavaScript -->
                             </div>
                         </div>
+                        
+                        <!-- Water Level Info -->
                         <div class="water-level-info">
-                            <div class="level-value">
-                                <span class="level-number" id="water-level">--</span>
-                                <span class="level-unit">เมตร</span>
+                            <div class="level-status-badge" id="water-status-badge">
+                                <span class="status-icon" id="water-status-icon">🟢</span>
+                                <span id="water-status">กำลังโหลด...</span>
                             </div>
-                            <div class="level-status" id="water-status">กำลังโหลด...</div>
+                            
                             <div class="level-change" id="water-change">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <polyline points="18 15 12 9 6 15"></polyline>
                                 </svg>
                                 <span>-- ซม. จากเมื่อวาน</span>
                             </div>
+                            
+                            <div class="river-details">
+                                <div class="detail-row">
+                                    <span class="detail-label">อัปเดต:</span>
+                                    <span class="detail-value" id="water-update-time">--:--</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">แนวโน้ม:</span>
+                                    <span class="detail-value" id="water-trend">--</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="river-details">
-                        <div class="detail-row">
-                            <span class="detail-label">อัปเดตล่าสุด:</span>
-                            <span class="detail-value" id="water-update-time">--:--</span>
+                    
+                    <!-- Warning Levels Table -->
+                    <div class="warning-levels">
+                        <div class="warning-levels-title">ระดับคำเตือน</div>
+                        <div class="warning-levels-grid" id="warning-levels-grid">
+                            <!-- Will be populated by JavaScript -->
                         </div>
-                        <div class="detail-row">
-                            <span class="detail-label">แนวโน้ม:</span>
-                            <span class="detail-value" id="water-trend">--</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Water Level Forecast -->
-                <div class="river-card forecast-level">
-                    <div class="river-header">
-                        <h3>คาดการณ์ระดับน้ำ 7 วัน</h3>
-                        <span class="forecast-badge">พยากรณ์</span>
-                    </div>
-                    <div class="water-forecast-chart" id="water-forecast-chart">
-                        <!-- Chart จะถูกสร้างด้วย JavaScript -->
-                        <div class="chart-placeholder">
-                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-                            </svg>
-                            <p>กราฟคาดการณ์ระดับน้ำ</p>
-                        </div>
-                    </div>
-                    <div class="forecast-list" id="water-forecast-list">
-                        <!-- จะถูกเติมด้วย JavaScript -->
-                        <div class="forecast-day">
-                            <span class="day-label">วันนี้</span>
-                            <span class="day-level">-- ม.</span>
-                            <span class="day-trend">--</span>
-                        </div>
-                    </div>
-                    <div class="api-status">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="12" y1="16" x2="12" y2="12"></line>
-                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                        </svg>
-                        <span>รอเชื่อมต่อ River Level API</span>
                     </div>
                 </div>
             </div>
