@@ -157,12 +157,13 @@
                     <p class="section-description">ข้อมูลคุณภาพอากาศแบบเรียลไทม์จากสถานีตรวจวัดทั่วจังหวัดนครพนม</p>
                 </div>
                 <div class="section-actions">
-                    <button class="btn-refresh" id="refresh-pm25">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/>
+                    <div class="update-time-display" id="pm25-update-time">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
                         </svg>
-                        <span>อัปเดต</span>
-                    </button>
+                        <span>อัปเดตเมื่อ: <span id="pm25-time">--:--</span></span>
+                    </div>
                 </div>
             </div>
 
@@ -353,21 +354,13 @@
                         <span class="traffic-time" id="traffic-update-time">อัปเดต: --:--</span>
                     </div>
                     <div class="traffic-status-display">
-                        <div class="traffic-icon-large" id="traffic-icon">
-                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
-                                <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
-                                <circle cx="7" cy="17" r="2"/>
-                                <circle cx="13" cy="17" r="2"/>
-                            </svg>
+                        <div class="circular-progress-container" id="traffic-current-visual">
+                            <!-- Circular progress bar will be inserted by JavaScript -->
                         </div>
                         <div class="traffic-status-text">
                             <div class="traffic-level" id="traffic-level">กำลังโหลด...</div>
                             <div class="traffic-description" id="traffic-desc">รอข้อมูล API</div>
                         </div>
-                    </div>
-                    <div class="traffic-bar">
-                        <div class="traffic-bar-fill" id="traffic-bar-fill" style="width: 0%"></div>
                     </div>
                 </div>
 
@@ -380,18 +373,30 @@
                     <div class="traffic-forecast-content">
                         <div class="forecast-item">
                             <span class="forecast-time">+15 นาที</span>
+                            <div class="circular-progress-container" id="traffic-15min-visual">
+                                <!-- Circular progress bar will be inserted by JavaScript -->
+                            </div>
                             <span class="forecast-status" id="traffic-15min">--</span>
                         </div>
                         <div class="forecast-item">
                             <span class="forecast-time">+30 นาที</span>
+                            <div class="circular-progress-container" id="traffic-30min-visual">
+                                <!-- Circular progress bar will be inserted by JavaScript -->
+                            </div>
                             <span class="forecast-status" id="traffic-30min">--</span>
                         </div>
                         <div class="forecast-item">
                             <span class="forecast-time">+45 นาที</span>
+                            <div class="circular-progress-container" id="traffic-45min-visual">
+                                <!-- Circular progress bar will be inserted by JavaScript -->
+                            </div>
                             <span class="forecast-status" id="traffic-45min">--</span>
                         </div>
                         <div class="forecast-item">
                             <span class="forecast-time">+60 นาที</span>
+                            <div class="circular-progress-container" id="traffic-60min-visual">
+                                <!-- Circular progress bar will be inserted by JavaScript -->
+                            </div>
                             <span class="forecast-status" id="traffic-60min">--</span>
                         </div>
                     </div>

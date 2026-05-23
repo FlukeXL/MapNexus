@@ -47,6 +47,36 @@ class WeatherPage {
     }
     
     // ========================================
+    // Helper: Create Circular Progress Bar
+    // ========================================
+    createCircularProgressBar(percentage, size = 'large', statusClass = '') {
+        const dimensions = size === 'large' ? 
+            { width: 120, radius: 50, strokeWidth: 8 } : 
+            { width: 70, radius: 27, strokeWidth: 6 };
+        
+        const circumference = 2 * Math.PI * dimensions.radius;
+        const offset = circumference - (percentage / 100) * circumference;
+        
+        return `
+            <svg class="circular-progress ${size}" width="${dimensions.width}" height="${dimensions.width}">
+                <circle class="progress-bg" 
+                        cx="${dimensions.width/2}" 
+                        cy="${dimensions.width/2}" 
+                        r="${dimensions.radius}" 
+                        stroke-width="${dimensions.strokeWidth}" />
+                <circle class="progress-fill ${statusClass}" 
+                        cx="${dimensions.width/2}" 
+                        cy="${dimensions.width/2}" 
+                        r="${dimensions.radius}"
+                        stroke-width="${dimensions.strokeWidth}"
+                        stroke-dasharray="${circumference}" 
+                        stroke-dashoffset="${offset}" />
+            </svg>
+            <div class="progress-text">${percentage}%</div>
+        `;
+    }
+    
+    // ========================================
     // 1. PM2.5 ทุกอำเภอ
     // ========================================
     async loadPM25AllDistricts() {
@@ -82,6 +112,15 @@ class WeatherPage {
             );
             
             this.displayPM25Districts(pm25Data);
+            
+            // Update time display
+            const timeElement = document.getElementById('pm25-time');
+            if (timeElement) {
+                timeElement.textContent = new Date().toLocaleTimeString('th-TH', { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                });
+            }
             
         } catch (error) {
             console.error('❌ Error loading PM2.5 data:', error);
@@ -325,28 +364,55 @@ class WeatherPage {
         // TODO: เชื่อมต่อ Traffic API
         // ตอนนี้ใช้ข้อมูลจำลอง
         
-        const trafficLevels = ['ราบรื่น', 'ปานกลาง', 'หนาแน่น'];
-        const randomLevel = trafficLevels[Math.floor(Math.random() * trafficLevels.length)];
+        const trafficLevels = {
+            'ราบรื่น': { percent: 20, class: 'smooth' },
+            'ปานกลาง': { percent: 50, class: 'moderate' },
+            'หนาแน่น': { percent: 80, class: 'heavy' }
+        };
+        
+        const levelKeys = Object.keys(trafficLevels);
+        const randomLevel = levelKeys[Math.floor(Math.random() * levelKeys.length)];
+        const currentTraffic = trafficLevels[randomLevel];
+        
+        // Update current traffic with large circular progress bar
+        const currentContainer = document.getElementById('traffic-current-visual');
+        if (currentContainer) {
+            currentContainer.innerHTML = this.createCircularProgressBar(
+                currentTraffic.percent, 
+                'large', 
+                currentTraffic.class
+            );
+        }
         
         this.updateElement('traffic-level', randomLevel);
         this.updateElement('traffic-desc', 'รอเชื่อมต่อ Traffic API');
-        this.updateElement('traffic-update-time', new Date().toLocaleTimeString('th-TH', { 
+        this.updateElement('traffic-update-time', 'อัปเดต: ' + new Date().toLocaleTimeString('th-TH', { 
             hour: '2-digit', 
             minute: '2-digit' 
         }));
         
-        // Traffic bar
-        const percent = randomLevel === 'ราบรื่น' ? 20 : randomLevel === 'ปานกลาง' ? 50 : 80;
-        const barElement = document.getElementById('traffic-bar-fill');
-        if (barElement) {
-            barElement.style.width = percent + '%';
-        }
+        // Update forecast with small circular progress bars
+        const forecastData = [
+            { time: '15min', level: 'ราบรื่น', percent: 25 },
+            { time: '30min', level: 'ปานกลาง', percent: 40 },
+            { time: '45min', level: 'ปานกลาง', percent: 55 },
+            { time: '60min', level: 'หนาแน่น', percent: 70 }
+        ];
         
-        // Forecast
-        this.updateElement('traffic-15min', 'ราบรื่น');
-        this.updateElement('traffic-30min', 'ปานกลาง');
-        this.updateElement('traffic-45min', 'ปานกลาง');
-        this.updateElement('traffic-60min', 'หนาแน่น');
+        forecastData.forEach(item => {
+            const container = document.getElementById(`traffic-${item.time}-visual`);
+            const statusClass = item.percent <= 30 ? 'smooth' : item.percent <= 60 ? 'moderate' : 'heavy';
+            
+            if (container) {
+                container.innerHTML = this.createCircularProgressBar(
+                    item.percent, 
+                    'small', 
+                    statusClass
+                );
+            }
+            
+            this.updateElement(`traffic-${item.time}`, item.level);
+        });
     }
     
     // ========================================
@@ -417,13 +483,8 @@ class WeatherPage {
     }
     
     setupEventListeners() {
-        // Refresh PM2.5
-        const refreshBtn = document.getElementById('refresh-pm25');
-        if (refreshBtn) {
-            refreshBtn.addEventListener('click', () => {
-                this.loadPM25AllDistricts();
-            });
-        }
+        // PM2.5 section auto-updates, no manual refresh button needed
+        // Event listeners for other interactive elements can be added here
     }
     
     startAutoRefresh() {
