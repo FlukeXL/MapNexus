@@ -80,57 +80,51 @@ function addMarker(place, type) {
 }
 
 // ========================================
-// Card Builder — สไตล์เหมือนหน้าหลัก
+// Card Builder — ตรงกับภาพที่ต้องการ
+// rating badge บนรูป, category เป็น pill สีทอง
 // ========================================
 function buildCard(place, badge) {
-    const images = [place.image];
-    const imagesJson = JSON.stringify(images);
+    const imagesJson = JSON.stringify([place.image]);
     const badgeHtml = badge
-        ? `<span class="explore-place-badge">${badge}</span>`
+        ? `<span class="epc-badge">${badge}</span>`
         : '';
 
     return `
-        <article class="explore-place-card">
-            <div class="explore-place-image">
+        <article class="epc-card">
+            <div class="epc-image">
                 <img src="${place.image}" alt="${place.name}" loading="lazy">
-                <div class="explore-place-overlay"></div>
                 ${badgeHtml}
-                <button type="button" class="explore-place-fav" aria-label="เพิ่มในรายการโปรด">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <div class="epc-rating-badge">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+                    </svg>
+                    ${place.rating}
+                </div>
+                <button type="button" class="epc-fav" aria-label="เพิ่มในรายการโปรด">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
                     </svg>
                 </button>
-                <button type="button" class="explore-gallery-btn"
-                    data-name="${place.name}"
-                    data-images='${imagesJson}'>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <rect x="3" y="3" width="18" height="18" rx="2"/>
-                        <circle cx="8.5" cy="8.5" r="1.5"/>
-                        <polyline points="21 15 16 10 5 21"/>
-                    </svg>
-                    รูปภาพ
-                </button>
             </div>
-            <div class="explore-place-content">
-                <div class="explore-place-meta">
-                    <span class="explore-place-category">${place.category}</span>
-                    <div class="explore-place-stars">
-                        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        ${place.rating}
-                    </div>
-                </div>
-                <h3 class="explore-place-title">${place.name}</h3>
-                <p class="explore-place-desc">${place.description}</p>
-                <div class="explore-place-footer">
-                    <div class="explore-place-location">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div class="epc-body">
+                <span class="epc-category">${place.category}</span>
+                <h3 class="epc-title">${place.name}</h3>
+                <p class="epc-desc">${place.description}</p>
+                <div class="epc-footer">
+                    <div class="epc-location">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                            <circle cx="12" cy="10" r="3"/>
+                        </svg>
                         ${place.location}
                     </div>
-                    <span class="explore-place-distance">${place.reviews.toLocaleString()} รีวิว</span>
+                    <span class="epc-reviews">${place.reviews.toLocaleString()} รีวิว</span>
                 </div>
-                <a href="#" class="explore-place-link">
+                <a href="#" class="epc-link">
                     ดูรายละเอียด
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
                 </a>
             </div>
         </article>
@@ -180,6 +174,45 @@ function renderCarousel(containerId, places, badge) {
     const container = document.getElementById(containerId);
     if (!container) return;
     container.innerHTML = places.map(p => buildCard(p, badge)).join('');
+
+    // เพิ่ม dot indicators
+    const wrapper = container.closest('.explore-carousel-wrapper');
+    if (!wrapper) return;
+
+    // ลบ dots เก่าถ้ามี
+    const oldDots = wrapper.parentElement.querySelector('.epc-dots');
+    if (oldDots) oldDots.remove();
+
+    // คำนวณจำนวน pages (แสดง 4 การ์ดต่อหน้า)
+    const cardsPerPage = 4;
+    const totalPages = Math.ceil(places.length / cardsPerPage);
+    if (totalPages <= 1) return;
+
+    const dotsEl = document.createElement('div');
+    dotsEl.className = 'epc-dots';
+    for (let i = 0; i < totalPages; i++) {
+        const dot = document.createElement('button');
+        dot.className = 'epc-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', `หน้า ${i + 1}`);
+        dot.addEventListener('click', () => {
+            container.scrollTo({ left: i * (300 + 24) * cardsPerPage, behavior: 'smooth' });
+            dotsEl.querySelectorAll('.epc-dot').forEach((d, idx) => {
+                d.classList.toggle('active', idx === i);
+            });
+        });
+        dotsEl.appendChild(dot);
+    }
+    wrapper.parentElement.appendChild(dotsEl);
+
+    // อัปเดต dot เมื่อ scroll
+    container.addEventListener('scroll', () => {
+        const scrollLeft = container.scrollLeft;
+        const cardWidth = 300 + 24;
+        const currentPage = Math.round(scrollLeft / (cardWidth * cardsPerPage));
+        dotsEl.querySelectorAll('.epc-dot').forEach((d, idx) => {
+            d.classList.toggle('active', idx === currentPage);
+        });
+    }, { passive: true });
 }
 
 // ========================================
@@ -208,7 +241,7 @@ function setupCarouselNavs() {
 // Favorites
 // ========================================
 function setupFavorites() {
-    document.querySelectorAll('.explore-place-fav').forEach(btn => {
+    document.querySelectorAll('.epc-fav').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
             e.stopPropagation();
