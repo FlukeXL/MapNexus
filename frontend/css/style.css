@@ -535,34 +535,65 @@ section {
     padding: var(--spacing-lg) 0;
 }
 
+/* Section Header — ชื่อซ้าย หัวข้อขวา */
+.featured-section .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    text-align: left;
+    margin-bottom: var(--spacing-md);
+}
+
+.featured-section .section-header .section-subtitle {
+    display: block;
+    margin-bottom: 0.4rem;
+}
+
+.featured-section .section-header .section-title {
+    margin-bottom: 0;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+}
+
+/* 3-column equal grid */
 .featured-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-md);
+    gap: 1.5rem;
 }
 
+/* ทุกการ์ดเท่ากัน — ลบ large span */
 .featured-card {
     position: relative;
     overflow: hidden;
     background: var(--white);
     transition: var(--transition-normal);
-    border-radius: 12px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--light-gray);
 }
 
+.featured-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--gold-light);
+}
+
+/* ลบ large span ออก — ทุกการ์ดสูงเท่ากัน */
 .featured-card.large {
     grid-column: span 1;
-    grid-row: span 2;
+    grid-row: span 1;
 }
 
+/* รูปภาพสูง 260px ทุกการ์ด */
 .card-image {
     position: relative;
-    height: 280px;
+    height: 260px;
     overflow: hidden;
 }
 
 .featured-card.large .card-image {
-    height: 100%;
-    min-height: 400px;
+    height: 260px;
+    min-height: 260px;
 }
 
 .card-image img {
@@ -573,7 +604,24 @@ section {
 }
 
 .featured-card:hover .card-image img {
-    transform: scale(1.05);
+    transform: scale(1.07);
+}
+
+/* Gold accent bar บนรูป */
+.card-image::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light));
+    opacity: 0;
+    transition: var(--transition-normal);
+}
+
+.featured-card:hover .card-image::after {
+    opacity: 1;
 }
 
 .card-overlay {
@@ -582,31 +630,45 @@ section {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.7));
+    background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.45));
 }
 
+/* Content กระชับ */
 .card-content {
-    padding: var(--spacing-md);
+    padding: 1.25rem 1.5rem 1.5rem;
 }
 
 .card-category {
-    font-size: 0.85rem;
-    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--gold-dark);
-    margin-bottom: var(--spacing-xs);
-    font-weight: 600;
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.card-category::before {
+    content: '';
+    display: inline-block;
+    width: 18px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold-dark), var(--gold));
+    border-radius: 1px;
 }
 
 .card-title {
-    font-size: 1.5rem;
-    margin-bottom: var(--spacing-sm);
+    font-size: 1.35rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
 }
 
 .card-description {
     color: var(--dark-gray);
-    margin-bottom: var(--spacing-md);
-    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
     line-height: 1.6;
 }
 
@@ -614,15 +676,34 @@ section {
     display: inline-flex;
     align-items: center;
     gap: var(--spacing-xs);
-    font-size: 0.9rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--primary);
 }
 
 .card-link:hover {
     gap: var(--spacing-sm);
+}
+
+/* View All link ในหัว section */
+.featured-view-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    margin-bottom: 0.5rem;
+    transition: var(--transition-normal);
+}
+
+.featured-view-all:hover {
+    gap: 0.7rem;
+    color: var(--gold);
 }
 
 /* ========== Experience Section ========== */
@@ -949,8 +1030,14 @@ section {
     }
     
     .featured-card.large .card-image {
-        height: 280px;
-        min-height: 280px;
+        height: 260px;
+        min-height: 260px;
+    }
+    
+    .featured-section .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.25rem;
     }
     
     .experience-content {
@@ -988,8 +1075,12 @@ section {
     }
     
     .featured-card.large .card-image {
-        height: 280px;
-        min-height: 280px;
+        height: 240px;
+        min-height: 240px;
+    }
+    
+    .card-image {
+        height: 240px;
     }
     
     .culture-grid {
