@@ -187,8 +187,30 @@ function setupBasicNavs() {
         const p = document.getElementById(prevId);
         const n = document.getElementById(nextId);
         if (!c) return;
+
+        // ปุ่มลูกศร
         if (p) p.addEventListener('click', () => c.scrollBy({ left: -340, behavior: 'smooth' }));
         if (n) n.addEventListener('click', () => c.scrollBy({ left: 340, behavior: 'smooth' }));
+
+        // Mouse drag scroll
+        let isDown = false;
+        let startX = 0;
+        let scrollLeft = 0;
+
+        c.addEventListener('mousedown', (e) => {
+            isDown = true;
+            startX = e.pageX - c.offsetLeft;
+            scrollLeft = c.scrollLeft;
+        });
+        c.addEventListener('mouseleave', () => { isDown = false; });
+        c.addEventListener('mouseup', () => { isDown = false; });
+        c.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - c.offsetLeft;
+            const walk = (x - startX) * 1.5;
+            c.scrollLeft = scrollLeft - walk;
+        });
     });
 }
 

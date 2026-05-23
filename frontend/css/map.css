@@ -251,16 +251,24 @@
 /* Horizontal Scroll Carousel */
 .explore-carousel-wrapper {
     position: relative;
+    margin: 0 -0.5rem;
+    padding: 0 0.5rem;
 }
 
 .explore-carousel {
     display: flex;
-    gap: 1.5rem;
+    gap: 1.25rem;
     overflow-x: auto;
     scroll-behavior: smooth;
-    padding: 0.5rem 0 1rem;
+    padding: 0.5rem 0.25rem 1.25rem;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    cursor: grab;
+    -webkit-overflow-scrolling: touch;
+}
+
+.explore-carousel:active {
+    cursor: grabbing;
 }
 
 .explore-carousel::-webkit-scrollbar {
@@ -1043,8 +1051,8 @@
 
 /* ---- Portrait Card (แนะนำ) ---- */
 .ec-card-portrait {
-    flex: 0 0 160px;
-    min-width: 160px;
+    flex: 0 0 220px;
+    min-width: 220px;
     background: var(--white);
     border-radius: 16px;
     overflow: hidden;
@@ -1063,7 +1071,7 @@
 .ec-img-portrait {
     position: relative;
     width: 100%;
-    height: 200px;
+    height: 220px;
     overflow: hidden;
 }
 
@@ -1075,13 +1083,13 @@
 }
 
 .ec-card-portrait:hover .ec-img-portrait img { transform: scale(1.07); }
-.ec-card-portrait .ec-body { padding: 0.75rem 0.875rem 0.875rem; }
-.ec-card-portrait .ec-title { font-size: 0.95rem; }
+.ec-card-portrait .ec-body { padding: 0.875rem 1rem 1rem; }
+.ec-card-portrait .ec-title { font-size: 1.05rem; }
 
 /* ---- Landscape Card (คาเฟ่, วัฒนธรรม, โรงแรม, ธรรมชาติ) ---- */
 .ec-card-landscape {
-    flex: 0 0 280px;
-    min-width: 280px;
+    flex: 0 0 300px;
+    min-width: 300px;
     background: var(--white);
     border-radius: 16px;
     overflow: hidden;
@@ -1100,7 +1108,7 @@
 .ec-img-landscape {
     position: relative;
     width: 100%;
-    height: 200px;
+    height: 210px;
     overflow: hidden;
 }
 
@@ -1112,13 +1120,13 @@
 }
 
 .ec-card-landscape:hover .ec-img-landscape img { transform: scale(1.07); }
-.ec-card-landscape .ec-body { padding: 0.875rem 1rem 1rem; }
-.ec-card-landscape .ec-title { font-size: 1.1rem; }
+.ec-card-landscape .ec-body { padding: 1rem 1.1rem 1.1rem; }
+.ec-card-landscape .ec-title { font-size: 1.15rem; }
 
 /* Responsive */
 @media (max-width: 768px) {
-    .ec-card-portrait { flex: 0 0 140px; min-width: 140px; }
-    .ec-img-portrait { height: 170px; }
-    .ec-card-landscape { flex: 0 0 240px; min-width: 240px; }
-    .ec-img-landscape { height: 170px; }
+    .ec-card-portrait { flex: 0 0 180px; min-width: 180px; }
+    .ec-img-portrait { height: 180px; }
+    .ec-card-landscape { flex: 0 0 250px; min-width: 250px; }
+    .ec-img-landscape { height: 180px; }
 }
