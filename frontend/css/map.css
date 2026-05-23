@@ -928,3 +928,197 @@
     .epc-image { height: 170px; }
     .epc-title { font-size: 1rem; }
 }
+
+/* ========================================
+   Explore Cards — 2 รูปแบบ
+   ======================================== */
+
+/* ---- Shared ---- */
+.ec-rating-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.25rem 0.6rem;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--gold-dark);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+    z-index: 2;
+}
+
+.ec-rating-badge svg { color: var(--gold); flex-shrink: 0; }
+
+.ec-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 0.22rem 0.65rem;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    color: var(--primary);
+    font-size: 0.68rem;
+    font-weight: 700;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(212,175,55,0.4);
+    z-index: 2;
+}
+
+.ec-category {
+    display: inline-block;
+    padding: 0.18rem 0.6rem;
+    background: rgba(212,175,55,0.1);
+    color: var(--gold-dark);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 10px;
+    margin-bottom: 0.4rem;
+    border: 1px solid rgba(212,175,55,0.18);
+}
+
+.ec-title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    color: var(--primary);
+    line-height: 1.3;
+    margin-bottom: 0.3rem;
+}
+
+.ec-desc {
+    font-size: 0.82rem;
+    color: var(--medium-gray);
+    line-height: 1.5;
+    margin-bottom: 0.6rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.ec-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0.55rem;
+    border-top: 1px solid var(--light-gray);
+    margin-bottom: 0.55rem;
+}
+
+.ec-location {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.76rem;
+    color: var(--medium-gray);
+}
+
+.ec-location svg { color: var(--gold); flex-shrink: 0; }
+.ec-reviews { font-size: 0.76rem; color: var(--medium-gray); }
+
+.ec-price {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--gold-dark);
+    margin-bottom: 0.5rem;
+}
+
+.ec-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: var(--gold-dark);
+    font-weight: 600;
+    font-size: 0.82rem;
+    text-decoration: none;
+    transition: var(--transition-normal);
+}
+
+.ec-link:hover { gap: 0.55rem; color: var(--gold); }
+
+/* ---- Portrait Card (แนะนำ) ---- */
+.ec-card-portrait {
+    flex: 0 0 160px;
+    min-width: 160px;
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    transition: var(--transition-normal);
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,0.06);
+}
+
+.ec-card-portrait:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+    border-color: var(--gold-light);
+}
+
+.ec-img-portrait {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.ec-img-portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.ec-card-portrait:hover .ec-img-portrait img { transform: scale(1.07); }
+.ec-card-portrait .ec-body { padding: 0.75rem 0.875rem 0.875rem; }
+.ec-card-portrait .ec-title { font-size: 0.95rem; }
+
+/* ---- Landscape Card (คาเฟ่, วัฒนธรรม, โรงแรม, ธรรมชาติ) ---- */
+.ec-card-landscape {
+    flex: 0 0 280px;
+    min-width: 280px;
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    transition: var(--transition-normal);
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,0.06);
+}
+
+.ec-card-landscape:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.13);
+    border-color: var(--gold-light);
+}
+
+.ec-img-landscape {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.ec-img-landscape img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.ec-card-landscape:hover .ec-img-landscape img { transform: scale(1.07); }
+.ec-card-landscape .ec-body { padding: 0.875rem 1rem 1rem; }
+.ec-card-landscape .ec-title { font-size: 1.1rem; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .ec-card-portrait { flex: 0 0 140px; min-width: 140px; }
+    .ec-img-portrait { height: 170px; }
+    .ec-card-landscape { flex: 0 0 240px; min-width: 240px; }
+    .ec-img-landscape { height: 170px; }
+}

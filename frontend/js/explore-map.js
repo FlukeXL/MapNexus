@@ -74,29 +74,57 @@ function addMarker(place, type) {
 }
 
 // ========================================
-// Card Builder — ใช้ place-card เหมือนหน้าหลัก
+// Card Builder — 2 รูปแบบ
 // ========================================
-function buildCard(place, badge) {
-    const badgeHtml = badge ? '<span class="dest-badge">' + badge + '</span>' : '';
-    const priceHtml = place.price ? '<div class="place-price">' + place.price + '</div>' : '';
-    return '<div class="place-card">' +
-        '<div class="place-image">' +
+
+// รูปแบบ Portrait (แคบ) — สำหรับหมวด "แนะนำ"
+function buildCardPortrait(place, badge) {
+    const badgeHtml = badge ? '<span class="ec-badge">' + badge + '</span>' : '';
+    const priceHtml = place.price ? '<div class="ec-price">' + place.price + '</div>' : '';
+    return '<div class="ec-card-portrait">' +
+        '<div class="ec-img-portrait">' +
         '<img src="' + place.image + '" alt="' + place.name + '" loading="lazy">' +
-        '<div class="place-overlay"></div>' +
         badgeHtml +
-        '<span class="place-rating"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>' + place.rating + '</span>' +
+        '<span class="ec-rating-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>' + place.rating + '</span>' +
         '</div>' +
-        '<div class="place-content">' +
-        '<span class="place-category">' + place.category + '</span>' +
-        '<h3 class="place-title">' + place.name + '</h3>' +
-        '<p class="place-description">' + place.description + '</p>' +
-        '<div class="place-footer">' +
-        '<span class="place-location"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>' + place.location + '</span>' +
-        '<span class="place-reviews">' + place.reviews.toLocaleString() + ' รีวิว</span>' +
+        '<div class="ec-body">' +
+        '<span class="ec-category">' + place.category + '</span>' +
+        '<h3 class="ec-title">' + place.name + '</h3>' +
+        '<p class="ec-desc">' + place.description + '</p>' +
+        '<div class="ec-footer">' +
+        '<span class="ec-location"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>' + place.location + '</span>' +
+        '<span class="ec-reviews">' + place.reviews.toLocaleString() + ' รีวิว</span>' +
         '</div>' +
         priceHtml +
-        '<a href="#" class="place-link"><span>ดูรายละเอียด</span><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>' +
+        '<a href="#" class="ec-link">ดูรายละเอียด <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>' +
         '</div></div>';
+}
+
+// รูปแบบ Landscape (กว้าง) — สำหรับหมวดอื่น
+function buildCardLandscape(place, badge) {
+    const badgeHtml = badge ? '<span class="ec-badge">' + badge + '</span>' : '';
+    const priceHtml = place.price ? '<div class="ec-price">' + place.price + '</div>' : '';
+    return '<div class="ec-card-landscape">' +
+        '<div class="ec-img-landscape">' +
+        '<img src="' + place.image + '" alt="' + place.name + '" loading="lazy">' +
+        badgeHtml +
+        '<span class="ec-rating-badge"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>' + place.rating + '</span>' +
+        '</div>' +
+        '<div class="ec-body">' +
+        '<span class="ec-category">' + place.category + '</span>' +
+        '<h3 class="ec-title">' + place.name + '</h3>' +
+        '<p class="ec-desc">' + place.description + '</p>' +
+        '<div class="ec-footer">' +
+        '<span class="ec-location"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>' + place.location + '</span>' +
+        '<span class="ec-reviews">' + place.reviews.toLocaleString() + ' รีวิว</span>' +
+        '</div>' +
+        priceHtml +
+        '<a href="#" class="ec-link">ดูรายละเอียด <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>' +
+        '</div></div>';
+}
+
+function buildCard(place, badge) {
+    return buildCardLandscape(place, badge);
 }
 
 // ========================================
@@ -117,11 +145,11 @@ function renderCarousels() {
     ];
     const recommended = [...allPlaces].sort((a, b) => b.rating - a.rating).slice(0, 10);
 
-    renderCarousel('carousel-recommended', recommended, 'ยอดนิยม');
-    renderCarousel('carousel-culture', PLACES_DATA.temples, null);
-    renderCarousel('carousel-cafe', PLACES_DATA.cafes, null);
-    renderCarousel('carousel-hotel', PLACES_DATA.hotels, null);
-    renderCarousel('carousel-nature', PLACES_DATA.nature || [], null);
+    renderCarousel('carousel-recommended', recommended, 'ยอดนิยม', 'portrait');
+    renderCarousel('carousel-culture', PLACES_DATA.temples, null, 'landscape');
+    renderCarousel('carousel-cafe', PLACES_DATA.cafes, null, 'landscape');
+    renderCarousel('carousel-hotel', PLACES_DATA.hotels, null, 'landscape');
+    renderCarousel('carousel-nature', PLACES_DATA.nature || [], null, 'landscape');
 
     setTimeout(() => {
         if (window.PlacesCarousel) {
@@ -136,14 +164,15 @@ function renderCarousels() {
     }, 200);
 }
 
-function renderCarousel(containerId, places, badge) {
+function renderCarousel(containerId, places, badge, style) {
     const container = document.getElementById(containerId);
     if (!container) return;
     if (!places || places.length === 0) {
         container.innerHTML = '<p style="padding:1rem;color:#999;">ไม่มีข้อมูล</p>';
         return;
     }
-    container.innerHTML = places.map(p => buildCard(p, badge)).join('');
+    const builder = style === 'portrait' ? buildCardPortrait : buildCardLandscape;
+    container.innerHTML = places.map(p => builder(p, badge)).join('');
 }
 
 function setupBasicNavs() {
