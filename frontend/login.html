@@ -132,60 +132,154 @@ body{font-family:'Noto Sans Thai',sans-serif;background:#faf9f6;display:flex;ali
   <div class="back"><a href="index.html">← กลับหน้าหลัก</a></div>
 </div><!-- end card -->
 </div><!-- end wrapper -->
-<script>
-const p=new URLSearchParams(location.search);
-if(p.get('tab')==='login')sw('log');
-function sw(t){
-  ['reg','log','fgt'].forEach(x=>{document.getElementById('f-'+x).style.display='none'});
-  document.getElementById('t-reg').classList.remove('active');
-  document.getElementById('t-log').classList.remove('active');
-  document.getElementById('f-'+t).style.display='block';
-  if(t==='reg')document.getElementById('t-reg').classList.add('active');
-  if(t==='log')document.getElementById('t-log').classList.add('active');
-  ca();
-}
-function tp(id){const e=document.getElementById(id);e.type=e.type==='password'?'text':'password'}
-function sa(t,m){const e=document.getElementById('al');e.className='alert '+t;e.textContent=m;e.style.display='block'}
-function ca(){const e=document.getElementById('al');e.style.display='none'}
-document.getElementById('rp').addEventListener('input',function(){
-  const v=this.value,s=[v.length>=8,/[A-Z]/.test(v),/[0-9]/.test(v),/[^A-Za-z0-9]/.test(v)].filter(Boolean).length;
-  const c=['','#f44336','#ff9800','#4caf50','#2196F3'][s];
-  document.getElementById('ps').innerHTML=v?'<div class="pwd-bar"><div style="width:'+(s*25)+'%;background:'+c+'"></div></div>':'';
-});
-async function reg(e){
-  e.preventDefault();ca();
-  const em=document.getElementById('re').value.trim(),pw=document.getElementById('rp').value,cf=document.getElementById('rc').value;
-  if(!em.endsWith('@gmail.com')){sa('error','กรุณาใช้ Gmail เท่านั้น');return}
-  if(pw!==cf){sa('error','รหัสผ่านไม่ตรงกัน');return}
-  const b=document.getElementById('br');b.disabled=true;b.textContent='กำลังสมัคร...';
-  try{
-    const r=await fetch('/api/auth/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:em,password:pw})});
-    const d=await r.json();
-    if(r.ok){localStorage.setItem('token',d.token);sa('success','สมัครสำเร็จ!');setTimeout(()=>location.href='index.html',1000)}
-    else{sa('error',d.message||'ไม่สามารถสมัครได้');b.disabled=false;b.textContent='สมัครบัญชี'}
-  }catch{sa('error','ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์');b.disabled=false;b.textContent='สมัครบัญชี'}
-}
-async function log(e){
-  e.preventDefault();ca();
-  const em=document.getElementById('le').value.trim(),pw=document.getElementById('lp').value;
-  const b=document.getElementById('bl');b.disabled=true;b.textContent='กำลังเข้าสู่ระบบ...';
-  try{
-    const r=await fetch('/api/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:em,password:pw})});
-    const d=await r.json();
-    if(r.ok){localStorage.setItem('token',d.token);sa('success','เข้าสู่ระบบสำเร็จ!');setTimeout(()=>location.href='index.html',800)}
-    else{sa('error',d.message||'อีเมลหรือรหัสผ่านไม่ถูกต้อง');b.disabled=false;b.textContent='เข้าสู่ระบบ'}
-  }catch{sa('error','ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์');b.disabled=false;b.textContent='เข้าสู่ระบบ'}
-}
-async function fgt(e){
-  e.preventDefault();
-  const em=document.getElementById('fe').value.trim();
-  try{
-    const r=await fetch('/api/auth/forgot-password',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:em})});
-    const d=await r.json();
-    sa(r.ok?'success':'error',r.ok?'ส่งลิงก์ไปยัง '+em+' แล้ว':(d.message||'ไม่พบอีเมลนี้'));
-  }catch{sa('error','ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์')}
-}
-function gsi(){location.href='/api/auth/google'}
+<!-- Firebase SDK -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+  // Firebase Config
+  const firebaseConfig = {
+    apiKey: "AIzaSyDCdMOAgVcc2tZ1sPIwciW6H9kXK_THIx4",
+    authDomain: "mapnexus-bd253.firebaseapp.com",
+    projectId: "mapnexus-bd253",
+    storageBucket: "mapnexus-bd253.firebasestorage.app",
+    messagingSenderId: "271134269190",
+    appId: "1:271134269190:web:1a68b3658f9a845e4d0887"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const googleProvider = new GoogleAuthProvider();
+
+  // ===== Utility =====
+  const p = new URLSearchParams(location.search);
+  if(p.get('tab')==='login') sw('log');
+
+  function sw(t){
+    ['reg','log','fgt'].forEach(x=>{document.getElementById('f-'+x).style.display='none'});
+    document.getElementById('t-reg').classList.remove('active');
+    document.getElementById('t-log').classList.remove('active');
+    document.getElementById('f-'+t).style.display='block';
+    if(t==='reg') document.getElementById('t-reg').classList.add('active');
+    if(t==='log') document.getElementById('t-log').classList.add('active');
+    ca();
+  }
+  window.sw = sw;
+
+  function tp(id){const e=document.getElementById(id);e.type=e.type==='password'?'text':'password'}
+  window.tp = tp;
+
+  function sa(t,m){const e=document.getElementById('al');e.className='alert '+t;e.textContent=m;e.style.display='block'}
+  function ca(){const e=document.getElementById('al');e.style.display='none'}
+
+  // Password strength
+  document.getElementById('rp').addEventListener('input',function(){
+    const v=this.value,s=[v.length>=8,/[A-Z]/.test(v),/[0-9]/.test(v),/[^A-Za-z0-9]/.test(v)].filter(Boolean).length;
+    const c=['','#f44336','#ff9800','#4caf50','#2196F3'][s];
+    document.getElementById('ps').innerHTML=v?'<div class="pwd-bar"><div style="width:'+(s*25)+'%;background:'+c+'"></div></div>':'';
+  });
+
+  // ===== สมัครสมาชิก =====
+  async function reg(e){
+    e.preventDefault(); ca();
+    const em = document.getElementById('re').value.trim();
+    const pw = document.getElementById('rp').value;
+    const cf = document.getElementById('rc').value;
+    if(pw !== cf){ sa('error','รหัสผ่านไม่ตรงกัน'); return; }
+    const b = document.getElementById('br');
+    b.disabled = true; b.textContent = 'กำลังสมัคร...';
+    try {
+      const cred = await createUserWithEmailAndPassword(auth, em, pw);
+      // เก็บข้อมูลใน localStorage
+      localStorage.setItem('uid', cred.user.uid);
+      localStorage.setItem('email', cred.user.email);
+      localStorage.setItem('user', JSON.stringify({
+        uid: cred.user.uid,
+        email: cred.user.email,
+        membership_type: 'free'
+      }));
+      sa('success','สมัครสำเร็จ!');
+      setTimeout(()=>location.href='index.html', 1000);
+    } catch(err) {
+      const msg = {
+        'auth/email-already-in-use': 'อีเมลนี้ถูกใช้งานแล้ว',
+        'auth/invalid-email': 'รูปแบบอีเมลไม่ถูกต้อง',
+        'auth/weak-password': 'รหัสผ่านต้องมีอย่างน้อย 6 ตัวอักษร'
+      }[err.code] || 'สมัครไม่สำเร็จ กรุณาลองใหม่';
+      sa('error', msg);
+      b.disabled = false; b.textContent = 'สมัครบัญชี';
+    }
+  }
+  window.reg = reg;
+
+  // ===== เข้าสู่ระบบ =====
+  async function log(e){
+    e.preventDefault(); ca();
+    const em = document.getElementById('le').value.trim();
+    const pw = document.getElementById('lp').value;
+    const b = document.getElementById('bl');
+    b.disabled = true; b.textContent = 'กำลังเข้าสู่ระบบ...';
+    try {
+      const cred = await signInWithEmailAndPassword(auth, em, pw);
+      localStorage.setItem('uid', cred.user.uid);
+      localStorage.setItem('email', cred.user.email);
+      localStorage.setItem('user', JSON.stringify({
+        uid: cred.user.uid,
+        email: cred.user.email,
+        membership_type: 'free'
+      }));
+      sa('success','เข้าสู่ระบบสำเร็จ!');
+      setTimeout(()=>location.href='index.html', 800);
+    } catch(err) {
+      const msg = {
+        'auth/user-not-found': 'ไม่พบอีเมลนี้ในระบบ',
+        'auth/wrong-password': 'รหัสผ่านไม่ถูกต้อง',
+        'auth/invalid-credential': 'อีเมลหรือรหัสผ่านไม่ถูกต้อง',
+        'auth/invalid-email': 'รูปแบบอีเมลไม่ถูกต้อง',
+        'auth/too-many-requests': 'ลองใหม่อีกครั้งในภายหลัง'
+      }[err.code] || 'เข้าสู่ระบบไม่สำเร็จ';
+      sa('error', msg);
+      b.disabled = false; b.textContent = 'เข้าสู่ระบบ';
+    }
+  }
+  window.log = log;
+
+  // ===== ลืมรหัสผ่าน =====
+  async function fgt(e){
+    e.preventDefault(); ca();
+    const em = document.getElementById('fe').value.trim();
+    try {
+      await sendPasswordResetEmail(auth, em);
+      sa('success','ส่งลิงก์รีเซ็ตไปยัง ' + em + ' แล้ว ตรวจสอบอีเมลได้เลย');
+    } catch(err) {
+      sa('error', err.code === 'auth/user-not-found' ? 'ไม่พบอีเมลนี้ในระบบ' : 'ส่งอีเมลไม่สำเร็จ');
+    }
+  }
+  window.fgt = fgt;
+
+  // ===== Google Login =====
+  async function gsi(){
+    try {
+      const cred = await signInWithPopup(auth, googleProvider);
+      const user = cred.user;
+      localStorage.setItem('uid', user.uid);
+      localStorage.setItem('email', user.email);
+      localStorage.setItem('user', JSON.stringify({
+        uid: user.uid,
+        email: user.email,
+        full_name: user.displayName || '',
+        profile_image: user.photoURL || '',
+        membership_type: 'free'
+      }));
+      sa('success','เข้าสู่ระบบสำเร็จ!');
+      setTimeout(()=>location.href='index.html', 800);
+    } catch(err) {
+      if(err.code !== 'auth/popup-closed-by-user'){
+        sa('error','เข้าสู่ระบบด้วย Google ไม่สำเร็จ');
+      }
+    }
+  }
+  window.gsi = gsi;
 </script>
 </body>
 </html>
