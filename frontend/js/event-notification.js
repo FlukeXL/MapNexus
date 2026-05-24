@@ -109,7 +109,7 @@
           <div class="enp-header">
             <div class="enp-logo-center-wrap">
               <div class="enp-logo-circle">
-                <img src="assets/images/Logo.png" alt="MapNexus Logo" class="enp-logo-img"
+                <img src="assets/images/LogoPNG.png" alt="MapNexus Logo" class="enp-logo-img"
                      onerror="this.style.display='none';document.getElementById('enp-logo-fallback').style.display='flex'">
                 <div class="enp-logo-fallback" id="enp-logo-fallback" style="display:none">
                   <span>M</span>
