@@ -54,6 +54,9 @@
     // ===== Bottom Navigation =====
     injectBottomNav();
     updateBottomNavWeather();
+
+    // ===== Hero Status Widget =====
+    setTimeout(fetchWeatherForWidget, 800);
   });
 
   // ===== สร้าง Bottom Nav =====
@@ -152,8 +155,57 @@
       .then(data => {
         if (data.status === 'ok') {
           const pm25 = data.data.iaqi?.pm25?.v || data.data.aqi;
+          const temp = data.data.iaqi?.t?.v;
           const el = document.getElementById('bnav-pm25');
           if (el) el.textContent = pm25;
+
+          // อัปเดต Status Widget ด้วย
+          updateStatusWidget(pm25, temp, null);
+        }
+      })
+      .catch(() => {});
+  }
+
+  // ===== อัปเดต Hero Status Widget =====
+  function updateStatusWidget(pm25, temp, weather) {
+    const pm25El = document.getElementById('hsw-pm25');
+    const tempEl = document.getElementById('hsw-temp');
+    const dot    = document.getElementById('hsw-pm25-dot');
+
+    if (pm25El && pm25) {
+      pm25El.textContent = pm25 + ' µg/m³';
+      // สี dot ตาม AQI
+      if (dot) {
+        dot.className = 'hsw-dot' + (pm25 > 100 ? ' unhealthy' : pm25 > 50 ? ' moderate' : '');
+      }
+    }
+    if (tempEl && temp) {
+      tempEl.textContent = Math.round(temp) + '°C';
+    }
+  }
+
+  // ดึงข้อมูลอากาศสำหรับ widget
+  function fetchWeatherForWidget() {
+    const API_KEY = '88474214df0769fa95ff82dc52946122';
+    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=17.4081&lon=104.7695&appid=${API_KEY}&units=metric&lang=th`)
+      .then(r => r.json())
+      .then(data => {
+        const temp = data.main?.temp;
+        const weather = data.weather?.[0]?.main;
+        const tempEl = document.getElementById('hsw-temp');
+        const stormEl = document.getElementById('hsw-storm');
+        const trafficEl = document.getElementById('hsw-traffic');
+
+        if (tempEl && temp) tempEl.textContent = Math.round(temp) + '°C';
+        if (stormEl) {
+          const isStorm = ['Thunderstorm', 'Tornado'].includes(weather);
+          stormEl.textContent = isStorm ? '⚠️ มี' : 'ไม่มี';
+          if (isStorm) stormEl.style.color = '#ffc107';
+        }
+        if (trafficEl) {
+          // traffic ยังเป็น simulated
+          const statuses = ['ราบรื่น', 'ปานกลาง'];
+          trafficEl.textContent = statuses[Math.floor(Math.random() * statuses.length)];
         }
       })
       .catch(() => {});

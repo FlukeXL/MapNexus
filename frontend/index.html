@@ -28,6 +28,15 @@
                 <a href="login.html?tab=register" class="btn-register">สมัครบัญชี</a>
                 <a href="login.html" class="btn-secondary">เข้าสู่ระบบ</a>
             </div>
+            <!-- Mobile: Login button (แสดงเฉพาะมือถือ) -->
+            <div class="mobile-auth-btn" id="mobile-auth-btn">
+                <a href="login.html" class="mobile-login-btn" id="mobile-login-link" aria-label="เข้าสู่ระบบ">
+                    <img src="assets/images/Logo.png" alt="MapNexus" class="mobile-logo-circle" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                    <div class="mobile-logo-fallback" style="display:none">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                    </div>
+                </a>
+            </div>
             <button type="button" class="mobile-menu-toggle" aria-label="เมนู">
                 <span></span>
                 <span></span>
@@ -155,6 +164,63 @@
                     <button type="button" class="btn-outline">ดูวิดีโอ</button>
                 </div>
             </div>
+        </div>
+
+        <!-- Status Widget — ลอยด้านล่าง Hero -->
+        <div class="hero-status-widget" id="hero-status-widget">
+            <!-- PM2.5 -->
+            <a href="weather.html" class="hsw-item" id="hsw-pm25-item">
+                <div class="hsw-icon hsw-icon-pm25">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                    </svg>
+                </div>
+                <div class="hsw-info">
+                    <span class="hsw-label">PM2.5</span>
+                    <span class="hsw-value" id="hsw-pm25">--</span>
+                </div>
+                <div class="hsw-dot" id="hsw-pm25-dot"></div>
+            </a>
+            <div class="hsw-divider"></div>
+            <!-- อากาศ -->
+            <a href="weather.html" class="hsw-item">
+                <div class="hsw-icon hsw-icon-weather">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+                    </svg>
+                </div>
+                <div class="hsw-info">
+                    <span class="hsw-label">อากาศ</span>
+                    <span class="hsw-value" id="hsw-temp">--°C</span>
+                </div>
+            </a>
+            <div class="hsw-divider"></div>
+            <!-- พายุ -->
+            <a href="weather.html" class="hsw-item">
+                <div class="hsw-icon hsw-icon-storm">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9"/>
+                        <polyline points="13 11 9 17 15 17 11 23"/>
+                    </svg>
+                </div>
+                <div class="hsw-info">
+                    <span class="hsw-label">พายุ</span>
+                    <span class="hsw-value" id="hsw-storm">ไม่มี</span>
+                </div>
+            </a>
+            <div class="hsw-divider"></div>
+            <!-- จราจร -->
+            <a href="weather.html" class="hsw-item">
+                <div class="hsw-icon hsw-icon-traffic">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><circle cx="7" cy="17" r="2"/><circle cx="13" cy="17" r="2"/>
+                    </svg>
+                </div>
+                <div class="hsw-info">
+                    <span class="hsw-label">จราจร</span>
+                    <span class="hsw-value" id="hsw-traffic">ราบรื่น</span>
+                </div>
+            </a>
         </div>
     </section>
 
