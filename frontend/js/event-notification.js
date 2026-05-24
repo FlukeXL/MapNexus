@@ -189,7 +189,7 @@
         display: flex; flex-direction: column;
         box-shadow: 0 24px 64px rgba(0,0,0,0.3);
         animation: enp-slide-up 0.35s cubic-bezier(0.34,1.56,0.64,1);
-        margin-top: 40px; /* เผื่อพื้นที่ให้ Logo ล้นขึ้น */
+        margin-top: 50px; /* เผื่อพื้นที่ให้ Logo ล้นขึ้น */
         position: relative;
         overflow: visible; /* ให้ Logo ล้นออกนอกขอบได้ */
       }
@@ -214,13 +214,14 @@
       /* Header */
       .enp-header {
         background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-        padding: 0 1.25rem 1rem;
-        padding-top: 3rem;
+        padding: 0 1.25rem 0.6rem;
+        padding-top: 2.25rem;
         display: flex;
         align-items: flex-start;
         justify-content: flex-end;
         position: relative;
         flex-shrink: 0;
+        border-radius: 0 0 18px 18px;
       }
       .enp-logo-center-wrap {
         position: absolute;
@@ -229,7 +230,7 @@
         z-index: 10;
       }
       .enp-logo-circle {
-        width: 80px; height: 80px;
+        width: 100px; height: 100px;
         border-radius: 50%;
         background: #fff;
         box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 0 0 4px rgba(212,175,55,0.4);
@@ -238,20 +239,20 @@
         border: 3px solid rgba(212,175,55,0.6);
       }
       .enp-logo-img {
-        width: 68px; height: 68px;
+        width: 88px; height: 88px;
         object-fit: contain;
       }
       .enp-logo-fallback {
-        width: 68px; height: 68px;
+        width: 88px; height: 88px;
         background: linear-gradient(135deg, #b8941e, #d4af37);
         display: flex; align-items: center; justify-content: center;
         font-family: 'Noto Serif Thai', serif;
-        font-size: 2rem; font-weight: 700; color: #1a1a1a;
+        font-size: 2.5rem; font-weight: 700; color: #1a1a1a;
         border-radius: 50%;
       }
       .enp-close {
         background: rgba(255,255,255,0.1); border: none; border-radius: 8px;
-        width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
+        width: 28px; height: 28px; display: flex; align-items: center; justify-content: center;
         cursor: pointer; color: rgba(255,255,255,0.7); transition: all 0.2s;
         flex-shrink: 0;
       }
