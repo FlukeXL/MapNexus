@@ -28,13 +28,17 @@
                 <a href="login.html?tab=register" class="btn-register">สมัครบัญชี</a>
                 <a href="login.html" class="btn-secondary">เข้าสู่ระบบ</a>
             </div>
-            <!-- Mobile: Login button (แสดงเฉพาะมือถือ) -->
+            <!-- Mobile: Logo วงกลม + ปุ่มเข้าสู่ระบบ (แสดงเฉพาะมือถือ) -->
             <div class="mobile-auth-btn" id="mobile-auth-btn">
-                <a href="login.html" class="mobile-login-btn" id="mobile-login-link" aria-label="เข้าสู่ระบบ">
-                    <img src="assets/images/Logo.png" alt="MapNexus" class="mobile-logo-circle" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-                    <div class="mobile-logo-fallback" style="display:none">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <a href="login.html" class="mobile-login-btn" aria-label="เข้าสู่ระบบ">
+                    <div class="mobile-login-btn-circle">
+                        <img src="assets/images/Logo.png" alt="MapNexus" class="mobile-logo-circle"
+                             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                        <div class="mobile-logo-fallback" style="display:none">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        </div>
                     </div>
+                    <span class="mobile-login-label">เข้าสู่ระบบ</span>
                 </a>
             </div>
             <button type="button" class="mobile-menu-toggle" aria-label="เมนู">

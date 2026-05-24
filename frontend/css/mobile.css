@@ -12,20 +12,43 @@
 
   .nav-container {
     padding: 0.65rem 1rem;
-    position: relative;
+    display: grid !important;
+    grid-template-columns: 1fr auto 1fr !important;
+    align-items: center;
+    gap: 0;
+  }
+
+  /* ซ้าย: Logo text */
+  .nav-logo {
+    justify-self: start;
   }
 
   .nav-logo .logo-text { font-size: 1.1rem; }
   .nav-logo .logo-subtitle { display: none; }
+
+  /* กลาง: nav-menu (ซ่อน) + mobile-auth-btn (Logo วงกลม) */
+  .nav-menu {
+    display: none;
+    /* ... */
+  }
 
   /* ซ่อนปุ่ม desktop */
   .nav-actions {
     display: none !important;
   }
 
-  /* hamburger */
+  /* กลาง: mobile-auth-btn */
+  .mobile-auth-btn {
+    display: flex !important;
+    justify-self: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ขวา: hamburger */
   .mobile-menu-toggle {
     display: flex;
+    justify-self: end;
     z-index: 1100;
     position: relative;
   }
@@ -765,29 +788,40 @@
   .mobile-auth-btn {
     display: flex;
     align-items: center;
+    justify-content: center;
     position: relative;
   }
 
   /* Logo วงกลม — ยังไม่ login */
   .mobile-login-btn {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+    gap: 0.15rem;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: opacity 0.2s;
+  }
+
+  .mobile-login-btn:active { opacity: 0.7; }
+
+  .mobile-login-btn-circle {
     width: 34px;
     height: 34px;
     border-radius: 50%;
     border: 1.5px solid rgba(212,175,55,0.5);
     background: rgba(212,175,55,0.08);
     overflow: hidden;
-    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: all 0.2s;
-    -webkit-tap-highlight-color: transparent;
   }
 
-  .mobile-login-btn:hover,
-  .mobile-login-btn:active {
+  .mobile-login-btn:hover .mobile-login-btn-circle,
+  .mobile-login-btn:active .mobile-login-btn-circle {
     border-color: #d4af37;
-    background: rgba(212,175,55,0.15);
+    background: rgba(212,175,55,0.18);
   }
 
   .mobile-logo-circle {
@@ -800,42 +834,54 @@
   .mobile-logo-fallback {
     width: 28px;
     height: 28px;
+    display: flex;
     align-items: center;
     justify-content: center;
     color: #d4af37;
   }
 
+  .mobile-login-label {
+    font-size: 0.52rem;
+    font-weight: 600;
+    color: rgba(26,26,26,0.55);
+    letter-spacing: 0.03em;
+    font-family: 'Noto Sans Thai', sans-serif;
+    white-space: nowrap;
+  }
+
   /* Avatar — login แล้ว */
   .mobile-user-btn {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    border: 1.5px solid rgba(212,175,55,0.6);
-    background: rgba(212,175,55,0.1);
+    gap: 0.15rem;
+    border: none;
+    background: none;
     cursor: pointer;
     position: relative;
     padding: 0;
     -webkit-tap-highlight-color: transparent;
-    transition: all 0.2s;
+    transition: opacity 0.2s;
   }
 
-  .mobile-user-btn:active {
-    transform: scale(0.95);
+  .mobile-user-btn:active { opacity: 0.7; }
+
+  .mobile-user-btn .mobile-login-btn-circle {
+    border-color: rgba(212,175,55,0.7);
+    background: rgba(212,175,55,0.12);
   }
 
   .mobile-user-avatar {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     object-fit: cover;
   }
 
   .mobile-user-avatar-icon {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     overflow: hidden;
     display: flex;
@@ -846,13 +892,13 @@
   /* Green dot — online indicator */
   .mobile-user-dot {
     position: absolute;
-    bottom: 1px;
-    right: 1px;
+    top: 0;
+    right: 0;
     width: 8px;
     height: 8px;
     background: #4caf50;
     border-radius: 50%;
-    border: 1.5px solid rgba(255,255,255,0.9);
+    border: 1.5px solid #fff;
   }
 }
 
@@ -1107,4 +1153,54 @@
   .hsw-label { font-size: 0.46rem; }
   .hsw-icon { width: 18px; height: 18px; }
   .hsw-icon svg { width: 11px; height: 11px; }
+}
+
+
+/* =============================================
+   BOTTOM NAV — AUTH BUTTON
+   ============================================= */
+
+@media (max-width: 768px) {
+
+  .mobile-nav-auth {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .mobile-nav-auth:active { opacity: 0.7; }
+
+  /* Icon wrapper */
+  .bnav-auth-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+  }
+
+  /* Avatar วงกลมทอง */
+  .bnav-avatar {
+    position: relative;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(184,148,30,0.25), rgba(212,175,55,0.35));
+    border: 1.5px solid rgba(212,175,55,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d4af37;
+  }
+
+  /* Online dot */
+  .bnav-online-dot {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    width: 7px;
+    height: 7px;
+    background: #4caf50;
+    border-radius: 50%;
+    border: 1.5px solid rgba(20,20,20,0.95);
+  }
 }

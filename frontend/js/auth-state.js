@@ -116,8 +116,8 @@ onAuthStateChanged(auth, (user) => {
       mobileAuthBtn.innerHTML = `
         <button type="button" class="mobile-user-btn" id="mobile-user-btn" aria-label="โปรไฟล์">
           ${photoURL
-            ? `<img src="${photoURL}" alt="avatar" class="mobile-user-avatar">`
-            : `<div class="mobile-user-avatar-icon">
+            ? `<div class="mobile-login-btn-circle"><img src="${photoURL}" alt="avatar" class="mobile-user-avatar"></div>`
+            : `<div class="mobile-login-btn-circle">
                 <img src="assets/images/Logo.png" alt="MapNexus" class="mobile-logo-circle"
                      onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                 <div class="mobile-logo-fallback" style="display:none">
@@ -128,6 +128,7 @@ onAuthStateChanged(auth, (user) => {
                 </div>
                </div>`
           }
+          <span class="mobile-login-label">${displayName.length > 8 ? displayName.substring(0,8)+'…' : displayName}</span>
           <span class="mobile-user-dot"></span>
         </button>
 
@@ -190,6 +191,18 @@ onAuthStateChanged(auth, (user) => {
         localStorage.removeItem('user');
         location.reload();
       });
+    }
+
+    // อัปเดต bottom nav auth button
+    if (typeof window.updateBnavToProfile === 'function') {
+      window.updateBnavToProfile(email);
+    } else {
+      // รอให้ mobile-menu.js โหลดก่อน
+      setTimeout(() => {
+        if (typeof window.updateBnavToProfile === 'function') {
+          window.updateBnavToProfile(email);
+        }
+      }, 500);
     }
 
   } else {

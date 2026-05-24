@@ -105,7 +105,7 @@
           <span class="mobile-nav-label">เช็คอิน</span>
         </a>
 
-        <!-- อากาศ + ค่าฝุ่น -->
+        <!-- อากาศ -->
         <a href="weather.html" class="mobile-nav-item ${isActive('weather.html')}" aria-label="พยากรณ์อากาศ">
           <div class="mobile-nav-weather">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:22px;height:22px">
@@ -116,11 +116,90 @@
           </div>
         </a>
 
+        <!-- เข้าสู่ระบบ / โปรไฟล์ -->
+        <div class="mobile-nav-item mobile-nav-auth" id="bnav-auth" aria-label="บัญชีของฉัน">
+          <div class="bnav-auth-icon" id="bnav-auth-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+          <span class="mobile-nav-label" id="bnav-auth-label">เข้าสู่ระบบ</span>
+        </div>
+
       </div>
     `;
 
     document.body.appendChild(nav);
+
+    // ผูก event กับปุ่ม auth
+    setupBnavAuth();
   }
+
+  // ===== Setup Bottom Nav Auth Button =====
+  function setupBnavAuth() {
+    const bnavAuth = document.getElementById('bnav-auth');
+    if (!bnavAuth) return;
+
+    // ตรวจสอบ login state จาก localStorage
+    const uid = localStorage.getItem('uid');
+    const email = localStorage.getItem('email');
+
+    if (uid && email) {
+      // Login แล้ว — แสดง avatar
+      updateBnavToProfile(email);
+    } else {
+      // ยังไม่ login — ไปหน้า login
+      bnavAuth.style.cursor = 'pointer';
+      bnavAuth.addEventListener('click', () => {
+        window.location.href = 'login.html';
+      });
+    }
+  }
+
+  // อัปเดต bottom nav เป็น profile
+  function updateBnavToProfile(email) {
+    const icon = document.getElementById('bnav-auth-icon');
+    const label = document.getElementById('bnav-auth-label');
+    const btn = document.getElementById('bnav-auth');
+    if (!icon || !label || !btn) return;
+
+    const name = email.split('@')[0];
+    const shortName = name.length > 6 ? name.substring(0, 6) + '…' : name;
+
+    // เปลี่ยน icon เป็น avatar ทอง
+    icon.innerHTML = `
+      <div class="bnav-avatar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span class="bnav-online-dot"></span>
+      </div>
+    `;
+    label.textContent = shortName;
+    label.style.color = '#d4af37';
+
+    // กดแล้วเปิด profile popup (ถ้ามี) หรือไปหน้า login
+    btn.style.cursor = 'pointer';
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      // trigger mobile profile popup ถ้ามี
+      const mobileUserBtn = document.getElementById('mobile-user-btn');
+      if (mobileUserBtn) {
+        mobileUserBtn.click();
+      } else {
+        // fallback: เปิด popup ของ desktop
+        const popup = document.getElementById('profile-popup');
+        if (popup) {
+          popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
+        }
+      }
+    });
+  }
+
+  // expose สำหรับ auth-state.js เรียกใช้
+  window.updateBnavToProfile = updateBnavToProfile;
 
   // ===== อัปเดตค่า PM2.5 ใน bottom nav =====
   function updateBottomNavWeather() {
