@@ -109,15 +109,19 @@
           <div class="enp-header">
             <div class="enp-logo-center-wrap">
               <div class="enp-logo-circle">
-                <img src="assets/images/LogoPNG.png" alt="MapNexus Logo" class="enp-logo-img"
+                <img src="assets/images/Logo.png" alt="MapNexus Logo" class="enp-logo-img"
                      onerror="this.style.display='none';document.getElementById('enp-logo-fallback').style.display='flex'">
                 <div class="enp-logo-fallback" id="enp-logo-fallback" style="display:none">
                   <span>M</span>
                 </div>
               </div>
             </div>
+            <div class="enp-header-text">
+              <div class="enp-header-brand">MapNexus</div>
+              <div class="enp-header-sub">การเดินทางที่มีระดับ</div>
+            </div>
             <button type="button" class="enp-close" id="enp-close" aria-label="ปิด">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
               </svg>
             </button>
@@ -167,130 +171,176 @@
       /* ===== Event Notification Popup ===== */
       .enp-overlay {
         position: fixed; inset: 0; z-index: 99999;
-        background: rgba(0,0,0,0.65);
-        backdrop-filter: blur(6px);
+        background: rgba(0,0,0,0.55);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
         display: flex; align-items: center; justify-content: center;
-        padding: 1rem;
-        animation: enp-fade-in 0.35s ease;
+        padding: 1.25rem;
+        animation: enp-fade-in 0.3s ease;
       }
+
       @keyframes enp-fade-in {
         from { opacity: 0; }
         to   { opacity: 1; }
       }
+
+      /* Modal — compact กลางจอ ขอบโค้ง */
       .enp-modal {
         background: #fff;
-        border-radius: 20px;
-        width: 100%; max-width: 460px;
-        max-height: 90vh;
+        border-radius: 24px;
+        width: 100%;
+        max-width: 360px;
+        max-height: 78vh;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.35), 0 0 0 1px rgba(212,175,55,0.15);
+        animation: enp-pop 0.4s cubic-bezier(0.34,1.56,0.64,1);
         overflow: hidden;
-        display: flex; flex-direction: column;
-        box-shadow: 0 24px 64px rgba(0,0,0,0.3);
-        animation: enp-slide-up 0.35s cubic-bezier(0.34,1.56,0.64,1);
-        margin-top: 40px; /* เผื่อพื้นที่ให้ Logo ล้นขึ้น */
         position: relative;
-        overflow: visible; /* ให้ Logo ล้นออกนอกขอบได้ */
-      }
-      /* ส่วนที่ scroll ได้ต้องซ่อน overflow เฉพาะ content */
-      .enp-cards-wrap, .enp-footer, .enp-title-bar, .enp-dots {
-        overflow: hidden;
-      }
-      /* clip เฉพาะส่วนล่างของ modal */
-      .enp-modal::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: 20px;
-        pointer-events: none;
-        box-shadow: inset 0 0 0 0 transparent;
-      }
-      @keyframes enp-slide-up {
-        from { transform: translateY(40px) scale(0.96); opacity: 0; }
-        to   { transform: translateY(0) scale(1); opacity: 1; }
       }
 
-      /* Header */
+      @keyframes enp-pop {
+        from { transform: scale(0.88) translateY(16px); opacity: 0; }
+        to   { transform: scale(1) translateY(0); opacity: 1; }
+      }
+
+      /* Header — Logo เล็ก + ชื่อ + ปุ่มปิด */
       .enp-header {
         background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-        padding: 0 1.25rem 1rem;
-        padding-top: 3rem;
+        padding: 0.75rem 1rem;
         display: flex;
-        align-items: flex-start;
-        justify-content: flex-end;
-        position: relative;
+        align-items: center;
+        gap: 0.6rem;
+        flex-shrink: 0;
+        border-radius: 24px 24px 0 0;
+      }
+
+      .enp-logo-center-wrap {
         flex-shrink: 0;
       }
-      .enp-logo-center-wrap {
-        position: absolute;
-        top: 0; left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 10;
-      }
+
       .enp-logo-circle {
-        width: 80px; height: 80px;
+        width: 36px; height: 36px;
         border-radius: 50%;
         background: #fff;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 0 0 4px rgba(212,175,55,0.4);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         display: flex; align-items: center; justify-content: center;
         overflow: hidden;
-        border: 3px solid rgba(212,175,55,0.6);
+        border: 2px solid rgba(212,175,55,0.5);
+        flex-shrink: 0;
       }
+
       .enp-logo-img {
-        width: 68px; height: 68px;
+        width: 30px; height: 30px;
         object-fit: contain;
       }
+
       .enp-logo-fallback {
-        width: 68px; height: 68px;
+        width: 30px; height: 30px;
         background: linear-gradient(135deg, #b8941e, #d4af37);
         display: flex; align-items: center; justify-content: center;
         font-family: 'Noto Serif Thai', serif;
-        font-size: 2rem; font-weight: 700; color: #1a1a1a;
+        font-size: 0.9rem; font-weight: 700; color: #1a1a1a;
         border-radius: 50%;
       }
-      .enp-close {
-        background: rgba(255,255,255,0.1); border: none; border-radius: 8px;
-        width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
-        cursor: pointer; color: rgba(255,255,255,0.7); transition: all 0.2s;
-        flex-shrink: 0;
+
+      .enp-header-text {
+        flex: 1;
+        min-width: 0;
       }
+
+      .enp-header-brand {
+        font-family: 'Noto Serif Thai', serif;
+        font-size: 0.82rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #f4e4c1, #d4af37);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        line-height: 1.2;
+      }
+
+      .enp-header-sub {
+        font-size: 0.6rem;
+        color: rgba(255,255,255,0.4);
+        line-height: 1;
+        margin-top: 0.1rem;
+      }
+
+      .enp-close {
+        background: rgba(255,255,255,0.1);
+        border: none;
+        border-radius: 50%;
+        width: 28px; height: 28px;
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer;
+        color: rgba(255,255,255,0.6);
+        transition: all 0.2s;
+        flex-shrink: 0;
+        -webkit-tap-highlight-color: transparent;
+      }
+
       .enp-close:hover { background: rgba(255,255,255,0.2); color: #fff; }
 
       /* Title bar */
       .enp-title-bar {
-        display: flex; align-items: center; gap: 0.5rem;
-        padding: 0.75rem 1.25rem;
-        background: #faf9f6; border-bottom: 1px solid #e8e6e1;
-        font-size: 0.82rem; font-weight: 600; color: #555;
+        display: flex; align-items: center; gap: 0.4rem;
+        padding: 0.55rem 1rem;
+        background: #faf9f6;
+        border-bottom: 1px solid #ede9e3;
+        font-size: 0.72rem; font-weight: 700; color: #666;
         flex-shrink: 0;
+        letter-spacing: 0.02em;
       }
+
       .enp-title-bar svg { color: #d4af37; flex-shrink: 0; }
+
       .enp-count {
         margin-left: auto;
         background: linear-gradient(135deg, #b8941e, #d4af37);
-        color: #fff; font-size: 0.68rem; font-weight: 700;
-        padding: 0.15rem 0.55rem; border-radius: 20px;
+        color: #fff; font-size: 0.6rem; font-weight: 700;
+        padding: 0.12rem 0.5rem; border-radius: 20px;
+        letter-spacing: 0.03em;
       }
 
-      /* Cards */
+      /* Cards wrap — scrollable */
       .enp-cards-wrap {
-        flex: 1; overflow: hidden; position: relative;
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
         min-height: 0;
+        -webkit-overflow-scrolling: touch;
       }
+
+      .enp-cards-wrap::-webkit-scrollbar { width: 3px; }
+      .enp-cards-wrap::-webkit-scrollbar-track { background: transparent; }
+      .enp-cards-wrap::-webkit-scrollbar-thumb { background: #e8e6e1; border-radius: 2px; }
+
+      /* Card */
       .enp-card {
-        display: none; padding: 1.25rem;
-        overflow-y: auto; max-height: 100%;
+        display: none;
+        padding: 1rem;
       }
-      .enp-card.active { display: block; animation: enp-card-in 0.25s ease; }
+
+      .enp-card.active {
+        display: block;
+        animation: enp-card-in 0.22s ease;
+      }
+
       @keyframes enp-card-in {
-        from { opacity: 0; transform: translateX(12px); }
+        from { opacity: 0; transform: translateX(10px); }
         to   { opacity: 1; transform: translateX(0); }
       }
 
       /* Card type badge */
       .enp-card-type {
-        display: inline-flex; align-items: center; gap: 0.35rem;
-        font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.65rem;
-        border-radius: 20px; margin-bottom: 0.65rem;
+        display: inline-flex; align-items: center; gap: 0.3rem;
+        font-size: 0.65rem; font-weight: 700;
+        padding: 0.18rem 0.6rem;
+        border-radius: 20px;
+        margin-bottom: 0.5rem;
       }
+
       .enp-type-festival { background: #fff3e0; color: #e65100; }
       .enp-type-culture  { background: #f3e5f5; color: #6a1b9a; }
       .enp-type-sport    { background: #e8f5e9; color: #2e7d32; }
@@ -301,94 +351,143 @@
 
       .enp-card-title {
         font-family: 'Noto Serif Thai', serif;
-        font-size: 1.2rem; font-weight: 700; color: #1a1a1a;
-        margin-bottom: 0.2rem; line-height: 1.3;
-      }
-      .enp-card-subtitle {
-        font-size: 0.78rem; color: #888; margin-bottom: 0.85rem;
+        font-size: 1.05rem; font-weight: 700; color: #1a1a1a;
+        margin-bottom: 0.15rem; line-height: 1.35;
       }
 
-      /* Meta */
-      .enp-card-meta { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 0.85rem; }
-      .enp-meta-row {
-        display: flex; align-items: center; gap: 0.4rem;
-        font-size: 0.78rem; color: #555;
+      .enp-card-subtitle {
+        font-size: 0.72rem; color: #999;
+        margin-bottom: 0.65rem; line-height: 1.4;
       }
+
+      /* Meta rows */
+      .enp-card-meta {
+        display: flex; flex-direction: column; gap: 0.3rem;
+        margin-bottom: 0.65rem;
+        padding: 0.6rem 0.75rem;
+        background: #faf9f6;
+        border-radius: 10px;
+        border: 1px solid #ede9e3;
+      }
+
+      .enp-meta-row {
+        display: flex; align-items: center; gap: 0.35rem;
+        font-size: 0.73rem; color: #555;
+      }
+
       .enp-meta-row svg { color: #d4af37; flex-shrink: 0; }
+
       .enp-badge-days {
-        margin-left: auto; font-size: 0.7rem; font-weight: 700;
+        margin-left: auto;
+        font-size: 0.62rem; font-weight: 700;
         background: #fff8e1; color: #b8941e;
-        padding: 0.1rem 0.5rem; border-radius: 20px;
-        border: 1px solid rgba(212,175,55,0.3);
+        padding: 0.08rem 0.45rem; border-radius: 20px;
+        border: 1px solid rgba(212,175,55,0.25);
         white-space: nowrap;
       }
 
+      /* Description */
       .enp-card-desc {
-        font-size: 0.8rem; color: #666; line-height: 1.6;
-        margin-bottom: 0.75rem;
+        font-size: 0.75rem; color: #666; line-height: 1.6;
+        margin-bottom: 0.6rem;
       }
+
+      /* Highlight */
       .enp-card-highlight {
-        font-size: 0.72rem; color: #b8941e; font-weight: 600;
-        background: #fffbf0; border-left: 3px solid #d4af37;
-        padding: 0.4rem 0.65rem; border-radius: 0 6px 6px 0;
-        margin-bottom: 0.85rem;
+        font-size: 0.68rem; color: #b8941e; font-weight: 600;
+        background: #fffbf0;
+        border-left: 3px solid #d4af37;
+        padding: 0.35rem 0.6rem;
+        border-radius: 0 8px 8px 0;
+        margin-bottom: 0.65rem;
+        line-height: 1.5;
       }
+
+      /* Card footer */
       .enp-card-footer {
         display: flex; align-items: center; justify-content: space-between;
         gap: 0.5rem;
       }
+
       .enp-price {
-        font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.65rem;
-        border-radius: 20px;
+        font-size: 0.7rem; font-weight: 700;
+        padding: 0.22rem 0.6rem; border-radius: 20px;
       }
+
       .enp-price.free { background: #e8f5e9; color: #2e7d32; }
       .enp-price.paid { background: #fff3e0; color: #e65100; }
+
       .enp-btn-detail {
-        font-size: 0.75rem; font-weight: 700; color: #b8941e;
-        text-decoration: none; padding: 0.3rem 0.75rem;
-        border: 1.5px solid rgba(212,175,55,0.4); border-radius: 20px;
+        font-size: 0.7rem; font-weight: 700; color: #b8941e;
+        text-decoration: none; padding: 0.25rem 0.65rem;
+        border: 1.5px solid rgba(212,175,55,0.35); border-radius: 20px;
         transition: all 0.2s;
+        -webkit-tap-highlight-color: transparent;
       }
-      .enp-btn-detail:hover { background: #d4af37; color: #fff; border-color: #d4af37; }
+
+      .enp-btn-detail:active { background: #d4af37; color: #fff; }
 
       /* Dots */
       .enp-dots {
-        display: flex; justify-content: center; gap: 0.4rem;
-        padding: 0.6rem 0; flex-shrink: 0;
+        display: flex; justify-content: center; gap: 0.35rem;
+        padding: 0.5rem 0;
         border-top: 1px solid #f0ede8;
+        flex-shrink: 0;
       }
+
       .enp-dot {
-        width: 8px; height: 8px; border-radius: 50%;
+        width: 7px; height: 7px; border-radius: 50%;
         background: #e8e6e1; border: none; cursor: pointer;
         transition: all 0.2s; padding: 0;
+        -webkit-tap-highlight-color: transparent;
       }
-      .enp-dot.active { background: #d4af37; width: 22px; border-radius: 4px; }
+
+      .enp-dot.active { background: #d4af37; width: 20px; border-radius: 4px; }
 
       /* Footer */
       .enp-footer {
-        display: flex; gap: 0.5rem; padding: 0.85rem 1.25rem;
-        border-top: 1px solid #e8e6e1; flex-shrink: 0;
+        padding: 0.65rem 1rem;
+        border-top: 1px solid #ede9e3;
+        flex-shrink: 0;
         background: #faf9f6;
+        border-radius: 0 0 24px 24px;
       }
-      .enp-btn-dismiss {
-        flex: 1; padding: 0.55rem; border: 1.5px solid #e8e6e1;
-        border-radius: 8px; background: #fff; color: #999;
-        font-family: inherit; font-size: 0.75rem; cursor: pointer;
-        transition: all 0.2s;
-      }
-      .enp-btn-dismiss:hover { border-color: #ccc; color: #666; }
-      .enp-btn-close-main {
-        flex: 1; padding: 0.55rem;
-        background: linear-gradient(135deg, #1a1a1a, #333);
-        color: #fff; border: none; border-radius: 8px;
-        font-family: inherit; font-size: 0.8rem; font-weight: 600;
-        cursor: pointer; transition: all 0.2s;
-      }
-      .enp-btn-close-main:hover { background: linear-gradient(135deg, #333, #555); }
 
+      .enp-btn-close-main {
+        width: 100%; padding: 0.6rem;
+        background: linear-gradient(135deg, #1a1a1a, #333);
+        color: #fff; border: none; border-radius: 12px;
+        font-family: inherit; font-size: 0.82rem; font-weight: 600;
+        cursor: pointer; transition: all 0.2s;
+        letter-spacing: 0.03em;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .enp-btn-close-main:active { background: linear-gradient(135deg, #333, #555); }
+
+      /* Mobile — ยังคงเป็นกลางจอ ไม่ใช่ bottom sheet */
       @media (max-width: 480px) {
-        .enp-modal { border-radius: 16px 16px 0 0; max-height: 95vh; }
-        .enp-overlay { align-items: flex-end; padding: 0; }
+        .enp-overlay {
+          padding: 1rem;
+          align-items: center;
+        }
+
+        .enp-modal {
+          max-width: 340px;
+          max-height: 72vh;
+          border-radius: 22px;
+        }
+
+        .enp-card { padding: 0.875rem; }
+        .enp-card-title { font-size: 0.98rem; }
+        .enp-card-desc { font-size: 0.72rem; }
+      }
+
+      @media (max-width: 375px) {
+        .enp-modal {
+          max-height: 68vh;
+          border-radius: 20px;
+        }
       }
     `;
     const style = document.createElement('style');
