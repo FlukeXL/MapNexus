@@ -3362,3 +3362,267 @@ section {
 .profile-logout-btn:hover {
   background: #ffebee;
 }
+
+
+/* ========================================
+   Newsletter — Compact Desktop
+   ======================================== */
+.newsletter-compact {
+    padding: 2rem 0 !important;
+}
+
+.newsletter-compact .newsletter-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+.newsletter-compact .newsletter-text {
+    flex-shrink: 0;
+}
+
+.newsletter-compact .newsletter-title {
+    font-size: 1.4rem;
+    margin-bottom: 0.25rem;
+}
+
+.newsletter-compact .newsletter-description {
+    font-size: 0.88rem;
+    margin-bottom: 0;
+    color: rgba(255,255,255,0.65);
+}
+
+.newsletter-compact .newsletter-form {
+    flex: 1;
+    max-width: 420px;
+    margin: 0;
+    gap: 0.75rem;
+}
+
+.newsletter-compact .newsletter-input {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+}
+
+.newsletter-compact .btn-primary {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.88rem;
+    white-space: nowrap;
+}
+
+/* ========================================
+   Footer — Compact
+   ======================================== */
+.footer {
+    padding: 2.5rem 0 0 !important;
+}
+
+.footer-content {
+    gap: 3rem !important;
+    margin-bottom: 1.5rem !important;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.footer-brand {
+    max-width: 280px !important;
+}
+
+.footer-logo {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.2rem !important;
+}
+
+.footer-tagline {
+    font-size: 0.78rem !important;
+    margin-bottom: 0.75rem !important;
+}
+
+.footer-description {
+    font-size: 0.82rem !important;
+    line-height: 1.65 !important;
+}
+
+.footer-links {
+    gap: 2rem !important;
+}
+
+.footer-title {
+    font-size: 0.82rem !important;
+    margin-bottom: 0.75rem !important;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+}
+
+.footer-list li {
+    margin-bottom: 0.35rem !important;
+}
+
+.footer-list a {
+    font-size: 0.82rem !important;
+    color: rgba(255,255,255,0.6) !important;
+}
+
+.footer-list a:hover {
+    color: var(--gold) !important;
+}
+
+/* ========================================
+   Footer Team Section
+   ======================================== */
+.footer-team {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    margin-bottom: 1.25rem;
+}
+
+.footer-team-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.footer-team-icon {
+    color: rgba(212,175,55,0.5);
+    font-size: 0.7rem;
+}
+
+.footer-team-title {
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* นักพัฒนา 4 คน */
+.footer-team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.footer-team-member {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    text-align: center;
+}
+
+.footer-team-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(184,148,30,0.2), rgba(212,175,55,0.15));
+    border: 1.5px solid rgba(212,175,55,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(212,175,55,0.7);
+    transition: all 0.2s;
+}
+
+.footer-team-member:hover .footer-team-avatar {
+    border-color: rgba(212,175,55,0.6);
+    background: linear-gradient(135deg, rgba(184,148,30,0.3), rgba(212,175,55,0.25));
+}
+
+.footer-team-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.footer-team-name {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.3;
+}
+
+.footer-team-role {
+    font-size: 0.65rem;
+    color: rgba(212,175,55,0.6);
+    letter-spacing: 0.05em;
+}
+
+/* อาจารย์ที่ปรึกษา */
+.footer-advisor-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.footer-advisor-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+}
+
+.footer-advisor-list {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.footer-advisor-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.footer-advisor-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.4);
+    flex-shrink: 0;
+}
+
+.footer-advisor-name {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.6);
+    font-weight: 500;
+}
+
+.footer-advisor-sep {
+    color: rgba(255,255,255,0.2);
+    font-size: 1rem;
+}
+
+/* Footer bottom */
+.footer-bottom {
+    padding: 1rem 0 1.5rem !important;
+    font-size: 0.78rem !important;
+}
+
+@media (max-width: 1024px) {
+    .footer-team-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.875rem;
+    }
+}
