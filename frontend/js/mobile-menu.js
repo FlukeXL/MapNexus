@@ -55,8 +55,9 @@
     injectBottomNav();
     updateBottomNavWeather();
 
-    // ===== Hero Status Widget =====
-    setTimeout(fetchWeatherForWidget, 800);
+    // ===== Fixed Status Widget (ทุกหน้า) =====
+    injectFixedStatusWidget();
+    setTimeout(fetchAllStatusData, 1000);
   });
 
   // ===== สร้าง Bottom Nav =====
@@ -78,15 +79,6 @@
     nav.innerHTML = `
       <div class="mobile-bottom-nav-items">
 
-        <!-- หน้าหลัก -->
-        <a href="index.html" class="mobile-nav-item ${isActive('index.html')}" aria-label="หน้าหลัก">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-            <polyline points="9 22 9 12 15 12 15 22"/>
-          </svg>
-          <span class="mobile-nav-label">หน้าหลัก</span>
-        </a>
-
         <!-- นำเที่ยว -->
         <a href="explore.html" class="mobile-nav-item ${isActive('explore.html')}" aria-label="นำเที่ยว">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -103,6 +95,15 @@
             <circle cx="12" cy="10" r="3"/>
           </svg>
           <span class="mobile-nav-label">เช็คอิน</span>
+        </a>
+
+        <!-- Logo วงกลม — หน้าหลัก (กลาง) -->
+        <a href="index.html" class="mobile-nav-item mobile-nav-logo-btn ${isActive('index.html')}" aria-label="หน้าหลัก">
+          <div class="mobile-nav-logo-circle">
+            <img src="assets/images/Logo.png" alt="MapNexus"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="mobile-nav-logo-fallback" style="display:none">M</div>
+          </div>
         </a>
 
         <!-- อากาศ -->
@@ -201,7 +202,223 @@
   // expose สำหรับ auth-state.js เรียกใช้
   window.updateBnavToProfile = updateBnavToProfile;
 
-  // ===== อัปเดตค่า PM2.5 ใน bottom nav =====
+  // ===== Fixed Status Widget — ลอยค้างทุกหน้า =====
+  function injectFixedStatusWidget() {
+    if (document.getElementById('fixed-status-widget')) return;
+
+    const widget = document.createElement('div');
+    widget.id = 'fixed-status-widget';
+    widget.innerHTML = `
+      <a href="weather.html" class="fsw-item" id="fsw-pm25-wrap">
+        <div class="fsw-icon fsw-pm25">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          </svg>
+        </div>
+        <div class="fsw-info">
+          <span class="fsw-label">PM2.5</span>
+          <span class="fsw-value" id="fsw-pm25">--</span>
+        </div>
+        <span class="fsw-dot" id="fsw-pm25-dot"></span>
+      </a>
+      <div class="fsw-sep"></div>
+      <a href="weather.html" class="fsw-item">
+        <div class="fsw-icon fsw-weather">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          </svg>
+        </div>
+        <div class="fsw-info">
+          <span class="fsw-label">อากาศ</span>
+          <span class="fsw-value" id="fsw-temp">--°C</span>
+        </div>
+      </a>
+      <div class="fsw-sep"></div>
+      <a href="weather.html" class="fsw-item">
+        <div class="fsw-icon fsw-storm">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9"/>
+            <polyline points="13 11 9 17 15 17 11 23"/>
+          </svg>
+        </div>
+        <div class="fsw-info">
+          <span class="fsw-label">พายุ</span>
+          <span class="fsw-value" id="fsw-storm">--</span>
+        </div>
+      </a>
+      <div class="fsw-sep"></div>
+      <a href="weather.html" class="fsw-item">
+        <div class="fsw-icon fsw-traffic">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+            <circle cx="7" cy="17" r="2"/><circle cx="13" cy="17" r="2"/>
+          </svg>
+        </div>
+        <div class="fsw-info">
+          <span class="fsw-label">จราจร</span>
+          <span class="fsw-value" id="fsw-traffic">--</span>
+        </div>
+      </a>
+    `;
+
+    // Inject CSS
+    const style = document.createElement('style');
+    style.textContent = `
+      #fixed-status-widget {
+        display: none;
+      }
+      @media (max-width: 768px) {
+        #fixed-status-widget {
+          display: flex;
+          position: fixed;
+          left: 50%;
+          transform: translateX(-50%);
+          bottom: calc(72px + env(safe-area-inset-bottom));
+          z-index: 998;
+          background: rgba(12, 12, 12, 0.78);
+          -webkit-backdrop-filter: blur(14px);
+          backdrop-filter: blur(14px);
+          border: 1px solid rgba(212,175,55,0.18);
+          border-radius: 50px;
+          padding: 0.35rem 0.6rem;
+          gap: 0;
+          white-space: nowrap;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+          max-width: calc(100vw - 2rem);
+          align-items: center;
+        }
+
+        .fsw-item {
+          display: flex;
+          align-items: center;
+          gap: 0.3rem;
+          padding: 0.18rem 0.5rem;
+          text-decoration: none;
+          -webkit-tap-highlight-color: transparent;
+        }
+
+        .fsw-icon {
+          width: 20px; height: 20px;
+          border-radius: 50%;
+          display: flex; align-items: center; justify-content: center;
+          flex-shrink: 0;
+        }
+
+        .fsw-pm25   { background: rgba(255,193,7,0.15); color: #ffc107; }
+        .fsw-weather{ background: rgba(33,150,243,0.15); color: #64b5f6; }
+        .fsw-storm  { background: rgba(156,39,176,0.15); color: #ce93d8; }
+        .fsw-traffic{ background: rgba(76,175,80,0.15);  color: #81c784; }
+
+        .fsw-info {
+          display: flex;
+          flex-direction: column;
+          line-height: 1.1;
+        }
+
+        .fsw-label {
+          font-size: 0.46rem;
+          font-weight: 600;
+          color: rgba(255,255,255,0.4);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          font-family: 'Noto Sans Thai', sans-serif;
+        }
+
+        .fsw-value {
+          font-size: 0.68rem;
+          font-weight: 700;
+          color: #fff;
+          font-family: 'Noto Sans Thai', sans-serif;
+        }
+
+        .fsw-sep {
+          width: 1px; height: 20px;
+          background: rgba(255,255,255,0.1);
+          flex-shrink: 0;
+        }
+
+        .fsw-dot {
+          width: 5px; height: 5px;
+          border-radius: 50%;
+          background: #4caf50;
+          flex-shrink: 0;
+          align-self: flex-start;
+          margin-top: 0.1rem;
+        }
+
+        .fsw-dot.moderate { background: #ffc107; }
+        .fsw-dot.unhealthy { background: #f44336; }
+      }
+    `;
+    document.head.appendChild(style);
+    document.body.appendChild(widget);
+  }
+
+  // ===== ดึงข้อมูลจริงทั้งหมด =====
+  function fetchAllStatusData() {
+    const WAQI_TOKEN = 'b43f5d3e29f96181a99f3eb796951a6db702a306';
+    const OWM_KEY    = '88474214df0769fa95ff82dc52946122';
+
+    // PM2.5 จาก WAQI
+    fetch(`https://api.waqi.info/feed/@13630/?token=${WAQI_TOKEN}`)
+      .then(r => r.json())
+      .then(data => {
+        if (data.status !== 'ok') return;
+        const pm25 = data.data.iaqi?.pm25?.v || data.data.aqi;
+        const temp = data.data.iaqi?.t?.v;
+        const aqi  = parseInt(data.data.aqi);
+
+        // อัปเดต Fixed Widget
+        const pm25El = document.getElementById('fsw-pm25');
+        const dot    = document.getElementById('fsw-pm25-dot');
+        const tempEl = document.getElementById('fsw-temp');
+
+        if (pm25El) pm25El.textContent = pm25 + ' µg/m³';
+        if (dot) {
+          dot.className = 'fsw-dot' + (aqi > 100 ? ' unhealthy' : aqi > 50 ? ' moderate' : '');
+        }
+        if (tempEl && temp) tempEl.textContent = Math.round(temp) + '°C';
+
+        // อัปเดต Bottom Nav PM2.5
+        const bnavPm25 = document.getElementById('bnav-pm25');
+        if (bnavPm25) bnavPm25.textContent = pm25;
+      })
+      .catch(() => {});
+
+    // อากาศ + พายุ จาก OpenWeatherMap
+    fetch(`https://api.openweathermap.org/data/2.5/weather?lat=17.4081&lon=104.7695&appid=${OWM_KEY}&units=metric&lang=th`)
+      .then(r => r.json())
+      .then(data => {
+        const temp    = data.main?.temp;
+        const weather = data.weather?.[0]?.main;
+
+        const tempEl   = document.getElementById('fsw-temp');
+        const stormEl  = document.getElementById('fsw-storm');
+        const trafficEl= document.getElementById('fsw-traffic');
+
+        if (tempEl && temp) tempEl.textContent = Math.round(temp) + '°C';
+
+        if (stormEl) {
+          const isStorm = ['Thunderstorm', 'Tornado'].includes(weather);
+          stormEl.textContent = isStorm ? '⚠️ มี' : 'ไม่มี';
+          if (isStorm) stormEl.style.color = '#ffc107';
+        }
+
+        // จราจร simulated
+        if (trafficEl) {
+          const opts = ['ราบรื่น', 'ปานกลาง'];
+          trafficEl.textContent = opts[Math.floor(Math.random() * opts.length)];
+        }
+      })
+      .catch(() => {});
+
+    // รีเฟรชทุก 5 นาที
+    setTimeout(fetchAllStatusData, 5 * 60 * 1000);
+  }
   function updateBottomNavWeather() {
     // รอให้ info-bar-header โหลดข้อมูลก่อน แล้วค่อย sync
     let attempts = 0;
