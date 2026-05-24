@@ -1454,3 +1454,86 @@
     pointer-events: auto;
   }
 }
+
+
+/* =============================================
+   EXPLORE — Filter Bar Mobile
+   ============================================= */
+
+@media (max-width: 768px) {
+
+  /* ซ่อน dropdown เรียงลำดับ */
+  #filter-controls-desktop {
+    display: none !important;
+  }
+
+  /* Filter section */
+  .filter-section {
+    padding: 0.6rem 0 !important;
+    background: #fff;
+    border-bottom: 1px solid #e8e6e1;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .filter-section .container {
+    padding: 0 !important;
+  }
+
+  /* Filter bar — แถวเดียว scroll ได้ */
+  .filter-bar {
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 0 !important;
+    overflow: hidden;
+  }
+
+  /* Tabs — scroll แนวนอน */
+  .filter-tabs {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    gap: 0.4rem !important;
+    padding: 0.35rem 0.875rem !important;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+  }
+
+  .filter-tabs::-webkit-scrollbar { display: none; }
+
+  /* ปุ่มแต่ละอัน */
+  .filter-tab {
+    flex-shrink: 0 !important;
+    scroll-snap-align: start;
+    padding: 0.38rem 0.875rem !important;
+    font-size: 0.78rem !important;
+    font-weight: 600 !important;
+    border-radius: 50px !important;
+    border: 1.5px solid #e8e6e1 !important;
+    background: #fff !important;
+    color: #555 !important;
+    white-space: nowrap;
+    transition: all 0.18s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .filter-tab.active {
+    background: linear-gradient(135deg, #b8941e, #d4af37) !important;
+    color: #fff !important;
+    border-color: #d4af37 !important;
+    box-shadow: 0 2px 8px rgba(212,175,55,0.3) !important;
+  }
+
+  .filter-tab:active {
+    transform: scale(0.96);
+  }
+}
+
+@media (max-width: 480px) {
+  .filter-tab {
+    padding: 0.32rem 0.75rem !important;
+    font-size: 0.74rem !important;
+  }
+}
