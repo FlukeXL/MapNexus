@@ -466,46 +466,6 @@
     <script type="module" src="js/auth-state.js"></script>
     <script src="js/events-data.js"></script>
     <script src="js/event-notification.js"></script>
-    <script>
-    // ===== Hamburger Menu =====
-    (function(){
-      const toggle = document.querySelector('.mobile-menu-toggle');
-      const menu   = document.querySelector('.nav-menu');
-      if (!toggle || !menu) return;
-
-      // เพิ่มปุ่ม auth ใน mobile menu
-      function injectMobileAuth() {
-        if (menu.querySelector('.nav-menu-mobile-auth')) return;
-        const authDiv = document.createElement('div');
-        authDiv.className = 'nav-menu-mobile-auth';
-        const navActions = document.getElementById('nav-actions');
-        if (navActions) {
-          authDiv.innerHTML = navActions.innerHTML;
-        } else {
-          authDiv.innerHTML = `
-            <a href="login.html?tab=register" class="btn-register">สมัครบัญชี</a>
-            <a href="login.html" class="btn-secondary">เข้าสู่ระบบ</a>
-          `;
-        }
-        menu.appendChild(authDiv);
-      }
-
-      toggle.addEventListener('click', function(){
-        const isOpen = menu.classList.toggle('mobile-open');
-        toggle.classList.toggle('active', isOpen);
-        document.body.style.overflow = isOpen ? 'hidden' : '';
-        if (isOpen) injectMobileAuth();
-      });
-
-      // ปิดเมื่อคลิก link
-      menu.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-          menu.classList.remove('mobile-open');
-          toggle.classList.remove('active');
-          document.body.style.overflow = '';
-        });
-      });
-    })();
-    </script>
+    <script src="js/mobile-menu.js"></script>
 </body>
 </html>
