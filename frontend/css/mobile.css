@@ -755,20 +755,36 @@
 
 
 /* =============================================
-   EVENT NOTIFICATION POPUP — bottom sheet
+   EVENT NOTIFICATION POPUP — กลางจอเสมอ
    ============================================= */
+
+.enp-overlay {
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 1.25rem !important;
+}
+
+.enp-modal {
+  border-radius: 24px !important;
+  max-height: 72vh !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
 
 @media (max-width: 480px) {
   .enp-overlay {
-    align-items: flex-end !important;
-    padding: 0 !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 1rem !important;
   }
 
   .enp-modal {
-    border-radius: 24px 24px 0 0 !important;
-    max-height: 88vh !important;
+    border-radius: 22px !important;
+    max-height: 70vh !important;
     margin-top: 0 !important;
-    margin-bottom: calc(65px + env(safe-area-inset-bottom)) !important;
+    margin-bottom: 0 !important;
   }
 
   .enp-card { padding: 0.875rem; }
