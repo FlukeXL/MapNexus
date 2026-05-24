@@ -67,7 +67,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:#faf9f6;display:flex;ali
   <!-- Left Panel — Logo / Brand -->
   <div class="left">
     <!-- ถ้ามีไฟล์ logo ให้แทนที่ด้วย: <img src="assets/images/logo.png" alt="MapNexus" class="left-logo-img"> -->
-    <img src="D:\MapNexus\frontend\assets\images\Logo.png" alt="MapNexus" class="left-logo-img">
+    <img src="assets\images\Logo.png" alt="MapNexus" class="left-logo-img">
     <div class="left-name">MapNexus</div>
     <div class="left-sub">การเดินทางที่มีระดับ</div>
     <div class="left-features">
@@ -80,14 +80,9 @@ body{font-family:'Noto Sans Thai',sans-serif;background:#faf9f6;display:flex;ali
 
   <!-- Right Panel — Form -->
   <div class="card">
-  <div class="logo">
-    <div class="logo-icon">M</div>
-    <div class="logo-name">MapNexus</div>
-    <div class="logo-sub">การเดินทางที่มีระดับ</div>
-  </div>
   <div class="tabs">
-    <button class="tab active" id="t-reg" onclick="sw('reg')">สมัครบัญชี</button>
-    <button class="tab" id="t-log" onclick="sw('log')">เข้าสู่ระบบ</button>
+    <button type="button" class="tab active" id="t-reg" onclick="sw('reg')">สมัครบัญชี</button>
+    <button type="button" class="tab" id="t-log" onclick="sw('log')">เข้าสู่ระบบ</button>
   </div>
   <div class="alert" id="al"></div>
 
@@ -100,8 +95,8 @@ body{font-family:'Noto Sans Thai',sans-serif;background:#faf9f6;display:flex;ali
     <div class="divider"><span>หรือ</span></div>
     <form onsubmit="reg(event)">
       <div class="field"><label class="label">Gmail</label><input type="email" id="re" class="input" placeholder="example@gmail.com" required></div>
-      <div class="field"><label class="label">รหัสผ่าน</label><div class="input-wrap"><input type="password" id="rp" class="input" placeholder="อย่างน้อย 8 ตัวอักษร" minlength="8" required><button type="button" class="eye" onclick="tp('rp')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div><div id="ps"></div></div>
-      <div class="field"><label class="label">ยืนยันรหัสผ่าน</label><div class="input-wrap"><input type="password" id="rc" class="input" placeholder="กรอกอีกครั้ง" required><button type="button" class="eye" onclick="tp('rc')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
+      <div class="field"><label class="label">รหัสผ่าน</label><div class="input-wrap"><input type="password" id="rp" class="input" placeholder="อย่างน้อย 8 ตัวอักษร" minlength="8" required><button type="button" class="eye" aria-label="แสดง/ซ่อนรหัสผ่าน" onclick="tp('rp')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div><div id="ps"></div></div>
+      <div class="field"><label class="label">ยืนยันรหัสผ่าน</label><div class="input-wrap"><input type="password" id="rc" class="input" placeholder="กรอกอีกครั้ง" required><button type="button" class="eye" aria-label="แสดง/ซ่อนรหัสผ่าน" onclick="tp('rc')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
       <label class="ckbox"><input type="checkbox" required><span>ยอมรับ <a href="#">เงื่อนไข</a> และ <a href="#">นโยบาย</a></span></label>
       <button type="submit" class="submit" id="br">สมัครบัญชี</button>
     </form>
@@ -117,7 +112,7 @@ body{font-family:'Noto Sans Thai',sans-serif;background:#faf9f6;display:flex;ali
     <div class="divider"><span>หรือ</span></div>
     <form onsubmit="log(event)">
       <div class="field"><label class="label">Gmail</label><input type="email" id="le" class="input" placeholder="example@gmail.com" required></div>
-      <div class="field"><label class="label">รหัสผ่าน</label><div class="input-wrap"><input type="password" id="lp" class="input" placeholder="รหัสผ่าน" required><button type="button" class="eye" onclick="tp('lp')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
+      <div class="field"><label class="label">รหัสผ่าน</label><div class="input-wrap"><input type="password" id="lp" class="input" placeholder="รหัสผ่าน" required><button type="button" class="eye" aria-label="แสดง/ซ่อนรหัสผ่าน" onclick="tp('lp')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
       <div class="forgot"><a href="#" onclick="sw('fgt')">ลืมรหัสผ่าน?</a></div>
       <button type="submit" class="submit" id="bl">เข้าสู่ระบบ</button>
     </form>
