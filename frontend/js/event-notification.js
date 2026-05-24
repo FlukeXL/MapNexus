@@ -185,7 +185,6 @@
         border-radius: 28px;
         width: 100%; max-width: 460px;
         max-height: 90vh;
-        overflow: hidden;
         display: flex; flex-direction: column;
         box-shadow: 0 24px 64px rgba(0,0,0,0.3);
         animation: enp-slide-up 0.35s cubic-bezier(0.34,1.56,0.64,1);
@@ -193,18 +192,23 @@
         position: relative;
         overflow: visible;
       }
-      /* ส่วนที่ scroll ได้ต้องซ่อน overflow เฉพาะ content */
-      .enp-cards-wrap, .enp-footer, .enp-title-bar, .enp-dots {
+      /* clip เฉพาะ content ข้างใน ไม่ให้ล้นขอบ modal */
+      .enp-modal > *:not(.enp-logo-center-wrap) {
         overflow: hidden;
       }
-      /* clip เฉพาะส่วนล่างของ modal */
-      .enp-modal::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: 20px;
-        pointer-events: none;
-        box-shadow: inset 0 0 0 0 transparent;
+      /* ทำให้มุมโค้งของ header ทำงานได้ */
+      .enp-header {
+        overflow: hidden;
+      }
+      /* ทำให้มุมล่างของ footer โค้งด้วย */
+      .enp-footer {
+        border-radius: 0 0 28px 28px;
+        overflow: hidden;
+      }
+      /* ส่วนที่ scroll ได้ต้องซ่อน overflow เฉพาะ content */
+      .enp-cards-wrap {
+        overflow-y: auto;
+        overflow-x: hidden;
       }
       @keyframes enp-slide-up {
         from { transform: translateY(40px) scale(0.96); opacity: 0; }
@@ -221,7 +225,7 @@
         justify-content: flex-end;
         position: relative;
         flex-shrink: 0;
-        border-radius: 0 0 28px 28px;
+        border-radius: 28px 28px 28px 28px;
       }
       .enp-logo-center-wrap {
         position: absolute;
