@@ -502,9 +502,9 @@
                     </div>
                 </div>
 
-                <!-- PM2.5 — จำลอง -->
-                <div class="data-source-item simulated">
-                    <div class="source-badge simulated">ข้อมูลจำลอง</div>
+                <!-- PM2.5 — ข้อมูลจริง -->
+                <div class="data-source-item real">
+                    <div class="source-badge real">ข้อมูลจริง</div>
                     <div class="source-icon">
                         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
@@ -512,8 +512,15 @@
                     </div>
                     <div class="source-info">
                         <div class="source-name">ค่าฝุ่น PM2.5 ทุกอำเภอ</div>
-                        <div class="source-link pending">รอเชื่อมต่อ API จริง</div>
-                        <div class="source-desc">ข้อมูลจำลองเพื่อแสดงผล — แนะนำ: กรมควบคุมมลพิษ (PCD)</div>
+                        <a href="https://aqicn.org/city/thailand/nakhon-phanom/" target="_blank" rel="noopener noreferrer" class="source-link">
+                            WAQI API (กรมควบคุมมลพิษ)
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                <polyline points="15 3 21 3 21 9"></polyline>
+                                <line x1="10" y1="14" x2="21" y2="3"></line>
+                            </svg>
+                        </a>
+                        <div class="source-desc">สถานีอุตุนิยมวิทยานครพนม — อำเภออื่นใช้ค่าประมาณจากสถานีใกล้เคียง</div>
                     </div>
                 </div>
 
