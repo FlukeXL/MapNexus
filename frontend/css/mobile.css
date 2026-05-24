@@ -1153,6 +1153,7 @@
 @media (max-width: 768px) {
 
   #bnav-profile-popup {
+    display: none; /* ซ่อนบน desktop เสมอ */
     position: fixed;
     bottom: calc(70px + env(safe-area-inset-bottom));
     right: 0.75rem;
@@ -1324,4 +1325,28 @@
   }
 
   .bnav-pp-logout:active { background: rgba(220,38,38,0.15); }
+}
+
+
+/* =============================================
+   GLOBAL HIDE — ซ่อน mobile-only elements บน desktop
+   ============================================= */
+
+/* ซ่อน bottom nav profile popup บน desktop */
+#bnav-profile-popup {
+  display: none !important;
+}
+
+/* เปิดใช้บนมือถือ */
+@media (max-width: 768px) {
+  #bnav-profile-popup {
+    display: block !important;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #bnav-profile-popup.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
 }
