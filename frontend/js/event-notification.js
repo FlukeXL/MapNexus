@@ -182,16 +182,16 @@
       }
       .enp-modal {
         background: #fff;
-        border-radius: 20px;
+        border-radius: 28px;
         width: 100%; max-width: 460px;
         max-height: 90vh;
         overflow: hidden;
         display: flex; flex-direction: column;
         box-shadow: 0 24px 64px rgba(0,0,0,0.3);
         animation: enp-slide-up 0.35s cubic-bezier(0.34,1.56,0.64,1);
-        margin-top: 50px; /* เผื่อพื้นที่ให้ Logo ล้นขึ้น */
+        margin-top: 50px;
         position: relative;
-        overflow: visible; /* ให้ Logo ล้นออกนอกขอบได้ */
+        overflow: visible;
       }
       /* ส่วนที่ scroll ได้ต้องซ่อน overflow เฉพาะ content */
       .enp-cards-wrap, .enp-footer, .enp-title-bar, .enp-dots {
@@ -221,7 +221,7 @@
         justify-content: flex-end;
         position: relative;
         flex-shrink: 0;
-        border-radius: 0 0 18px 18px;
+        border-radius: 0 0 28px 28px;
       }
       .enp-logo-center-wrap {
         position: absolute;
