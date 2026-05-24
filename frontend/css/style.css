@@ -3626,3 +3626,37 @@ section {
         gap: 0.875rem;
     }
 }
+
+
+/* ========================================
+   Footer — About Button
+   ======================================== */
+.footer-about-btn-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.25rem;
+}
+
+.footer-about-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.55rem 1.5rem;
+    background: transparent;
+    border: 1.5px solid rgba(212,175,55,0.35);
+    border-radius: 50px;
+    color: rgba(212,175,55,0.8);
+    font-size: 0.82rem;
+    font-weight: 600;
+    font-family: var(--font-body);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: all 0.2s;
+}
+
+.footer-about-btn:hover {
+    background: rgba(212,175,55,0.1);
+    border-color: rgba(212,175,55,0.6);
+    color: #d4af37;
+    gap: 0.65rem;
+}

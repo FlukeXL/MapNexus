@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เกี่ยวกับเรา — MapNexus</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/mobile.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@200;300;400;500;600;700&family=Noto+Serif+Thai:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== About Page Styles ===== */
+:root {
+  --gold: #d4af37; --gold-dark: #b8941e; --gold-light: #f4e4c1;
+  --primary: #1a1a1a; --off-white: #faf9f6; --light-gray: #e8e6e1;
+  --medium-gray: #9b9b9b; --dark-gray: #4a4a4a;
+  --font-heading: 'Noto Serif Thai', serif;
+  --font-body: 'Noto Sans Thai', sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family: var(--font-body); color: var(--primary); background: var(--off-white); overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; height: auto; display: block; }
+
+/* Hero */
+.about-hero {
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 60%, #1a1a1a 100%);
+  padding: 5rem 1.5rem 3.5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.about-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(212,175,55,0.12) 0%, transparent 65%);
+  pointer-events: none;
+}
+.about-hero-logo {
+  width: 72px; height: 72px; border-radius: 50%;
+  background: #fff; border: 3px solid rgba(212,175,55,0.5);
+  box-shadow: 0 0 0 6px rgba(212,175,55,0.1), 0 8px 32px rgba(0,0,0,0.3);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 1.25rem; overflow: hidden;
+}
+.about-hero-logo img { width: 62px; height: 62px; object-fit: contain; border-radius: 50%; }
+.about-hero-title {
+  font-family: var(--font-heading); font-size: clamp(1.6rem, 4vw, 2.5rem);
+  font-weight: 700; color: #fff; margin-bottom: 0.5rem;
+}
+.about-hero-sub {
+  font-size: 0.9rem; color: rgba(255,255,255,0.55); letter-spacing: 0.08em;
+}
+.about-hero-gold { background: linear-gradient(135deg, #f4e4c1, #d4af37); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+/* Back button */
+.about-back {
+  position: absolute; top: 1.25rem; left: 1.25rem;
+  display: flex; align-items: center; gap: 0.4rem;
+  color: rgba(255,255,255,0.6); font-size: 0.82rem; font-weight: 500;
+  transition: color 0.2s;
+}
+.about-back:hover { color: #d4af37; }
+
+/* Container */
+.about-container { max-width: 900px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* Section */
+.about-section { padding: 3rem 0; border-bottom: 1px solid var(--light-gray); }
+.about-section:last-child { border-bottom: none; }
+.about-section-label {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--gold-dark);
+  margin-bottom: 0.5rem; display: block;
+}
+.about-section-title {
+  font-family: var(--font-heading); font-size: clamp(1.3rem, 3vw, 1.8rem);
+  font-weight: 700; color: var(--primary); margin-bottom: 1.25rem; line-height: 1.3;
+}
+.about-section-body {
+  font-size: 0.95rem; color: var(--dark-gray); line-height: 1.85;
+}
+.about-section-body p + p { margin-top: 0.875rem; }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="about-hero">
+  <a href="index.html" class="about-back">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    กลับหน้าหลัก
+  </a>
+  <div class="about-hero-logo">
+    <img src="assets/images/Logo.png" alt="MapNexus Logo"
+         onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\'font-family:serif;font-size:1.8rem;font-weight:700;color:#1a1a1a\'>M</span>'">
+  </div>
+  <h1 class="about-hero-title"><span class="about-hero-gold">MapNexus</span></h1>
+  <p class="about-hero-sub">การเดินทางที่มีระดับ · นครพนม</p>
+</section>
+
+<main class="about-container">
+
+<!-- ทีมนักพัฒนา -->
+<section class="about-section" id="team">
+  <span class="about-section-label">ทีมพัฒนา</span>
+  <h2 class="about-section-title">ผู้อยู่เบื้องหลัง MapNexus</h2>
+  <style>
+  .team-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.25rem; margin-bottom: 2rem; }
+  @media(max-width:640px){ .team-grid { grid-template-columns: repeat(2,1fr); gap: 0.875rem; } }
+  .team-card {
+    background: #fff; border-radius: 16px; padding: 1.25rem 0.875rem;
+    text-align: center; border: 1px solid var(--light-gray);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06); transition: all 0.2s;
+  }
+  .team-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); border-color: rgba(212,175,55,0.3); }
+  .team-avatar {
+    width: 64px; height: 64px; border-radius: 50%; margin: 0 auto 0.75rem;
+    background: linear-gradient(135deg, rgba(184,148,30,0.15), rgba(212,175,55,0.1));
+    border: 2px solid rgba(212,175,55,0.35);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(212,175,55,0.8); overflow: hidden;
+  }
+  .team-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+  .team-name { font-size: 0.82rem; font-weight: 700; color: var(--primary); line-height: 1.35; margin-bottom: 0.25rem; }
+  .team-role { font-size: 0.68rem; color: var(--gold-dark); font-weight: 600; letter-spacing: 0.04em; }
+  .advisor-row { display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap; padding: 1.25rem; background: var(--primary); border-radius: 14px; }
+  .advisor-item { display: flex; align-items: center; gap: 0.6rem; }
+  .advisor-avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(212,175,55,0.12); border: 1.5px solid rgba(212,175,55,0.3); display: flex; align-items: center; justify-content: center; color: rgba(212,175,55,0.7); flex-shrink: 0; }
+  .advisor-info { display: flex; flex-direction: column; }
+  .advisor-name { font-size: 0.8rem; font-weight: 600; color: rgba(255,255,255,0.85); }
+  .advisor-role { font-size: 0.65rem; color: rgba(212,175,55,0.6); }
+  .advisor-sep { color: rgba(255,255,255,0.15); font-size: 1.5rem; }
+  @media(max-width:480px){ .advisor-row { flex-direction: column; gap: 0.875rem; } .advisor-sep { display: none; } }
+  </style>
+
+  <div class="team-grid">
+    <div class="team-card">
+      <div class="team-avatar">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div class="team-name">นายเมธี โพธิกำพล</div>
+      <div class="team-role">นักพัฒนา</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div class="team-name">นางสาวศิริวรรณ พนาพงษ์พิสุทธิ์</div>
+      <div class="team-role">นักพัฒนา</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div class="team-name">นางสาวจิดาภา วงค์ประคำ</div>
+      <div class="team-role">นักพัฒนา</div>
+    </div>
+    <div class="team-card">
+      <div class="team-avatar">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div class="team-name">นางสาวบุณยาดา ตระกูลศักดิ์ศรี</div>
+      <div class="team-role">นักพัฒนา</div>
+    </div>
+  </div>
+
+  <div class="advisor-row">
+    <div class="advisor-item">
+      <div class="advisor-avatar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      <div class="advisor-info">
+        <span class="advisor-name">ดร.จรรยารัตน์ พฤกษานันท์</span>
+        <span class="advisor-role">อาจารย์ที่ปรึกษา</span>
+      </div>
+    </div>
+    <div class="advisor-sep">·</div>
+    <div class="advisor-item">
+      <div class="advisor-avatar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      <div class="advisor-info">
+        <span class="advisor-name">อาจารย์นิสากร พุทธวงศ์</span>
+        <span class="advisor-role">อาจารย์ที่ปรึกษา</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- หัวข้อ 1: ประวัติในการทำผลงาน -->
+<section class="about-section" id="history">
+  <span class="about-section-label">หัวข้อที่ 1</span>
+  <h2 class="about-section-title">ประวัติในการทำผลงานชิ้นนี้</h2>
+  <div class="about-section-body">
+    <p>MapNexus เริ่มต้นจากโครงงานวิชาการของนักศึกษากลุ่มหนึ่ง ที่มีความสนใจในการพัฒนาเทคโนโลยีเพื่อส่งเสริมการท่องเที่ยวในจังหวัดนครพนม ซึ่งเป็นเมืองที่มีมรดกทางวัฒนธรรมและธรรมชาติอันงดงาม แต่ยังขาดแพลตฟอร์มดิจิทัลที่ทันสมัยในการนำเสนอข้อมูล</p>
+    <p>โครงการนี้ได้รับการพัฒนาขึ้นภายใต้การดูแลของอาจารย์ที่ปรึกษา โดยใช้เทคโนโลยีเว็บสมัยใหม่ ผสมผสานกับข้อมูลจริงจาก API ต่างๆ เพื่อให้ผู้ใช้งานได้รับประสบการณ์การท่องเที่ยวที่ครบครันและทันสมัย</p>
+  </div>
+</section>
+
+<!-- หัวข้อ 2: รูปภาพการทำงาน -->
+<section class="about-section" id="gallery">
+  <span class="about-section-label">หัวข้อที่ 2</span>
+  <h2 class="about-section-title">ภาพการทำงานและทีมงาน</h2>
+  <style>
+  .about-gallery { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.875rem; }
+  @media(max-width:600px){ .about-gallery { grid-template-columns: repeat(2,1fr); } }
+  .about-gallery-item {
+    aspect-ratio: 4/3; border-radius: 12px; overflow: hidden;
+    background: linear-gradient(135deg, #e8e6e1, #d4d0c8);
+    display: flex; align-items: center; justify-content: center;
+    border: 1px solid var(--light-gray); position: relative;
+  }
+  .about-gallery-placeholder {
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    color: var(--medium-gray);
+  }
+  .about-gallery-placeholder span { font-size: 0.72rem; }
+  </style>
+  <div class="about-gallery">
+    <div class="about-gallery-item">
+      <div class="about-gallery-placeholder">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span>รูปภาพทีมงาน</span>
+      </div>
+    </div>
+    <div class="about-gallery-item">
+      <div class="about-gallery-placeholder">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span>ภาพการทำงาน</span>
+      </div>
+    </div>
+    <div class="about-gallery-item">
+      <div class="about-gallery-placeholder">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span>ภาพกิจกรรม</span>
+      </div>
+    </div>
+    <div class="about-gallery-item">
+      <div class="about-gallery-placeholder">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span>ภาพนำเสนอ</span>
+      </div>
+    </div>
+    <div class="about-gallery-item">
+      <div class="about-gallery-placeholder">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span>ภาพทีมทั้งหมด</span>
+      </div>
+    </div>
+    <div class="about-gallery-item">
+      <div class="about-gallery-placeholder">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <span>ภาพสถานที่</span>
+      </div>
+    </div>
+  </div>
+  <p style="font-size:0.78rem;color:var(--medium-gray);margin-top:0.875rem;text-align:center;">* สามารถเพิ่มรูปภาพจริงได้ในภายหลัง</p>
+</section>
+
+<!-- หัวข้อ 3: ทำไมถึงทำเว็บนี้ -->
+<section class="about-section" id="why">
+  <span class="about-section-label">หัวข้อที่ 3</span>
+  <h2 class="about-section-title">ทำไมถึงคิดจะทำเว็บนี้ขึ้นมา</h2>
+  <div class="about-section-body">
+    <p>นครพนมเป็นจังหวัดที่มีศักยภาพด้านการท่องเที่ยวสูง ทั้งในแง่ของวัฒนธรรม ประวัติศาสตร์ และธรรมชาติริมแม่น้ำโขง แต่ยังขาดแพลตฟอร์มดิจิทัลที่รวบรวมข้อมูลอย่างครบครันและใช้งานง่าย</p>
+    <p>ทีมงานจึงมีแนวคิดในการสร้าง MapNexus ขึ้นมาเพื่อเป็นสื่อกลางระหว่างนักท่องเที่ยวกับสถานที่ท่องเที่ยวในนครพนม โดยนำเสนอข้อมูลแบบเรียลไทม์ ทั้งสภาพอากาศ คุณภาพอากาศ และข้อมูลสถานที่ต่างๆ ในรูปแบบที่ทันสมัยและสวยงาม</p>
+  </div>
+</section>
+
+<!-- หัวข้อ 4: แรงบันดาลใจ -->
+<section class="about-section" id="inspiration">
+  <span class="about-section-label">หัวข้อที่ 4</span>
+  <h2 class="about-section-title">แรงบันดาลใจ</h2>
+  <div class="about-section-body">
+    <p>แรงบันดาลใจหลักมาจากความรักและความภาคภูมิใจในบ้านเกิด ทีมงานทุกคนต่างเติบโตมาในภาคอีสาน และเห็นถึงความงดงามของนครพนมที่ยังไม่ได้รับการนำเสนออย่างเต็มที่ในโลกดิจิทัล</p>
+    <p>นอกจากนี้ยังได้รับแรงบันดาลใจจากแพลตฟอร์มท่องเที่ยวระดับโลก ที่ผสมผสานความสวยงามของการออกแบบเข้ากับประโยชน์ใช้สอยที่แท้จริง MapNexus จึงถูกออกแบบให้มีความหรูหราและพรีเมียม สมกับเป็นตัวแทนของนครพนม เมืองมรดกวัฒนธรรมริมโขง</p>
+  </div>
+</section>
+
+<!-- หัวข้อ 5: ข้อมูลติดต่อ -->
+<section class="about-section" id="contact">
+  <span class="about-section-label">หัวข้อที่ 5</span>
+  <h2 class="about-section-title">ข้อมูลติดต่อ</h2>
+  <style>
+  .contact-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; }
+  @media(max-width:480px){ .contact-grid { grid-template-columns: 1fr; } }
+  .contact-card {
+    background: #fff; border-radius: 14px; padding: 1.25rem;
+    border: 1px solid var(--light-gray); display: flex; align-items: flex-start; gap: 0.875rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  .contact-icon {
+    width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0;
+    background: linear-gradient(135deg, rgba(184,148,30,0.12), rgba(212,175,55,0.08));
+    border: 1px solid rgba(212,175,55,0.2);
+    display: flex; align-items: center; justify-content: center; color: var(--gold-dark);
+  }
+  .contact-label { font-size: 0.7rem; color: var(--medium-gray); margin-bottom: 0.2rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+  .contact-value { font-size: 0.88rem; color: var(--primary); font-weight: 500; }
+  </style>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <div class="contact-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <div>
+        <div class="contact-label">อีเมล</div>
+        <div class="contact-value">mapnexus.team@gmail.com</div>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <div>
+        <div class="contact-label">ที่ตั้ง</div>
+        <div class="contact-value">จังหวัดนครพนม ประเทศไทย</div>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+      </div>
+      <div>
+        <div class="contact-label">โทรศัพท์</div>
+        <div class="contact-value">-</div>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </div>
+      <div>
+        <div class="contact-label">เว็บไซต์</div>
+        <div class="contact-value">map-nexus.vercel.app</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer mini -->
+<footer style="background:var(--primary);padding:1.5rem;text-align:center;margin-top:2rem;">
+  <p style="font-size:0.78rem;color:rgba(255,255,255,0.4);">&copy; 2024 MapNexus · นครพนม</p>
+  <a href="index.html" style="display:inline-flex;align-items:center;gap:0.4rem;margin-top:0.5rem;font-size:0.78rem;color:rgba(212,175,55,0.7);text-decoration:none;">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    กลับหน้าหลัก
+  </a>
+</footer>
+
+<script src="js/mobile-menu.js"></script>
+</body>
+</html>
