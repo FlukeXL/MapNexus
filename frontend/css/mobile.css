@@ -196,24 +196,26 @@
 
 /* ---- Featured Section ---- */
 @media (max-width: 768px) {
-  .featured-section { padding: 1.5rem 0; }
+  .featured-section { padding: 1.25rem 0; }
 
   .featured-section .section-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.35rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.875rem;
   }
 
-  .featured-section .section-title { font-size: 1.4rem !important; }
+  .featured-section .section-title { font-size: 1.3rem !important; }
 
-  .featured-grid { gap: 0.75rem; }
+  .featured-grid { gap: 0.65rem; }
 
-  .card-image { height: 170px !important; }
+  .card-image { height: 160px !important; }
 
-  .card-content { padding: 0.875rem 1rem 1rem; }
-  .card-title { font-size: 1rem; }
-  .card-description { font-size: 0.82rem; margin-bottom: 0.6rem; }
+  .card-content { padding: 0.75rem 0.875rem 0.875rem; }
+  .card-title { font-size: 0.95rem; }
+  .card-description { font-size: 0.78rem; margin-bottom: 0.5rem; line-height: 1.45; }
+  .card-category { font-size: 0.68rem; }
+  .card-link { font-size: 0.78rem; }
 }
 
 /* ---- Experience Section ---- */
@@ -229,45 +231,226 @@
 
 /* ---- Places Sections ---- */
 @media (max-width: 768px) {
-  .places-section { padding: 1.5rem 0; }
-  .places-title { font-size: 1.3rem !important; }
-  .places-description { font-size: 0.82rem; }
+  .places-section { padding: 1.25rem 0; }
+  .places-title { font-size: 1.2rem !important; }
+  .places-description { font-size: 0.8rem; }
+  .places-header { margin-bottom: 0.875rem; }
 
-  .places-grid-4 {
-    grid-template-columns: repeat(2, 1fr) !important;
-    gap: 0.75rem;
-  }
-
-  .places-grid-3 {
-    grid-template-columns: 1fr !important;
-    gap: 0.75rem;
-  }
-
-  /* Carousel — smooth touch scroll */
+  /* ===== Carousel (คาเฟ่) — เห็น 1.5 การ์ด =====  */
   .places-carousel {
     scroll-snap-type: x mandatory !important;
     -webkit-overflow-scrolling: touch;
-    padding-bottom: 0.5rem !important;
+    padding: 0.25rem 0 0.75rem !important;
+    gap: 0.75rem !important;
   }
 
   .places-carousel .place-card {
-    flex: 0 0 72vw !important;
-    min-width: 72vw !important;
+    flex: 0 0 58vw !important;
+    min-width: 58vw !important;
     scroll-snap-align: start;
+    border-radius: 14px;
   }
 
-  .place-image { height: 160px !important; }
-  .place-title { font-size: 1rem; }
-  .place-description { font-size: 0.82rem; }
-  .place-content { padding: 0.875rem; }
+  .places-carousel .place-image {
+    height: 130px !important;
+  }
+
+  .places-carousel .place-content {
+    padding: 0.65rem 0.75rem 0.75rem !important;
+  }
+
+  .places-carousel .place-category {
+    font-size: 0.65rem;
+    padding: 0.18rem 0.55rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .places-carousel .place-title {
+    font-size: 0.88rem !important;
+    margin-bottom: 0.2rem;
+    line-height: 1.3;
+  }
+
+  .places-carousel .place-description {
+    font-size: 0.75rem !important;
+    line-height: 1.45;
+    margin-bottom: 0.4rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .places-carousel .place-footer {
+    padding-top: 0.4rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .places-carousel .place-location,
+  .places-carousel .place-reviews {
+    font-size: 0.7rem;
+  }
+
+  .places-carousel .place-link {
+    font-size: 0.75rem;
+  }
+
+  /* ===== Grid วัด (4 แห่ง) — 2 col compact ===== */
+  .places-grid-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.65rem !important;
+    margin-top: 0.75rem !important;
+  }
+
+  .places-grid-4 .place-card {
+    border-radius: 12px;
+  }
+
+  .places-grid-4 .place-image {
+    height: 110px !important;
+  }
+
+  .places-grid-4 .place-content {
+    padding: 0.6rem 0.65rem 0.65rem !important;
+  }
+
+  .places-grid-4 .place-category {
+    font-size: 0.6rem;
+    padding: 0.15rem 0.45rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .places-grid-4 .place-title {
+    font-size: 0.82rem !important;
+    margin-bottom: 0.15rem;
+    line-height: 1.3;
+  }
+
+  .places-grid-4 .place-description {
+    font-size: 0.72rem !important;
+    line-height: 1.4;
+    margin-bottom: 0.35rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .places-grid-4 .place-footer {
+    padding-top: 0.35rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .places-grid-4 .place-location,
+  .places-grid-4 .place-reviews {
+    font-size: 0.65rem;
+  }
+
+  .places-grid-4 .place-link {
+    font-size: 0.72rem;
+  }
+
+  .places-grid-4 .place-rating {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.5rem;
+    top: 8px; right: 8px;
+  }
+
+  /* ===== Grid โรงแรม (3 แห่ง) — horizontal card ===== */
+  .places-grid-3 {
+    grid-template-columns: 1fr !important;
+    gap: 0.65rem !important;
+    margin-top: 0.75rem !important;
+  }
+
+  .places-grid-3 .place-card {
+    display: flex !important;
+    flex-direction: row !important;
+    border-radius: 14px;
+    overflow: hidden;
+    height: 110px;
+  }
+
+  .places-grid-3 .place-image {
+    width: 120px !important;
+    min-width: 120px !important;
+    height: 110px !important;
+    flex-shrink: 0;
+  }
+
+  .places-grid-3 .place-content {
+    flex: 1;
+    padding: 0.6rem 0.75rem !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+  }
+
+  .places-grid-3 .place-category {
+    font-size: 0.6rem;
+    padding: 0.12rem 0.45rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .places-grid-3 .place-title {
+    font-size: 0.85rem !important;
+    margin-bottom: 0.15rem;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .places-grid-3 .place-description {
+    font-size: 0.72rem !important;
+    line-height: 1.4;
+    margin-bottom: 0.3rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .places-grid-3 .place-footer {
+    padding-top: 0.3rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .places-grid-3 .place-location,
+  .places-grid-3 .place-reviews {
+    font-size: 0.65rem;
+  }
+
+  .places-grid-3 .place-price {
+    font-size: 0.78rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .places-grid-3 .place-link {
+    font-size: 0.72rem;
+  }
+
+  .places-grid-3 .place-rating {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.45rem;
+    top: 8px; right: 8px;
+  }
 }
 
 @media (max-width: 480px) {
-  .places-grid-4 { grid-template-columns: 1fr !important; }
-
   .places-carousel .place-card {
-    flex: 0 0 80vw !important;
-    min-width: 80vw !important;
+    flex: 0 0 65vw !important;
+    min-width: 65vw !important;
+  }
+
+  .places-grid-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  .places-grid-3 .place-image {
+    width: 100px !important;
+    min-width: 100px !important;
   }
 }
 
@@ -432,53 +615,85 @@
   .explore-carousel {
     scroll-snap-type: x mandatory !important;
     -webkit-overflow-scrolling: touch;
-    gap: 0.75rem !important;
+    gap: 0.65rem !important;
     padding: 0.25rem 0 0.75rem !important;
   }
 
-  .explore-place-card {
-    flex: 0 0 72vw !important;
-    min-width: 72vw !important;
-    scroll-snap-align: start;
-  }
-
-  .explore-place-image { height: 155px !important; }
-
-  .epc-card {
-    flex: 0 0 65vw !important;
-    min-width: 65vw !important;
-    scroll-snap-align: start;
-  }
-
-  .epc-image { height: 145px !important; }
-
+  /* Landscape cards — 58vw เห็น 1.5 การ์ด */
+  .explore-place-card,
   .ec-card-landscape {
-    flex: 0 0 72vw !important;
-    min-width: 72vw !important;
+    flex: 0 0 58vw !important;
+    min-width: 58vw !important;
     scroll-snap-align: start;
+    border-radius: 14px;
   }
 
-  .ec-img-landscape { height: 155px !important; }
+  .explore-place-image,
+  .ec-img-landscape {
+    height: 120px !important;
+  }
 
+  /* Portrait cards — 48vw เห็น 2 การ์ด */
   .ec-card-portrait {
-    flex: 0 0 55vw !important;
-    min-width: 55vw !important;
+    flex: 0 0 48vw !important;
+    min-width: 48vw !important;
     scroll-snap-align: start;
+    border-radius: 14px;
   }
 
-  .ec-img-portrait { height: 155px !important; }
+  .ec-img-portrait { height: 120px !important; }
+
+  /* EPC cards */
+  .epc-card {
+    flex: 0 0 58vw !important;
+    min-width: 58vw !important;
+    scroll-snap-align: start;
+    border-radius: 14px;
+  }
+
+  .epc-image { height: 120px !important; }
+
+  /* Card body text */
+  .ec-title, .epc-title, .explore-place-title {
+    font-size: 0.85rem !important;
+    line-height: 1.3;
+  }
+
+  .ec-desc, .epc-desc, .explore-place-desc {
+    font-size: 0.72rem !important;
+    -webkit-line-clamp: 2;
+    line-height: 1.4;
+  }
+
+  .ec-category, .epc-category, .explore-place-category {
+    font-size: 0.62rem;
+  }
+
+  .ec-location, .epc-location, .explore-place-location {
+    font-size: 0.68rem;
+  }
+
+  .ec-link, .epc-link, .explore-place-link {
+    font-size: 0.72rem;
+  }
+
+  .ec-body, .epc-body, .explore-place-content {
+    padding: 0.65rem 0.75rem 0.75rem !important;
+  }
 
   .map-container { height: 240px !important; }
 }
 
 @media (max-width: 480px) {
-  .explore-place-card {
-    flex: 0 0 80vw !important;
-    min-width: 80vw !important;
-  }
+  .explore-place-card,
   .ec-card-landscape {
-    flex: 0 0 80vw !important;
-    min-width: 80vw !important;
+    flex: 0 0 65vw !important;
+    min-width: 65vw !important;
+  }
+
+  .ec-card-portrait {
+    flex: 0 0 52vw !important;
+    min-width: 52vw !important;
   }
 }
 
@@ -928,4 +1143,185 @@
     align-items: flex-end;
     padding-bottom: 0.1rem;
   }
+}
+
+
+/* =============================================
+   BOTTOM NAV — PROFILE POPUP
+   ============================================= */
+
+@media (max-width: 768px) {
+
+  #bnav-profile-popup {
+    position: fixed;
+    bottom: calc(70px + env(safe-area-inset-bottom));
+    right: 0.75rem;
+    width: 280px;
+    background: #1a1a1a;
+    border-radius: 18px;
+    border: 1px solid rgba(212,175,55,0.2);
+    box-shadow: 0 -4px 32px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,175,55,0.08);
+    z-index: 9998;
+    overflow: hidden;
+    /* ซ่อนโดย default */
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+    pointer-events: none;
+    transition: opacity 0.22s ease, transform 0.22s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  #bnav-profile-popup.open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+  }
+
+  /* Header */
+  .bnav-pp-header {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.875rem 1rem;
+    background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(212,175,55,0.03));
+    position: relative;
+  }
+
+  .bnav-pp-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #b8941e, #d4af37);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1a1a1a;
+    flex-shrink: 0;
+    border: 2px solid rgba(212,175,55,0.4);
+  }
+
+  .bnav-pp-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .bnav-pp-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .bnav-pp-email {
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.4);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-top: 0.1rem;
+  }
+
+  .bnav-pp-rank {
+    display: inline-block;
+    margin-top: 0.25rem;
+    padding: 0.1rem 0.5rem;
+    background: rgba(205,127,50,0.2);
+    color: #cd7f32;
+    border-radius: 20px;
+    font-size: 0.62rem;
+    font-weight: 700;
+    border: 1px solid rgba(205,127,50,0.35);
+    letter-spacing: 0.03em;
+  }
+
+  .bnav-pp-close {
+    position: absolute;
+    top: 0.6rem;
+    right: 0.6rem;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.5);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.15s;
+  }
+
+  .bnav-pp-close:active { background: rgba(255,255,255,0.15); }
+
+  /* Divider */
+  .bnav-pp-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.06);
+  }
+
+  /* Body rows */
+  .bnav-pp-body {
+    padding: 0.4rem 0;
+  }
+
+  .bnav-pp-row {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.55rem 1rem;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+
+  .bnav-pp-row svg { color: rgba(212,175,55,0.65); flex-shrink: 0; }
+
+  .bnav-pp-row-label {
+    color: rgba(255,255,255,0.4);
+    font-size: 0.72rem;
+    flex-shrink: 0;
+  }
+
+  .bnav-pp-row-val {
+    margin-left: auto;
+    color: rgba(255,255,255,0.75);
+    font-size: 0.72rem;
+    font-weight: 500;
+    text-align: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 140px;
+  }
+
+  .bnav-pp-reset {
+    color: #d4af37 !important;
+  }
+
+  .bnav-pp-link:active { background: rgba(212,175,55,0.06); }
+
+  /* Logout */
+  .bnav-pp-logout {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.7rem;
+    background: rgba(220,38,38,0.07);
+    border: none;
+    border-top: 1px solid rgba(220,38,38,0.12);
+    color: #f87171;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    -webkit-tap-highlight-color: transparent;
+    transition: background 0.15s;
+  }
+
+  .bnav-pp-logout:active { background: rgba(220,38,38,0.15); }
 }

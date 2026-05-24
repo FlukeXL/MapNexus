@@ -18,6 +18,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
+// expose auth สำหรับ mobile-menu.js ใช้ logout
+window._firebaseAuth = auth;
+
 // ตรวจสอบสถานะ login แล้วอัปเดต navbar
 onAuthStateChanged(auth, (user) => {
   const navActions = document.getElementById('nav-actions');

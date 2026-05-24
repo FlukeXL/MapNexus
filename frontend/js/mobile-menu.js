@@ -181,21 +181,119 @@
     label.textContent = shortName;
     label.style.color = '#d4af37';
 
-    // กดแล้วเปิด profile popup (ถ้ามี) หรือไปหน้า login
+    // สร้าง popup ถ้ายังไม่มี
+    if (!document.getElementById('bnav-profile-popup')) {
+      createBnavProfilePopup(email, name);
+    }
+
+    // ผูก event กดปุ่ม
     btn.style.cursor = 'pointer';
-    btn.addEventListener('click', (e) => {
+    // ลบ event เก่าก่อน (clone)
+    const newBtn = btn.cloneNode(true);
+    btn.parentNode.replaceChild(newBtn, btn);
+
+    document.getElementById('bnav-auth').addEventListener('click', (e) => {
       e.stopPropagation();
-      // trigger mobile profile popup ถ้ามี
-      const mobileUserBtn = document.getElementById('mobile-user-btn');
-      if (mobileUserBtn) {
-        mobileUserBtn.click();
-      } else {
-        // fallback: เปิด popup ของ desktop
-        const popup = document.getElementById('profile-popup');
-        if (popup) {
-          popup.style.display = popup.style.display === 'none' ? 'block' : 'none';
-        }
+      const popup = document.getElementById('bnav-profile-popup');
+      if (!popup) return;
+      const isOpen = popup.classList.contains('open');
+      popup.classList.toggle('open', !isOpen);
+    });
+
+    // ปิดเมื่อคลิกที่อื่น
+    document.addEventListener('click', (e) => {
+      const popup = document.getElementById('bnav-profile-popup');
+      const authBtn = document.getElementById('bnav-auth');
+      if (popup && authBtn && !authBtn.contains(e.target) && !popup.contains(e.target)) {
+        popup.classList.remove('open');
       }
+    });
+  }
+
+  // สร้าง Profile Popup สำหรับ Bottom Nav
+  function createBnavProfilePopup(email, name) {
+    const popup = document.createElement('div');
+    popup.id = 'bnav-profile-popup';
+    popup.innerHTML = `
+      <div class="bnav-pp-header">
+        <div class="bnav-pp-avatar-wrap">
+          <div class="bnav-pp-avatar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="32" height="32">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+              <circle cx="12" cy="7" r="4"/>
+            </svg>
+          </div>
+        </div>
+        <div class="bnav-pp-info">
+          <div class="bnav-pp-name">${name}</div>
+          <div class="bnav-pp-email">${email}</div>
+          <span class="bnav-pp-rank">🥉 Bronze Member</span>
+        </div>
+        <button type="button" class="bnav-pp-close" id="bnav-pp-close" aria-label="ปิด">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="bnav-pp-divider"></div>
+      <div class="bnav-pp-body">
+        <div class="bnav-pp-row">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          <span class="bnav-pp-row-label">อีเมล</span>
+          <span class="bnav-pp-row-val">${email}</span>
+        </div>
+        <div class="bnav-pp-row">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          <span class="bnav-pp-row-label">สมาชิก</span>
+          <span class="bnav-pp-row-val">Free</span>
+        </div>
+        <a href="login.html?tab=forgot" class="bnav-pp-row bnav-pp-link">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+          </svg>
+          <span class="bnav-pp-row-label">รหัสผ่าน</span>
+          <span class="bnav-pp-row-val bnav-pp-reset">รีเซ็ตรหัสผ่าน</span>
+        </a>
+      </div>
+      <div class="bnav-pp-divider"></div>
+      <button type="button" class="bnav-pp-logout" id="bnav-pp-logout">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+          <polyline points="16 17 21 12 16 7"/>
+          <line x1="21" y1="12" x2="9" y2="12"/>
+        </svg>
+        ออกจากระบบ
+      </button>
+    `;
+
+    document.body.appendChild(popup);
+
+    // ปุ่มปิด
+    document.getElementById('bnav-pp-close').addEventListener('click', (e) => {
+      e.stopPropagation();
+      popup.classList.remove('open');
+    });
+
+    // ปุ่ม logout
+    document.getElementById('bnav-pp-logout').addEventListener('click', async () => {
+      try {
+        // ลอง signOut Firebase ถ้ามี
+        if (window._firebaseAuth) {
+          const { signOut } = await import('https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js');
+          await signOut(window._firebaseAuth);
+        }
+      } catch(e) {}
+      localStorage.removeItem('uid');
+      localStorage.removeItem('email');
+      localStorage.removeItem('user');
+      location.reload();
     });
   }
 
