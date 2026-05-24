@@ -7,123 +7,16 @@
    GLOBAL — ทุกหน้า
    ============================================= */
 
-/* ---- Navbar Mobile ---- */
+/* ---- Navbar Mobile — ซ่อนทั้งหมด ใช้ Bottom Nav แทน ---- */
 @media (max-width: 768px) {
 
-  .nav-container {
-    padding: 0.65rem 1rem;
-    display: flex !important;
-    align-items: center;
-    justify-content: space-between;
+  .navbar {
+    display: none !important;
   }
 
-  .nav-logo .logo-text { font-size: 1.1rem; }
-  .nav-logo .logo-subtitle { display: none; }
-
-  .nav-menu { display: none; }
-  .nav-actions { display: none !important; }
-
-  /* Mobile menu drawer — fullscreen overlay */
-  .nav-menu {
-    display: none;
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(20, 20, 20, 0.97);
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    z-index: 1050;
-    padding: 2rem 1.5rem 5rem;
-  }
-
-  .nav-menu.mobile-open {
-    display: flex;
-    animation: menuSlideDown 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-
-  @keyframes menuSlideDown {
-    from { opacity: 0; transform: translateY(-20px) scale(0.97); }
-    to   { opacity: 1; transform: translateY(0) scale(1); }
-  }
-
-  .nav-menu li {
-    width: 100%;
-    text-align: center;
-  }
-
-  .nav-menu .nav-link {
-    display: block;
-    padding: 1rem 1rem;
-    font-size: 1.15rem;
-    font-weight: 500;
-    color: rgba(255,255,255,0.75);
-    letter-spacing: 0.04em;
-    border-bottom: 1px solid rgba(212,175,55,0.08);
-    transition: color 0.2s, background 0.2s;
-  }
-
-  .nav-menu li:last-child .nav-link { border-bottom: none; }
-
-  .nav-menu .nav-link.active {
-    color: #d4af37;
-    background: rgba(212,175,55,0.06);
-    border-radius: 10px;
-  }
-
-  .nav-menu .nav-link:hover { color: #d4af37; }
-  .nav-menu .nav-link::after { display: none; }
-
-  /* Mobile menu — auth buttons */
-  .nav-menu-mobile-auth {
-    display: flex;
-    flex-direction: column;
-    gap: 0.65rem;
-    width: 100%;
-    margin-top: 1.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(212,175,55,0.12);
-  }
-
-  .nav-menu-mobile-auth .btn-register,
-  .nav-menu-mobile-auth .btn-secondary {
-    display: block;
-    text-align: center;
-    padding: 0.8rem;
-    border-radius: 12px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  .nav-menu-mobile-auth .btn-register {
-    background: linear-gradient(135deg, #b8941e, #d4af37);
-    color: #1a1a1a;
-    border: none;
-  }
-
-  .nav-menu-mobile-auth .btn-secondary {
-    background: transparent;
-    color: rgba(255,255,255,0.75);
-    border: 1.5px solid rgba(255,255,255,0.15);
-  }
-
-  /* hamburger → X animation */
-  .mobile-menu-toggle span {
-    transition: all 0.25s ease;
-    transform-origin: center;
-  }
-  .mobile-menu-toggle.active span:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-  }
-  .mobile-menu-toggle.active span:nth-child(2) {
-    opacity: 0; transform: scaleX(0);
-  }
-  .mobile-menu-toggle.active span:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
-  }
+  /* Hero และ page-header ไม่ต้องเว้นที่ navbar แล้ว */
+  .hero { margin-top: 0 !important; }
+  .page-header { margin-top: 0 !important; }
 }
 
 /* ---- Info Bar — ซ่อนบน mobile ย้ายไป bottom ---- */
@@ -233,16 +126,7 @@
   }
 }
 
-/* ---- Hero margin — ไม่มี info bar แล้ว ---- */
-@media (max-width: 768px) {
-  .hero { margin-top: 56px !important; }
-  .page-header { margin-top: 56px !important; }
-}
-
-@media (max-width: 480px) {
-  .hero { margin-top: 52px !important; }
-  .page-header { margin-top: 52px !important; }
-}
+/* ---- Hero margin — ไม่มี navbar แล้ว ---- */
 
 /* ---- Footer Mobile ---- */
 @media (max-width: 768px) {
