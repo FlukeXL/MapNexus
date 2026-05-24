@@ -9,9 +9,9 @@
   // แสดงกิจกรรมที่จะมาถึงภายในกี่วัน
   const UPCOMING_DAYS = 60;
 
-  // ===== ตรวจสอบว่าควรแสดงหรือไม่ (แสดงแค่ครั้งแรกครั้งเดียว) =====
+  // ===== ตรวจสอบว่าควรแสดงหรือไม่ (แสดงแค่ครั้งแรกของ session เท่านั้น) =====
   function shouldShow() {
-    return !localStorage.getItem('mapnexus_event_popup_shown');
+    return !sessionStorage.getItem('mapnexus_event_shown');
   }
 
   // ===== กรองกิจกรรมที่กำลังจะมาถึง =====
@@ -143,9 +143,6 @@
 
           <!-- Footer -->
           <div class="enp-footer">
-            <button type="button" class="enp-btn-dismiss" id="enp-dismiss">
-              ไม่แสดงอีก
-            </button>
             <button type="button" class="enp-btn-close-main" id="enp-close-main">
               ปิด
             </button>
@@ -400,14 +397,12 @@
   }
 
   // ===== ปิด popup =====
-  function closePopup(saveTimestamp) {
+  function closePopup() {
     const overlay = document.getElementById('enp-overlay');
     if (!overlay) return;
     overlay.style.animation = 'enp-fade-in 0.25s ease reverse';
     setTimeout(() => overlay.remove(), 240);
-    if (saveTimestamp) {
-      localStorage.setItem('mapnexus_event_popup_shown', Date.now().toString());
-    }
+    sessionStorage.setItem('mapnexus_event_shown', '1');
   }
 
   // ===== Slide cards =====
@@ -434,13 +429,12 @@
     let currentIndex = 0;
 
     // Close buttons
-    document.getElementById('enp-close').addEventListener('click', () => closePopup(false));
-    document.getElementById('enp-close-main').addEventListener('click', () => closePopup(false));
-    document.getElementById('enp-dismiss').addEventListener('click', () => closePopup(true));
+    document.getElementById('enp-close').addEventListener('click', () => closePopup());
+    document.getElementById('enp-close-main').addEventListener('click', () => closePopup());
 
     // Click overlay to close
     document.getElementById('enp-overlay').addEventListener('click', (e) => {
-      if (e.target.id === 'enp-overlay') closePopup(false);
+      if (e.target.id === 'enp-overlay') closePopup();
     });
 
     // Dots navigation
