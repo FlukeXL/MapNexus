@@ -22,10 +22,18 @@
     future.setDate(future.getDate() + UPCOMING_DAYS);
 
     return (window.CITY_EVENTS || []).filter(ev => {
+      // กิจกรรมประจำ (recurring) แสดงเสมอ
+      if (ev.recurring) return true;
       const start = new Date(ev.startDate);
       const end = new Date(ev.endDate);
       return end >= now && start <= future;
-    }).sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+    }).sort((a, b) => {
+      // กิจกรรมประจำขึ้นก่อน ตามด้วยกิจกรรมที่มีวันที่เรียงตามวัน
+      if (a.recurring && !b.recurring) return -1;
+      if (!a.recurring && b.recurring) return 1;
+      if (a.recurring && b.recurring) return 0;
+      return new Date(a.startDate) - new Date(b.startDate);
+    });
   }
 
   // ===== Format วันที่ภาษาไทย =====
@@ -70,8 +78,8 @@
         <div class="enp-card-meta">
           <div class="enp-meta-row">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            <span>${formatDateRange(ev.startDate, ev.endDate)}</span>
-            <span class="enp-badge-days">${getDaysUntil(ev.startDate)}</span>
+            <span>${ev.recurring ? ev.recurringLabel : formatDateRange(ev.startDate, ev.endDate)}</span>
+            ${!ev.recurring ? `<span class="enp-badge-days">${getDaysUntil(ev.startDate)}</span>` : '<span class="enp-badge-days">🔄 ประจำ</span>'}
           </div>
           <div class="enp-meta-row">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -99,15 +107,13 @@
 
           <!-- Header -->
           <div class="enp-header">
-            <div class="enp-header-brand">
-              <img src="assets/images/Logo.png" alt="MapNexus Logo" class="enp-logo-img"
-                   onerror="this.style.display='none';document.getElementById('enp-logo-fallback').style.display='flex'">
-              <div class="enp-logo-fallback" id="enp-logo-fallback" style="display:none">
-                <span>M</span>
-              </div>
-              <div class="enp-brand-text">
-                <span class="enp-brand-name">MapNexus</span>
-                <span class="enp-brand-sub">การเดินทางที่มีระดับ</span>
+            <div class="enp-logo-center-wrap">
+              <div class="enp-logo-circle">
+                <img src="assets/images/Logo.png" alt="MapNexus Logo" class="enp-logo-img"
+                     onerror="this.style.display='none';document.getElementById('enp-logo-fallback').style.display='flex'">
+                <div class="enp-logo-fallback" id="enp-logo-fallback" style="display:none">
+                  <span>M</span>
+                </div>
               </div>
             </div>
             <button type="button" class="enp-close" id="enp-close" aria-label="ปิด">
@@ -183,6 +189,22 @@
         display: flex; flex-direction: column;
         box-shadow: 0 24px 64px rgba(0,0,0,0.3);
         animation: enp-slide-up 0.35s cubic-bezier(0.34,1.56,0.64,1);
+        margin-top: 40px; /* เผื่อพื้นที่ให้ Logo ล้นขึ้น */
+        position: relative;
+        overflow: visible; /* ให้ Logo ล้นออกนอกขอบได้ */
+      }
+      /* ส่วนที่ scroll ได้ต้องซ่อน overflow เฉพาะ content */
+      .enp-cards-wrap, .enp-footer, .enp-title-bar, .enp-dots {
+        overflow: hidden;
+      }
+      /* clip เฉพาะส่วนล่างของ modal */
+      .enp-modal::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 20px;
+        pointer-events: none;
+        box-shadow: inset 0 0 0 0 transparent;
       }
       @keyframes enp-slide-up {
         from { transform: translateY(40px) scale(0.96); opacity: 0; }
@@ -192,35 +214,46 @@
       /* Header */
       .enp-header {
         background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
-        padding: 1rem 1.25rem;
-        display: flex; align-items: center; justify-content: space-between;
+        padding: 0 1.25rem 1rem;
+        padding-top: 3rem;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-end;
+        position: relative;
         flex-shrink: 0;
       }
-      .enp-header-brand { display: flex; align-items: center; gap: 0.65rem; }
+      .enp-logo-center-wrap {
+        position: absolute;
+        top: 0; left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 10;
+      }
+      .enp-logo-circle {
+        width: 80px; height: 80px;
+        border-radius: 50%;
+        background: #fff;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.25), 0 0 0 4px rgba(212,175,55,0.4);
+        display: flex; align-items: center; justify-content: center;
+        overflow: hidden;
+        border: 3px solid rgba(212,175,55,0.6);
+      }
       .enp-logo-img {
-        width: 40px; height: 40px; border-radius: 10px;
-        object-fit: contain; border: 1.5px solid rgba(212,175,55,0.4);
+        width: 68px; height: 68px;
+        object-fit: contain;
       }
       .enp-logo-fallback {
-        width: 40px; height: 40px; border-radius: 10px;
+        width: 68px; height: 68px;
         background: linear-gradient(135deg, #b8941e, #d4af37);
-        align-items: center; justify-content: center;
+        display: flex; align-items: center; justify-content: center;
         font-family: 'Noto Serif Thai', serif;
-        font-size: 1.3rem; font-weight: 700; color: #1a1a1a;
+        font-size: 2rem; font-weight: 700; color: #1a1a1a;
+        border-radius: 50%;
       }
-      .enp-brand-text { display: flex; flex-direction: column; }
-      .enp-brand-name {
-        font-family: 'Noto Serif Thai', serif;
-        font-size: 1rem; font-weight: 700;
-        background: linear-gradient(135deg, #f4e4c1, #d4af37);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        background-clip: text;
-      }
-      .enp-brand-sub { font-size: 0.65rem; color: rgba(255,255,255,0.5); margin-top: 1px; }
       .enp-close {
         background: rgba(255,255,255,0.1); border: none; border-radius: 8px;
         width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
         cursor: pointer; color: rgba(255,255,255,0.7); transition: all 0.2s;
+        flex-shrink: 0;
       }
       .enp-close:hover { background: rgba(255,255,255,0.2); color: #fff; }
 
