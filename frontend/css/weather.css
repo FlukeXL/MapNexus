@@ -368,12 +368,16 @@
 }
 
 .forecast-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: var(--spacing-sm);
 }
 
 .forecast-card {
+    flex: 0 0 calc(20% - var(--spacing-sm));
+    min-width: 130px;
+    max-width: 160px;
     background: var(--white);
     border-radius: 12px;
     padding: var(--spacing-sm);
