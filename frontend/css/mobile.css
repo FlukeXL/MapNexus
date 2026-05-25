@@ -696,13 +696,33 @@
   .detail-label { font-size: 0.68rem; }
 
   .forecast-grid {
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 0.5rem;
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    gap: 0.65rem !important;
+    padding: 0.25rem 0 0.75rem !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch;
   }
 
-  .forecast-card { padding: 0.6rem 0.4rem; }
-  .forecast-icon { width: 40px; height: 40px; }
-  .temp-max { font-size: 0.95rem; }
+  .forecast-grid::-webkit-scrollbar { display: none; }
+
+  .forecast-card {
+    flex: 0 0 130px !important;
+    min-width: 130px !important;
+    max-width: 130px !important;
+    scroll-snap-align: start;
+    padding: 0.75rem 0.6rem !important;
+    border-radius: 14px !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07) !important;
+  }
+
+  .forecast-icon { width: 44px; height: 44px; }
+  .forecast-day { font-size: 0.75rem; }
+  .forecast-weather { font-size: 0.72rem; }
+  .temp-max { font-size: 1rem; }
+  .temp-min { font-size: 0.88rem; }
+  .forecast-details { font-size: 0.68rem; }
 
   .rain-alert {
     position: relative !important;
@@ -732,7 +752,6 @@
 
 @media (max-width: 480px) {
   .pm25-grid { grid-template-columns: 1fr !important; }
-  .forecast-grid { grid-template-columns: repeat(2, 1fr) !important; }
   .weather-details-grid { grid-template-columns: repeat(2, 1fr) !important; }
 }
 
