@@ -334,11 +334,6 @@
       </div>
       <div class="pd-gallery">
         <div class="pd-gallery-scroll" id="pd-gallery-scroll">${imgs}</div>
-        <button type="button" class="pd-close" id="pd-close" aria-label="ปิด">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-          </svg>
-        </button>
         <div class="pd-rating-badge">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="#d4af37"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           ${place.rating}

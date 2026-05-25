@@ -309,7 +309,6 @@
     justify-content: center;
   }
   .footer-legal a { font-size: 0.68rem !important; }
-}  .footer-legal a { font-size: 0.7rem !important; }
 }
 
 
@@ -1528,6 +1527,11 @@
 
 /* ซ่อน bottom nav profile popup บน desktop */
 #bnav-profile-popup {
+  display: none !important;
+}
+
+/* ซ่อน fixed status widget บน desktop */
+#fixed-status-widget {
   display: none !important;
 }
 
