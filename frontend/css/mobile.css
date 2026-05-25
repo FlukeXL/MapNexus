@@ -1537,3 +1537,192 @@
     font-size: 0.74rem !important;
   }
 }
+
+
+/* =============================================
+   WEATHER — Circular Progress Mobile
+   ============================================= */
+
+@media (max-width: 768px) {
+
+  /* ===== Traffic Large Circle ===== */
+  .circular-progress.large {
+    width: 110px !important;
+    height: 110px !important;
+  }
+
+  /* ===== Traffic Small Circle ===== */
+  .circular-progress.small {
+    width: 64px !important;
+    height: 64px !important;
+  }
+
+  /* Progress background ring — เบาลง */
+  .progress-bg {
+    stroke: rgba(0,0,0,0.06) !important;
+    stroke-width: 9 !important;
+  }
+
+  /* Progress fill — หนาขึ้น สวยขึ้น */
+  .progress-fill {
+    stroke-width: 9 !important;
+    stroke-linecap: round !important;
+    filter: drop-shadow(0 0 6px currentColor) !important;
+  }
+
+  /* สีแต่ละสถานะ — สดขึ้น */
+  .progress-fill.smooth {
+    stroke: #22c55e !important;
+    filter: drop-shadow(0 0 6px rgba(34,197,94,0.5)) !important;
+  }
+
+  .progress-fill.moderate {
+    stroke: #f59e0b !important;
+    filter: drop-shadow(0 0 6px rgba(245,158,11,0.5)) !important;
+  }
+
+  .progress-fill.heavy {
+    stroke: #ef4444 !important;
+    filter: drop-shadow(0 0 6px rgba(239,68,68,0.5)) !important;
+  }
+
+  /* ตัวเลข % กลางวงกลม */
+  .progress-text {
+    font-size: 1.15rem !important;
+    font-weight: 800 !important;
+    font-family: 'Noto Serif Thai', serif !important;
+    background: linear-gradient(135deg, #1a1a1a, #333) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+    letter-spacing: -0.02em;
+  }
+
+  .circular-progress.small + .progress-text {
+    font-size: 0.82rem !important;
+    font-weight: 700 !important;
+  }
+
+  /* Container ของวงกลม */
+  .circular-progress-container {
+    background: #fff !important;
+    border-radius: 50% !important;
+    padding: 6px !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08), inset 0 1px 3px rgba(0,0,0,0.04) !important;
+  }
+
+  /* Traffic card layout */
+  .traffic-card {
+    border-radius: 16px !important;
+    padding: 1rem !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.07) !important;
+  }
+
+  .traffic-header {
+    margin-bottom: 0.875rem !important;
+  }
+
+  .traffic-header h3 {
+    font-size: 0.95rem !important;
+  }
+
+  .traffic-status-display {
+    margin-bottom: 0.75rem !important;
+  }
+
+  .traffic-level {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.15rem !important;
+  }
+
+  .traffic-description {
+    font-size: 0.75rem !important;
+  }
+
+  /* Forecast items */
+  .forecast-item {
+    padding: 0.6rem 0.5rem !important;
+    border-radius: 10px !important;
+    background: #faf9f6 !important;
+  }
+
+  .forecast-time {
+    font-size: 0.68rem !important;
+    margin-bottom: 0.35rem !important;
+  }
+
+  .forecast-status {
+    font-size: 0.7rem !important;
+    margin-top: 0.35rem !important;
+  }
+
+  /* ===== Water Gauge ===== */
+  .water-gauge {
+    width: 120px !important;
+    height: 120px !important;
+  }
+
+  .gauge-bg {
+    stroke: rgba(0,0,0,0.06) !important;
+    stroke-width: 11 !important;
+  }
+
+  .gauge-fill {
+    stroke-width: 11 !important;
+    stroke-linecap: round !important;
+  }
+
+  /* Gauge colors — สดขึ้น */
+  .gauge-fill.normal {
+    stroke: #22c55e !important;
+    filter: drop-shadow(0 0 8px rgba(34,197,94,0.45)) !important;
+  }
+
+  .gauge-fill.rising {
+    stroke: #f59e0b !important;
+    filter: drop-shadow(0 0 8px rgba(245,158,11,0.45)) !important;
+  }
+
+  .gauge-fill.warning {
+    stroke: #f97316 !important;
+    filter: drop-shadow(0 0 8px rgba(249,115,22,0.45)) !important;
+  }
+
+  .gauge-fill.critical-high {
+    stroke: #ef4444 !important;
+    filter: drop-shadow(0 0 8px rgba(239,68,68,0.45)) !important;
+  }
+
+  .gauge-fill.low {
+    stroke: #3b82f6 !important;
+    filter: drop-shadow(0 0 8px rgba(59,130,246,0.45)) !important;
+  }
+
+  .gauge-fill.very-low {
+    stroke: #8b5cf6 !important;
+    filter: drop-shadow(0 0 8px rgba(139,92,246,0.45)) !important;
+  }
+
+  .gauge-fill.critical-low {
+    stroke: #6b7280 !important;
+    filter: drop-shadow(0 0 8px rgba(107,114,128,0.35)) !important;
+  }
+
+  /* Gauge center text */
+  .gauge-value {
+    font-size: 1.5rem !important;
+    font-weight: 800 !important;
+  }
+
+  .gauge-unit {
+    font-size: 0.68rem !important;
+  }
+
+  /* Gauge container */
+  .water-gauge-container {
+    background: #fff !important;
+    border-radius: 50% !important;
+    padding: 8px !important;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1), inset 0 1px 3px rgba(0,0,0,0.04) !important;
+  }
+}
