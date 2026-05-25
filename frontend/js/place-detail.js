@@ -15,12 +15,17 @@
       /* ===== Place Detail — Mobile Only ===== */
       @media (max-width: 768px) {
 
+        /* Overlay — กลางจอ เหมือน event notification */
         .pd-overlay {
           position: fixed; inset: 0; z-index: 99990;
           background: rgba(0,0,0,0.6);
-          backdrop-filter: blur(4px);
-          -webkit-backdrop-filter: blur(4px);
-          animation: pd-fade-in 0.25s ease;
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 1.25rem;
+          animation: pd-fade-in 0.3s ease;
         }
 
         @keyframes pd-fade-in {
@@ -28,48 +33,107 @@
           to   { opacity: 1; }
         }
 
+        /* Modal — center popup เหมือน enp-modal */
         .pd-sheet {
-          position: fixed;
-          bottom: 0; left: 0; right: 0;
-          z-index: 99991;
+          position: relative;
+          width: 100%;
+          max-width: 360px;
+          max-height: 82vh;
           background: #fff;
-          border-radius: 24px 24px 0 0;
-          max-height: 88vh;
+          border-radius: 24px;
           display: flex;
           flex-direction: column;
           overflow: hidden;
-          animation: pd-slide-up 0.35s cubic-bezier(0.34,1.56,0.64,1);
-          padding-bottom: calc(env(safe-area-inset-bottom) + 80px);
+          box-shadow: 0 20px 60px rgba(0,0,0,0.35), 0 0 0 1px rgba(212,175,55,0.15);
+          animation: pd-pop 0.38s cubic-bezier(0.34,1.56,0.64,1);
         }
 
-        @keyframes pd-slide-up {
-          from { transform: translateY(100%); }
-          to   { transform: translateY(0); }
+        @keyframes pd-pop {
+          from { transform: scale(0.88) translateY(16px); opacity: 0; }
+          to   { transform: scale(1) translateY(0); opacity: 1; }
         }
 
         .pd-sheet.closing {
-          animation: pd-slide-down 0.28s ease forwards;
+          animation: pd-pop-out 0.25s ease forwards;
         }
 
-        @keyframes pd-slide-down {
-          from { transform: translateY(0); }
-          to   { transform: translateY(100%); }
+        @keyframes pd-pop-out {
+          from { transform: scale(1); opacity: 1; }
+          to   { transform: scale(0.9) translateY(12px); opacity: 0; }
         }
 
-        /* Handle bar */
-        .pd-handle {
-          width: 40px; height: 4px;
-          background: #e0ddd8;
-          border-radius: 2px;
-          margin: 10px auto 0;
+        /* Header — เหมือน enp-header */
+        .pd-modal-header {
+          background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+          padding: 0.75rem 1rem;
+          display: flex;
+          align-items: center;
+          gap: 0.6rem;
+          flex-shrink: 0;
+          border-radius: 24px 24px 0 0;
+        }
+
+        .pd-header-logo {
+          width: 34px; height: 34px;
+          border-radius: 50%;
+          background: #fff;
+          border: 2px solid rgba(212,175,55,0.5);
+          box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+          display: flex; align-items: center; justify-content: center;
+          overflow: hidden;
           flex-shrink: 0;
         }
+
+        .pd-header-logo img {
+          width: 28px; height: 28px;
+          object-fit: contain; border-radius: 50%;
+        }
+
+        .pd-header-logo-fallback {
+          width: 28px; height: 28px;
+          background: linear-gradient(135deg, #b8941e, #d4af37);
+          border-radius: 50%;
+          display: flex; align-items: center; justify-content: center;
+          font-family: 'Noto Serif Thai', serif;
+          font-size: 0.85rem; font-weight: 700; color: #1a1a1a;
+        }
+
+        .pd-header-text { flex: 1; min-width: 0; }
+
+        .pd-header-brand {
+          font-family: 'Noto Serif Thai', serif;
+          font-size: 0.8rem; font-weight: 700;
+          background: linear-gradient(135deg, #f4e4c1, #d4af37);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          line-height: 1.2;
+        }
+
+        .pd-header-sub {
+          font-size: 0.58rem;
+          color: rgba(255,255,255,0.4);
+          line-height: 1; margin-top: 0.1rem;
+        }
+
+        .pd-close {
+          background: rgba(255,255,255,0.1);
+          border: none; border-radius: 50%;
+          width: 28px; height: 28px;
+          display: flex; align-items: center; justify-content: center;
+          cursor: pointer; color: rgba(255,255,255,0.6);
+          flex-shrink: 0;
+          -webkit-tap-highlight-color: transparent;
+          transition: background 0.2s;
+        }
+
+        .pd-close:active { background: rgba(255,255,255,0.2); }
 
         /* Gallery */
         .pd-gallery {
           position: relative;
           flex-shrink: 0;
-          height: 220px;
+          height: 200px;
           overflow: hidden;
         }
 
@@ -88,46 +152,31 @@
           flex: 0 0 100%;
           scroll-snap-align: start;
           object-fit: cover;
-          width: 100%;
-          height: 220px;
+          width: 100%; height: 200px;
         }
 
         /* Rating badge */
         .pd-rating-badge {
           position: absolute;
-          top: 12px; right: 12px;
+          top: 10px; right: 10px;
           background: rgba(255,255,255,0.95);
           border-radius: 20px;
-          padding: 0.3rem 0.65rem;
-          display: flex; align-items: center; gap: 0.25rem;
-          font-size: 0.85rem; font-weight: 700;
-          color: #b8941e;
+          padding: 0.25rem 0.6rem;
+          display: flex; align-items: center; gap: 0.2rem;
+          font-size: 0.82rem; font-weight: 700; color: #b8941e;
           box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-        }
-
-        /* Close button */
-        .pd-close {
-          position: absolute;
-          top: 12px; left: 12px;
-          width: 32px; height: 32px;
-          border-radius: 50%;
-          background: rgba(0,0,0,0.45);
-          border: none;
-          display: flex; align-items: center; justify-content: center;
-          color: #fff; cursor: pointer;
-          -webkit-tap-highlight-color: transparent;
         }
 
         /* Dots */
         .pd-dots {
           position: absolute;
-          bottom: 10px; left: 50%;
+          bottom: 8px; left: 50%;
           transform: translateX(-50%);
-          display: flex; gap: 5px;
+          display: flex; gap: 4px;
         }
 
         .pd-dot {
-          width: 6px; height: 6px;
+          width: 5px; height: 5px;
           border-radius: 50%;
           background: rgba(255,255,255,0.5);
           transition: all 0.2s;
@@ -135,66 +184,66 @@
 
         .pd-dot.active {
           background: #fff;
-          width: 16px;
-          border-radius: 3px;
+          width: 14px; border-radius: 3px;
         }
 
         /* Content scroll */
         .pd-content {
           flex: 1;
           overflow-y: auto;
-          padding: 1rem 1.1rem 1rem;
+          padding: 0.875rem 1rem 1rem;
           -webkit-overflow-scrolling: touch;
         }
 
-        /* Header */
+        .pd-content::-webkit-scrollbar { width: 3px; }
+        .pd-content::-webkit-scrollbar-thumb { background: #e8e6e1; border-radius: 2px; }
+
+        /* Category + name */
         .pd-category {
           display: inline-block;
-          font-size: 0.68rem; font-weight: 700;
+          font-size: 0.65rem; font-weight: 700;
           letter-spacing: 0.08em; text-transform: uppercase;
           color: #b8941e;
           background: rgba(212,175,55,0.1);
           border: 1px solid rgba(212,175,55,0.2);
           border-radius: 12px;
-          padding: 0.18rem 0.6rem;
-          margin-bottom: 0.4rem;
+          padding: 0.15rem 0.55rem;
+          margin-bottom: 0.35rem;
         }
 
         .pd-name {
           font-family: 'Noto Serif Thai', serif;
-          font-size: 1.2rem; font-weight: 700;
+          font-size: 1.1rem; font-weight: 700;
           color: #1a1a1a; line-height: 1.3;
           margin-bottom: 0.3rem;
         }
 
         .pd-meta {
-          display: flex; align-items: center; gap: 0.75rem;
-          font-size: 0.75rem; color: #888;
-          margin-bottom: 0.875rem;
-          flex-wrap: wrap;
+          display: flex; align-items: center; gap: 0.65rem;
+          font-size: 0.72rem; color: #888;
+          margin-bottom: 0.75rem; flex-wrap: wrap;
         }
 
         .pd-meta-item {
-          display: flex; align-items: center; gap: 0.25rem;
+          display: flex; align-items: center; gap: 0.22rem;
         }
 
         .pd-meta-item svg { color: #d4af37; flex-shrink: 0; }
 
         /* Divider */
         .pd-divider {
-          height: 1px;
-          background: #f0ede8;
-          margin: 0.75rem 0;
+          height: 1px; background: #f0ede8;
+          margin: 0.65rem 0;
         }
 
         /* Info rows */
         .pd-info-row {
-          display: flex; align-items: flex-start; gap: 0.6rem;
-          margin-bottom: 0.65rem;
+          display: flex; align-items: flex-start; gap: 0.55rem;
+          margin-bottom: 0.6rem;
         }
 
         .pd-info-icon {
-          width: 28px; height: 28px;
+          width: 26px; height: 26px;
           border-radius: 8px;
           background: rgba(212,175,55,0.1);
           display: flex; align-items: center; justify-content: center;
@@ -205,30 +254,28 @@
         .pd-info-content { flex: 1; }
 
         .pd-info-label {
-          font-size: 0.65rem; font-weight: 700;
+          font-size: 0.62rem; font-weight: 700;
           color: #aaa; text-transform: uppercase;
-          letter-spacing: 0.06em; margin-bottom: 0.15rem;
+          letter-spacing: 0.06em; margin-bottom: 0.12rem;
         }
 
         .pd-info-text {
-          font-size: 0.82rem; color: #444;
-          line-height: 1.55;
+          font-size: 0.78rem; color: #444; line-height: 1.55;
         }
 
         .pd-phone-link {
           color: #b8941e; text-decoration: none; font-weight: 600;
         }
 
-        /* Price badge */
+        /* Price */
         .pd-price {
-          display: inline-flex; align-items: center; gap: 0.35rem;
+          display: inline-flex; align-items: center; gap: 0.3rem;
           background: linear-gradient(135deg, rgba(184,148,30,0.12), rgba(212,175,55,0.08));
           border: 1px solid rgba(212,175,55,0.25);
           border-radius: 10px;
-          padding: 0.4rem 0.75rem;
-          font-size: 0.82rem; font-weight: 700;
-          color: #b8941e;
-          margin-bottom: 0.65rem;
+          padding: 0.35rem 0.7rem;
+          font-size: 0.78rem; font-weight: 700; color: #b8941e;
+          margin-bottom: 0.6rem;
         }
       }
     `;
@@ -269,7 +316,22 @@
     sheet.className = 'pd-sheet';
     sheet.id = 'pd-sheet';
     sheet.innerHTML = `
-      <div class="pd-handle"></div>
+      <div class="pd-modal-header">
+        <div class="pd-header-logo">
+          <img src="assets/images/Logo.png" alt="MapNexus"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+          <div class="pd-header-logo-fallback" style="display:none">M</div>
+        </div>
+        <div class="pd-header-text">
+          <div class="pd-header-brand">MapNexus</div>
+          <div class="pd-header-sub">การเดินทางที่มีระดับ</div>
+        </div>
+        <button type="button" class="pd-close" id="pd-close" aria-label="ปิด">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
       <div class="pd-gallery">
         <div class="pd-gallery-scroll" id="pd-gallery-scroll">${imgs}</div>
         <button type="button" class="pd-close" id="pd-close" aria-label="ปิด">
@@ -322,10 +384,14 @@
     `;
 
     document.body.appendChild(overlay);
-    document.body.appendChild(sheet);
+    overlay.appendChild(sheet);
     document.body.style.overflow = 'hidden';
 
-    // Gallery dots sync
+    // ปิดเมื่อคลิก overlay (ไม่ใช่ sheet)
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closePlaceDetail();
+    });
+
     const galleryScroll = document.getElementById('pd-gallery-scroll');
     const dotsEl = document.getElementById('pd-dots');
     if (galleryScroll && dotsEl) {
@@ -337,9 +403,8 @@
 
     // Close events
     document.getElementById('pd-close').addEventListener('click', closePlaceDetail);
-    overlay.addEventListener('click', closePlaceDetail);
 
-    // Swipe down to close
+    // Swipe down to close (ยังทำงานได้)
     let startY = 0;
     sheet.addEventListener('touchstart', e => { startY = e.touches[0].clientY; }, { passive: true });
     sheet.addEventListener('touchend', e => {
@@ -350,24 +415,22 @@
 
   // ===== Close Popup =====
   function closePlaceDetail(instant) {
-    const sheet = document.getElementById('pd-sheet');
     const overlay = document.getElementById('pd-overlay');
-    if (!sheet) return;
+    const sheet = document.getElementById('pd-sheet');
+    if (!overlay) return;
 
     if (instant) {
-      sheet.remove();
-      if (overlay) overlay.remove();
+      overlay.remove();
       document.body.style.overflow = '';
       return;
     }
 
-    sheet.classList.add('closing');
+    if (sheet) sheet.classList.add('closing');
     overlay.style.animation = 'pd-fade-in 0.25s ease reverse';
     setTimeout(() => {
-      sheet.remove();
-      if (overlay) overlay.remove();
+      overlay.remove();
       document.body.style.overflow = '';
-    }, 280);
+    }, 260);
   }
 
   // ===== Attach events to cards =====
