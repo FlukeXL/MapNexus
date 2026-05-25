@@ -38,6 +38,12 @@ class WeatherPage {
         await this.loadWeatherForecast();
         this.initTrafficSection();
         this.initRiverLevelSection();
+
+        // Render charts หลังจาก DOM พร้อม
+        setTimeout(() => {
+            this.renderTrafficChart();
+            this.renderWaterChart();
+        }, 300);
         
         // Event Listeners
         this.setupEventListeners();
@@ -602,6 +608,177 @@ class WeatherPage {
     setupEventListeners() {
         // PM2.5 section auto-updates, no manual refresh button needed
         // Event listeners for other interactive elements can be added here
+    }
+
+    // ========================================
+    // Traffic Trend Chart — กราฟแท่งเทียนจราจร
+    // ========================================
+    renderTrafficChart() {
+        const container = document.getElementById('traffic-trend-chart');
+        if (!container) return;
+
+        // ข้อมูลจำลอง 8 ช่วงเวลา (สมจริง)
+        const data = [
+            { time: '06:00', val: 15, status: 'smooth' },
+            { time: '08:00', val: 75, status: 'heavy' },
+            { time: '10:00', val: 45, status: 'moderate' },
+            { time: '12:00', val: 55, status: 'moderate' },
+            { time: '14:00', val: 30, status: 'smooth' },
+            { time: '16:00', val: 80, status: 'heavy' },
+            { time: '18:00', val: 65, status: 'moderate' },
+            { time: '20:00', val: 25, status: 'smooth' }
+        ];
+
+        const W = container.clientWidth || 400;
+        const H = 110;
+        const padL = 28, padR = 8, padT = 10, padB = 28;
+        const chartW = W - padL - padR;
+        const chartH = H - padT - padB;
+        const barW = Math.max(8, (chartW / data.length) * 0.55);
+        const gap = chartW / data.length;
+
+        const colorMap = { smooth: '#16a34a', moderate: '#d97706', heavy: '#dc2626' };
+
+        // Grid lines
+        let gridLines = '';
+        [0, 25, 50, 75, 100].forEach(v => {
+            const y = padT + chartH - (v / 100) * chartH;
+            gridLines += `<line class="chart-grid-line" x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}"/>`;
+            if (v % 50 === 0) {
+                gridLines += `<text class="chart-value-label" x="${padL - 4}" y="${y + 3}" text-anchor="end">${v}</text>`;
+            }
+        });
+
+        // Bars + labels
+        let bars = '';
+        data.forEach((d, i) => {
+            const x = padL + i * gap + gap / 2;
+            const barH = (d.val / 100) * chartH;
+            const y = padT + chartH - barH;
+            const color = colorMap[d.status];
+
+            // แท่งหลัก
+            bars += `<rect class="candle-body" x="${x - barW/2}" y="${y}" width="${barW}" height="${barH}" fill="${color}" rx="3" ry="3" opacity="0.85">
+                <title>${d.time}: ${d.val}%</title>
+            </rect>`;
+
+            // เส้น wick บน
+            const wickTop = Math.max(padT, y - 4);
+            bars += `<line class="candle-wick" x1="${x}" y1="${wickTop}" x2="${x}" y2="${y}" stroke="${color}" opacity="0.5"/>`;
+
+            // label เวลา
+            bars += `<text class="chart-axis-label" x="${x}" y="${H - 4}" text-anchor="middle">${d.time.replace(':00','')}</text>`;
+        });
+
+        // เส้นปัจจุบัน (ชั่วโมงล่าสุด)
+        const now = new Date().getHours();
+        const currentIdx = data.findIndex(d => parseInt(d.time) >= now);
+        let currentLine = '';
+        if (currentIdx >= 0) {
+            const cx = padL + currentIdx * gap + gap / 2;
+            currentLine = `
+                <line class="chart-current-line" x1="${cx}" y1="${padT}" x2="${cx}" y2="${padT + chartH}"/>
+                <circle class="chart-current-dot" cx="${cx}" cy="${padT}" r="3"/>
+                <text class="chart-axis-label" x="${cx + 4}" y="${padT + 8}" fill="#b8941e" font-size="8">ตอนนี้</text>
+            `;
+        }
+
+        container.innerHTML = `
+            <svg class="chart-svg" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
+                ${gridLines}
+                ${bars}
+                ${currentLine}
+            </svg>
+        `;
+    }
+
+    // ========================================
+    // Water Level Trend Chart — กราฟแท่งเทียนระดับน้ำ 7 วัน
+    // ========================================
+    renderWaterChart() {
+        const container = document.getElementById('water-trend-chart');
+        if (!container) return;
+
+        const days = ['จ.', 'อ.', 'พ.', 'พฤ.', 'ศ.', 'ส.', 'อา.'];
+        // ข้อมูลจำลอง 7 วัน (เมตร) — สมจริงตามฤดูกาล
+        const data = [
+            { day: days[0], val: 6.8, open: 6.6, close: 6.8, high: 7.0, low: 6.5 },
+            { day: days[1], val: 7.1, open: 6.8, close: 7.1, high: 7.3, low: 6.7 },
+            { day: days[2], val: 7.4, open: 7.1, close: 7.4, high: 7.6, low: 7.0 },
+            { day: days[3], val: 7.2, open: 7.4, close: 7.2, high: 7.5, low: 7.1 },
+            { day: days[4], val: 7.5, open: 7.2, close: 7.5, high: 7.7, low: 7.1 },
+            { day: days[5], val: 7.8, open: 7.5, close: 7.8, high: 8.0, low: 7.4 },
+            { day: days[6], val: 7.6, open: 7.8, close: 7.6, high: 7.9, low: 7.5 }
+        ];
+
+        const W = container.clientWidth || 400;
+        const H = 120;
+        const padL = 32, padR = 8, padT = 10, padB = 24;
+        const chartW = W - padL - padR;
+        const chartH = H - padT - padB;
+
+        const allVals = data.flatMap(d => [d.high, d.low]);
+        const minV = Math.floor(Math.min(...allVals) * 10) / 10 - 0.2;
+        const maxV = Math.ceil(Math.max(...allVals) * 10) / 10 + 0.2;
+        const range = maxV - minV;
+
+        const toY = v => padT + chartH - ((v - minV) / range) * chartH;
+        const gap = chartW / data.length;
+        const barW = Math.max(8, gap * 0.5);
+
+        // Grid lines
+        let gridLines = '';
+        const steps = 4;
+        for (let i = 0; i <= steps; i++) {
+            const v = minV + (range / steps) * i;
+            const y = toY(v);
+            gridLines += `<line class="chart-grid-line" x1="${padL}" y1="${y}" x2="${W - padR}" y2="${y}"/>`;
+            gridLines += `<text class="chart-value-label" x="${padL - 4}" y="${y + 3}" text-anchor="end">${v.toFixed(1)}</text>`;
+        }
+
+        // Candlestick bars
+        let bars = '';
+        data.forEach((d, i) => {
+            const x = padL + i * gap + gap / 2;
+            const isUp = d.close >= d.open;
+            const color = isUp ? '#16a34a' : '#dc2626';
+            const bodyTop = toY(Math.max(d.open, d.close));
+            const bodyBot = toY(Math.min(d.open, d.close));
+            const bodyH = Math.max(2, bodyBot - bodyTop);
+
+            // Wick บน-ล่าง
+            bars += `<line class="candle-wick" x1="${x}" y1="${toY(d.high)}" x2="${x}" y2="${bodyTop}" stroke="${color}" opacity="0.6"/>`;
+            bars += `<line class="candle-wick" x1="${x}" y1="${bodyBot}" x2="${x}" y2="${toY(d.low)}" stroke="${color}" opacity="0.6"/>`;
+
+            // แท่งหลัก
+            bars += `<rect class="candle-body" x="${x - barW/2}" y="${bodyTop}" width="${barW}" height="${bodyH}" fill="${color}" rx="2" ry="2">
+                <title>${d.day}: ${d.val.toFixed(2)} ม.</title>
+            </rect>`;
+
+            // label วัน
+            bars += `<text class="chart-axis-label" x="${x}" y="${H - 4}" text-anchor="middle">${d.day}</text>`;
+
+            // value บนแท่ง (วันล่าสุด)
+            if (i === data.length - 1) {
+                bars += `<text class="chart-axis-label" x="${x}" y="${bodyTop - 4}" text-anchor="middle" fill="${color}" font-weight="bold">${d.val.toFixed(1)}</text>`;
+            }
+        });
+
+        // เส้นระดับปกติ (6-8 ม.)
+        const normalLine = toY(7.0);
+        const normalLineHtml = `
+            <line x1="${padL}" y1="${normalLine}" x2="${W - padR}" y2="${normalLine}"
+                  stroke="#16a34a" stroke-width="1" stroke-dasharray="5 3" opacity="0.4"/>
+            <text class="chart-axis-label" x="${W - padR - 2}" y="${normalLine - 3}" text-anchor="end" fill="#16a34a" opacity="0.7">ปกติ</text>
+        `;
+
+        container.innerHTML = `
+            <svg class="chart-svg" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
+                ${gridLines}
+                ${normalLineHtml}
+                ${bars}
+            </svg>
+        `;
     }
     
     startAutoRefresh() {

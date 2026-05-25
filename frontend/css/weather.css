@@ -1129,3 +1129,135 @@
         padding-right: 4rem;
     }
 }
+
+
+/* ========================================
+   Candlestick / Bar Charts
+   ======================================== */
+
+/* Chart label */
+.chart-label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--dark-gray);
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.02em;
+}
+
+.chart-label svg {
+    color: var(--gold-dark);
+    flex-shrink: 0;
+}
+
+/* Traffic Trend Chart */
+.traffic-chart-wrap {
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--light-gray);
+}
+
+.traffic-trend-chart {
+    width: 100%;
+    height: 120px;
+    position: relative;
+}
+
+/* Water Level Chart */
+.water-chart-wrap {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    background: linear-gradient(135deg, var(--off-white), var(--white));
+    border-radius: 12px;
+    border: 1px solid var(--light-gray);
+}
+
+.water-trend-chart {
+    width: 100%;
+    height: 130px;
+    position: relative;
+}
+
+/* SVG Chart Base */
+.chart-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+/* Grid lines */
+.chart-grid-line {
+    stroke: var(--light-gray);
+    stroke-width: 1;
+    stroke-dasharray: 3 3;
+}
+
+/* Axis labels */
+.chart-axis-label {
+    font-family: var(--font-body);
+    font-size: 9px;
+    fill: var(--medium-gray);
+}
+
+.chart-value-label {
+    font-family: var(--font-heading);
+    font-size: 8px;
+    fill: var(--medium-gray);
+}
+
+/* Candlestick bars */
+.candle-body {
+    rx: 3;
+    ry: 3;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+}
+
+.candle-body:hover { opacity: 1; }
+
+.candle-wick {
+    stroke-width: 1.5;
+    stroke-linecap: round;
+}
+
+/* Traffic bar colors */
+.bar-smooth  { fill: #16a34a; }
+.bar-moderate{ fill: #d97706; }
+.bar-heavy   { fill: #dc2626; }
+
+/* Water bar colors */
+.bar-water-low    { fill: #2563eb; }
+.bar-water-normal { fill: #16a34a; }
+.bar-water-rising { fill: #d97706; }
+.bar-water-high   { fill: #dc2626; }
+
+/* Tooltip */
+.chart-tooltip {
+    position: absolute;
+    background: rgba(26,26,26,0.9);
+    color: #fff;
+    font-size: 0.72rem;
+    font-family: var(--font-body);
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 10;
+    border: 1px solid rgba(212,175,55,0.3);
+    display: none;
+}
+
+/* Current marker line */
+.chart-current-line {
+    stroke: var(--gold);
+    stroke-width: 1.5;
+    stroke-dasharray: 4 3;
+    opacity: 0.7;
+}
+
+.chart-current-dot {
+    fill: var(--gold);
+    filter: drop-shadow(0 0 4px rgba(212,175,55,0.6));
+}
