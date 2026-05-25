@@ -50,27 +50,27 @@ class WeatherPage {
     // Helper: Create Circular Progress Bar
     // ========================================
     createCircularProgressBar(percentage, size = 'large', statusClass = '') {
-        const dimensions = size === 'large' ? 
-            { width: 120, radius: 50, strokeWidth: 8 } : 
-            { width: 70, radius: 27, strokeWidth: 6 };
-        
-        const circumference = 2 * Math.PI * dimensions.radius;
+        // ใช้ viewBox เพื่อให้ CSS resize ได้โดยไม่เบี้ยว
+        const dim = size === 'large'
+            ? { vb: 100, r: 40, sw: 8 }
+            : { vb: 80,  r: 32, sw: 7 };
+
+        const circumference = 2 * Math.PI * dim.r;
         const offset = circumference - (percentage / 100) * circumference;
-        
+        const half = dim.vb / 2;
+
         return `
-            <svg class="circular-progress ${size}" width="${dimensions.width}" height="${dimensions.width}">
-                <circle class="progress-bg" 
-                        cx="${dimensions.width/2}" 
-                        cy="${dimensions.width/2}" 
-                        r="${dimensions.radius}" 
-                        stroke-width="${dimensions.strokeWidth}" />
-                <circle class="progress-fill ${statusClass}" 
-                        cx="${dimensions.width/2}" 
-                        cy="${dimensions.width/2}" 
-                        r="${dimensions.radius}"
-                        stroke-width="${dimensions.strokeWidth}"
-                        stroke-dasharray="${circumference}" 
-                        stroke-dashoffset="${offset}" />
+            <svg class="circular-progress ${size}"
+                 viewBox="0 0 ${dim.vb} ${dim.vb}"
+                 xmlns="http://www.w3.org/2000/svg">
+                <circle class="progress-bg"
+                        cx="${half}" cy="${half}" r="${dim.r}"
+                        stroke-width="${dim.sw}" />
+                <circle class="progress-fill ${statusClass}"
+                        cx="${half}" cy="${half}" r="${dim.r}"
+                        stroke-width="${dim.sw}"
+                        stroke-dasharray="${circumference.toFixed(2)}"
+                        stroke-dashoffset="${offset.toFixed(2)}" />
             </svg>
             <div class="progress-text">${percentage}%</div>
         `;
@@ -525,21 +525,23 @@ class WeatherPage {
         const radius = (size - strokeWidth) / 2;
         const circumference = 2 * Math.PI * radius;
         const offset = circumference - (percentage / 100) * circumference;
-        
+
         return `
-            <svg class="gauge-circle" width="${size}" height="${size}">
-                <circle class="gauge-bg" 
-                        cx="${size/2}" 
-                        cy="${size/2}" 
-                        r="${radius}" 
+            <svg class="gauge-circle"
+                 viewBox="0 0 ${size} ${size}"
+                 xmlns="http://www.w3.org/2000/svg">
+                <circle class="gauge-bg"
+                        cx="${size/2}"
+                        cy="${size/2}"
+                        r="${radius}"
                         stroke-width="${strokeWidth}" />
-                <circle class="gauge-fill ${statusClass}" 
-                        cx="${size/2}" 
-                        cy="${size/2}" 
+                <circle class="gauge-fill ${statusClass}"
+                        cx="${size/2}"
+                        cy="${size/2}"
                         r="${radius}"
                         stroke-width="${strokeWidth}"
-                        stroke-dasharray="${circumference}" 
-                        stroke-dashoffset="${offset}" />
+                        stroke-dasharray="${circumference.toFixed(2)}"
+                        stroke-dashoffset="${offset.toFixed(2)}" />
             </svg>
             <div class="gauge-center">
                 <div class="gauge-value">${value}</div>
