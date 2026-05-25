@@ -1530,9 +1530,11 @@
   display: none !important;
 }
 
-/* ซ่อน fixed status widget บน desktop */
-#fixed-status-widget {
-  display: none !important;
+/* ซ่อน fixed status widget บน desktop เท่านั้น */
+@media (min-width: 769px) {
+  #fixed-status-widget {
+    display: none !important;
+  }
 }
 
 /* เปิดใช้บนมือถือ */
