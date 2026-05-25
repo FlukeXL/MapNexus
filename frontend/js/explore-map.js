@@ -81,7 +81,7 @@ function addMarker(place, type) {
 function buildCardPortrait(place, badge) {
     const badgeHtml = badge ? '<span class="ec-badge">' + badge + '</span>' : '';
     const priceHtml = place.price ? '<div class="ec-price">' + place.price + '</div>' : '';
-    return '<div class="ec-card-portrait">' +
+    return '<div class="ec-card-portrait" data-place-id="' + place.id + '">' +
         '<div class="ec-img-portrait">' +
         '<img src="' + place.image + '" alt="' + place.name + '" loading="lazy">' +
         badgeHtml +
@@ -104,7 +104,7 @@ function buildCardPortrait(place, badge) {
 function buildCardLandscape(place, badge) {
     const badgeHtml = badge ? '<span class="ec-badge">' + badge + '</span>' : '';
     const priceHtml = place.price ? '<div class="ec-price">' + place.price + '</div>' : '';
-    return '<div class="ec-card-landscape">' +
+    return '<div class="ec-card-landscape" data-place-id="' + place.id + '">' +
         '<div class="ec-img-landscape">' +
         '<img src="' + place.image + '" alt="' + place.name + '" loading="lazy">' +
         badgeHtml +
@@ -160,6 +160,10 @@ function renderCarousels() {
             new window.PlacesCarousel('carousel-nature', 'nature-prev', 'nature-next', 'nature-indicators');
         } else {
             setupBasicNavs();
+        }
+        // Re-attach place detail events after render
+        if (typeof window.attachPlaceCardEvents === 'function') {
+            window.attachPlaceCardEvents();
         }
     }, 200);
 }
