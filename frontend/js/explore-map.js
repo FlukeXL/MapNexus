@@ -96,7 +96,7 @@ function buildCardPortrait(place, badge) {
         '<span class="ec-reviews">' + place.reviews.toLocaleString() + ' รีวิว</span>' +
         '</div>' +
         priceHtml +
-        '<a href="#" class="ec-link">ดูรายละเอียด <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>' +
+        '<a href="place.html?id=' + place.id + '" class="ec-link">ดูรายละเอียด <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>' +
         '</div></div>';
 }
 
@@ -119,7 +119,7 @@ function buildCardLandscape(place, badge) {
         '<span class="ec-reviews">' + place.reviews.toLocaleString() + ' รีวิว</span>' +
         '</div>' +
         priceHtml +
-        '<a href="#" class="ec-link">ดูรายละเอียด <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>' +
+        '<a href="place.html?id=' + place.id + '" class="ec-link">ดูรายละเอียด <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>' +
         '</div></div>';
 }
 

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title id="page-title">รายละเอียดสถานที่ — MapNexus</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@200;300;400;500;600;700&family=Noto+Serif+Thai:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Place Detail Page ===== */
+body { background: var(--off-white); }
+
+.place-detail-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 2rem 4rem;
+}
+
+/* Back + breadcrumb */
+.place-back-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.place-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--gold-dark);
+  text-decoration: none;
+  padding: 0.4rem 0.875rem;
+  border: 1.5px solid rgba(212,175,55,0.3);
+  border-radius: 20px;
+  background: rgba(212,175,55,0.06);
+  transition: all 0.2s;
+}
+
+.place-back-btn:hover {
+  background: rgba(212,175,55,0.12);
+  border-color: rgba(212,175,55,0.5);
+}
+
+/* Gallery */
+.place-gallery-section {
+  position: relative;
+  margin-bottom: 2rem;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #1a1a1a;
+}
+
+.place-gallery-scroll {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  height: 420px;
+}
+
+.place-gallery-scroll::-webkit-scrollbar { display: none; }
+
+.place-gallery-img {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  object-fit: cover;
+  width: 100%;
+  height: 420px;
+}
+
+/* Gallery nav buttons */
+.gallery-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.92);
+  border: none;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  transition: all 0.2s;
+  z-index: 10;
+  color: var(--primary);
+}
+
+.gallery-nav-btn:hover {
+  background: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.gallery-nav-btn.prev { left: 1rem; }
+.gallery-nav-btn.next { right: 1rem; }
+
+/* Gallery dots */
+.gallery-dots {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  z-index: 10;
+}
+
+.gallery-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0;
+}
+
+.gallery-dot.active {
+  background: #fff;
+  width: 22px;
+  border-radius: 4px;
+}
+
+/* Gallery counter */
+.gallery-counter {
+  position: absolute;
+  top: 1rem; right: 1rem;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  border-radius: 20px;
+  backdrop-filter: blur(4px);
+  z-index: 10;
+}
+
+/* Rating badge */
+.gallery-rating {
+  position: absolute;
+  top: 1rem; left: 1rem;
+  background: rgba(255,255,255,0.95);
+  border-radius: 20px;
+  padding: 0.35rem 0.75rem;
+  display: flex; align-items: center; gap: 0.3rem;
+  font-size: 0.9rem; font-weight: 700;
+  color: var(--gold-dark);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  z-index: 10;
+}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="nav-logo">
+      <h1 class="logo-text">MapNexus</h1>
+      <p class="logo-subtitle">การเดินทางที่มีระดับ</p>
+    </div>
+    <ul class="nav-menu">
+      <li><a href="index.html" class="nav-link">หน้าหลัก</a></li>
+      <li><a href="explore.html" class="nav-link active">นำเที่ยว</a></li>
+      <li><a href="checkin.html" class="nav-link">เช็คอิน</a></li>
+      <li><a href="weather.html" class="nav-link">พยากรณ์อากาศ</a></li>
+    </ul>
+    <div class="nav-actions" id="nav-actions">
+      <a href="login.html?tab=register" class="btn-register">สมัครบัญชี</a>
+      <a href="login.html" class="btn-secondary">เข้าสู่ระบบ</a>
+    </div>
+    <button type="button" class="mobile-menu-toggle" aria-label="เมนู">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="place-detail-wrap" style="margin-top: 80px;">
+
+  <!-- Back button -->
+  <div class="place-back-bar">
+    <a href="javascript:history.back()" class="place-back-btn">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 5l-7 7 7 7"/>
+      </svg>
+      กลับ
+    </a>
+    <span style="color:#ccc;font-size:0.8rem;">›</span>
+    <span id="breadcrumb-name" style="font-size:0.82rem;color:#888;"></span>
+  </div>
+
+  <!-- Gallery -->
+  <div class="place-gallery-section" id="gallery-section">
+    <div class="place-gallery-scroll" id="gallery-scroll"></div>
+    <button type="button" class="gallery-nav-btn prev" id="gallery-prev" aria-label="ก่อนหน้า">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button type="button" class="gallery-nav-btn next" id="gallery-next" aria-label="ถัดไป">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    <div class="gallery-dots" id="gallery-dots"></div>
+    <div class="gallery-counter" id="gallery-counter">1 / 7</div>
+    <div class="gallery-rating" id="gallery-rating">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="#d4af37"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      <span id="place-rating-val">--</span>
+    </div>
+  </div>
+
+  <!-- Main content: 2 columns -->
+  <div id="place-content" style="display:grid;grid-template-columns:1fr 1.6fr;gap:2.5rem;align-items:start;">
+
+    <!-- Left column -->
+    <div>
+      <span id="place-category" style="display:inline-block;font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gold-dark);background:rgba(212,175,55,0.1);border:1px solid rgba(212,175,55,0.2);border-radius:12px;padding:0.2rem 0.65rem;margin-bottom:0.75rem;"></span>
+      <h1 id="place-name" style="font-family:'Noto Serif Thai',serif;font-size:2rem;font-weight:700;color:var(--primary);line-height:1.25;margin-bottom:0.5rem;"></h1>
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem;flex-wrap:wrap;">
+        <span id="place-location-badge" style="display:flex;align-items:center;gap:0.3rem;font-size:0.85rem;color:var(--medium-gray);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span id="place-location-text"></span>
+        </span>
+        <span id="place-reviews-badge" style="display:flex;align-items:center;gap:0.3rem;font-size:0.85rem;color:var(--medium-gray);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--gold);"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          <span id="place-reviews-text"></span>
+        </span>
+      </div>
+
+      <!-- Price if hotel -->
+      <div id="place-price-wrap" style="display:none;margin-bottom:1.25rem;">
+        <div id="place-price" style="display:inline-flex;align-items:center;gap:0.4rem;background:linear-gradient(135deg,rgba(184,148,30,0.12),rgba(212,175,55,0.08));border:1px solid rgba(212,175,55,0.25);border-radius:12px;padding:0.5rem 1rem;font-size:0.95rem;font-weight:700;color:var(--gold-dark);"></div>
+      </div>
+
+      <!-- Navigate button -->
+      <a id="place-nav-btn" href="#" target="_blank" rel="noopener noreferrer"
+         style="display:inline-flex;align-items:center;gap:0.5rem;padding:0.75rem 1.5rem;background:linear-gradient(135deg,var(--gold-dark),var(--gold));color:var(--primary);font-weight:700;font-size:0.9rem;border-radius:12px;text-decoration:none;box-shadow:0 4px 15px rgba(212,175,55,0.3);transition:all 0.2s;margin-bottom:1.5rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+        นำทางด้วย Google Maps
+      </a>
+
+      <!-- Prev / Next -->
+      <div style="display:flex;gap:0.75rem;">
+        <a id="prev-place-btn" href="#" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.55rem 1rem;border:1.5px solid var(--light-gray);border-radius:10px;font-size:0.82rem;font-weight:600;color:var(--dark-gray);text-decoration:none;transition:all 0.2s;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+          ก่อนหน้า
+        </a>
+        <a id="next-place-btn" href="#" style="display:inline-flex;align-items:center;gap:0.4rem;padding:0.55rem 1rem;border:1.5px solid var(--light-gray);border-radius:10px;font-size:0.82rem;font-weight:600;color:var(--dark-gray);text-decoration:none;transition:all 0.2s;">
+          ถัดไป
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Right column: info -->
+    <div style="background:#fff;border-radius:20px;padding:2rem;box-shadow:0 4px 20px rgba(0,0,0,0.07);border:1px solid var(--light-gray);">
+      <div id="info-rows"></div>
+    </div>
+
+  </div>
+</div>
+
+<script src="js/places-data.js"></script>
+<script type="module" src="js/auth-state.js"></script>
+<script src="js/mobile-menu.js"></script>
+<script>
+(function() {
+  'use strict';
+
+  // ===== Get all places flat =====
+  function getAllPlaces() {
+    if (typeof PLACES_DATA === 'undefined') return [];
+    return [
+      ...(PLACES_DATA.temples || []),
+      ...(PLACES_DATA.cafes || []),
+      ...(PLACES_DATA.hotels || [])
+    ];
+  }
+
+  function findPlace(id) {
+    return getAllPlaces().find(p => p.id === parseInt(id));
+  }
+
+  // ===== Gallery =====
+  let currentImg = 0;
+  let totalImgs = 0;
+
+  function initGallery(gallery) {
+    const scroll = document.getElementById('gallery-scroll');
+    const dots = document.getElementById('gallery-dots');
+    const counter = document.getElementById('gallery-counter');
+    totalImgs = gallery.length;
+
+    scroll.innerHTML = gallery.map(src =>
+      `<img class="place-gallery-img" src="${src}" alt="gallery" loading="lazy">`
+    ).join('');
+
+    dots.innerHTML = gallery.map((_, i) =>
+      `<button type="button" class="gallery-dot ${i===0?'active':''}" data-i="${i}"></button>`
+    ).join('');
+
+    counter.textContent = `1 / ${totalImgs}`;
+
+    // Scroll sync
+    scroll.addEventListener('scroll', () => {
+      currentImg = Math.round(scroll.scrollLeft / scroll.clientWidth);
+      dots.querySelectorAll('.gallery-dot').forEach((d,i) => d.classList.toggle('active', i===currentImg));
+      counter.textContent = `${currentImg+1} / ${totalImgs}`;
+    }, { passive: true });
+
+    // Dots click
+    dots.querySelectorAll('.gallery-dot').forEach(d => {
+      d.addEventListener('click', () => {
+        const i = parseInt(d.dataset.i);
+        scroll.scrollTo({ left: i * scroll.clientWidth, behavior: 'smooth' });
+      });
+    });
+
+    // Nav buttons
+    document.getElementById('gallery-prev').addEventListener('click', () => {
+      if (currentImg > 0) scroll.scrollTo({ left: (currentImg-1)*scroll.clientWidth, behavior:'smooth' });
+    });
+    document.getElementById('gallery-next').addEventListener('click', () => {
+      if (currentImg < totalImgs-1) scroll.scrollTo({ left: (currentImg+1)*scroll.clientWidth, behavior:'smooth' });
+    });
+  }
+
+  // ===== Info rows =====
+  function renderInfoRows(place) {
+    const rows = [];
+
+    if (place.openYear) rows.push({
+      icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
+      label: 'เปิดตั้งแต่', text: place.openYear
+    });
+
+    if (place.history) rows.push({
+      icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`,
+      label: 'ประวัติความเป็นมา', text: place.history
+    });
+
+    if (place.about) rows.push({
+      icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>`,
+      label: 'เกี่ยวกับ', text: place.about
+    });
+
+    if (place.phone) rows.push({
+      icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>`,
+      label: 'เบอร์โทรศัพท์',
+      text: `<a href="tel:${place.phone}" style="color:var(--gold-dark);font-weight:700;text-decoration:none;">${place.phone}</a>`
+    });
+
+    const container = document.getElementById('info-rows');
+    container.innerHTML = rows.map((r, i) => `
+      <div style="display:flex;align-items:flex-start;gap:0.875rem;${i>0?'margin-top:1.25rem;padding-top:1.25rem;border-top:1px solid var(--light-gray);':''}">
+        <div style="width:36px;height:36px;border-radius:10px;background:rgba(212,175,55,0.1);display:flex;align-items:center;justify-content:center;color:var(--gold-dark);flex-shrink:0;margin-top:0.1rem;">${r.icon}</div>
+        <div style="flex:1;">
+          <div style="font-size:0.7rem;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.3rem;">${r.label}</div>
+          <div style="font-size:0.92rem;color:var(--dark-gray);line-height:1.7;">${r.text}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // ===== Prev / Next =====
+  function setupPrevNext(currentId) {
+    const all = getAllPlaces();
+    const idx = all.findIndex(p => p.id === currentId);
+    const prev = all[idx - 1];
+    const next = all[idx + 1];
+
+    const prevBtn = document.getElementById('prev-place-btn');
+    const nextBtn = document.getElementById('next-place-btn');
+
+    if (prev) {
+      prevBtn.href = `place.html?id=${prev.id}`;
+      prevBtn.title = prev.name;
+    } else {
+      prevBtn.style.opacity = '0.35';
+      prevBtn.style.pointerEvents = 'none';
+    }
+
+    if (next) {
+      nextBtn.href = `place.html?id=${next.id}`;
+      nextBtn.title = next.name;
+    } else {
+      nextBtn.style.opacity = '0.35';
+      nextBtn.style.pointerEvents = 'none';
+    }
+  }
+
+  // ===== Init =====
+  function init() {
+    const params = new URLSearchParams(location.search);
+    const id = params.get('id');
+    if (!id) { location.href = 'explore.html'; return; }
+
+    const place = findPlace(id);
+    if (!place) { location.href = 'explore.html'; return; }
+
+    // Page title
+    document.getElementById('page-title').textContent = `${place.name} — MapNexus`;
+    document.getElementById('breadcrumb-name').textContent = place.name;
+
+    // Category + name
+    document.getElementById('place-category').textContent = place.category;
+    document.getElementById('place-name').textContent = place.name;
+    document.getElementById('place-rating-val').textContent = place.rating;
+    document.getElementById('place-location-text').textContent = place.location;
+    document.getElementById('place-reviews-text').textContent = place.reviews.toLocaleString() + ' รีวิว';
+
+    // Price
+    if (place.price) {
+      document.getElementById('place-price-wrap').style.display = 'block';
+      document.getElementById('place-price').innerHTML =
+        `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>${place.price}`;
+    }
+
+    // Navigate button
+    if (place.lat && place.lng) {
+      document.getElementById('place-nav-btn').href =
+        `https://www.google.com/maps/dir/?api=1&destination=${place.lat},${place.lng}`;
+    }
+
+    // Gallery
+    const gallery = place.gallery || [place.image];
+    initGallery(gallery);
+
+    // Info rows
+    renderInfoRows(place);
+
+    // Prev / Next
+    setupPrevNext(place.id);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+</body>
+</html>

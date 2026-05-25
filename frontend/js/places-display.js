@@ -45,7 +45,7 @@ class PlacesDisplay {
                         <span class="place-reviews">${place.reviews.toLocaleString()} รีวิว</span>
                     </div>
                     ${place.price ? `<div class="place-price">${place.price}</div>` : ''}
-                    <a href="explore.html?id=${place.id}" class="place-link">
+                    <a href="place.html?id=${place.id}" class="place-link">
                         <span>ดูรายละเอียด</span>
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M5 12h14M12 5l7 7-7 7"/>
