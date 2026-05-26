@@ -706,6 +706,206 @@ section {
     color: var(--gold);
 }
 
+/* ========== Local Food Section ========== */
+.local-food-section {
+    padding: 3.5rem 0;
+    background: var(--off-white);
+}
+
+.local-food-section .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+}
+
+.local-food-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+}
+
+/* การ์ดแต่ละอัน */
+.lf-card {
+    position: relative;
+    height: 220px;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+}
+
+.lf-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.2);
+}
+
+/* รูปพื้นหลัง */
+.lf-card-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.lf-card:hover .lf-card-img {
+    transform: scale(1.06);
+}
+
+/* Gradient overlay */
+.lf-card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(10,8,5,0.88) 0%,
+        rgba(10,8,5,0.45) 50%,
+        rgba(10,8,5,0.1) 100%
+    );
+    transition: background 0.3s ease;
+}
+
+.lf-card:hover .lf-card-overlay {
+    background: linear-gradient(
+        to top,
+        rgba(10,8,5,0.92) 0%,
+        rgba(10,8,5,0.55) 55%,
+        rgba(10,8,5,0.15) 100%
+    );
+}
+
+/* เส้นประกาย gold ด้านบน */
+.lf-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.lf-card:hover::before {
+    opacity: 1;
+}
+
+.lf-card.mustfood::before  { background: linear-gradient(90deg, transparent, #d4af37, transparent); }
+.lf-card.foodtruck::before { background: linear-gradient(90deg, transparent, #60a5fa, transparent); }
+.lf-card.streetfood::before{ background: linear-gradient(90deg, transparent, #fb923c, transparent); }
+
+/* Content ด้านล่าง */
+.lf-card-body {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 1.25rem 1.25rem 1.1rem;
+    z-index: 2;
+}
+
+/* Badge หมวด */
+.lf-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 20px;
+    padding: 0.22rem 0.65rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid;
+}
+
+.lf-badge.mustfood  {
+    color: #d4af37;
+    background: rgba(212,175,55,0.15);
+    border-color: rgba(212,175,55,0.35);
+}
+.lf-badge.foodtruck {
+    color: #93c5fd;
+    background: rgba(96,165,250,0.15);
+    border-color: rgba(96,165,250,0.35);
+}
+.lf-badge.streetfood {
+    color: #fdba74;
+    background: rgba(251,146,60,0.15);
+    border-color: rgba(251,146,60,0.35);
+}
+
+/* ชื่อหมวด */
+.lf-card-title {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.25;
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.01em;
+}
+
+/* คำอธิบาย */
+.lf-card-desc {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ปุ่ม */
+.lf-card-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+    opacity: 0.75;
+    transition: opacity 0.2s, gap 0.2s;
+    letter-spacing: 0.03em;
+}
+
+.lf-card:hover .lf-card-btn {
+    opacity: 1;
+    gap: 0.55rem;
+}
+
+.lf-card-btn svg {
+    transition: transform 0.2s;
+}
+
+.lf-card:hover .lf-card-btn svg {
+    transform: translateX(3px);
+}
+
+/* จำนวนเมนู badge มุมขวาบน */
+.lf-count-badge {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 3;
+    background: rgba(0,0,0,0.45);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px;
+    padding: 0.25rem 0.65rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
 /* ========== Experience Section ========== */
 .experience-content {
     display: grid;

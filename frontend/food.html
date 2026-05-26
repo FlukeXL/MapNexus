@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Local Food นครพนม — MapNexus</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/mobile.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@200;300;400;500;600;700&family=Noto+Serif+Thai:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===== Food Page ===== */
+body { background: var(--off-white); }
+
+/* Page Header */
+.food-page-header {
+    position: relative;
+    height: 280px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+}
+
+.food-page-header-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.food-page-header-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,8,5,0.85) 0%, rgba(10,8,5,0.3) 60%, rgba(10,8,5,0.1) 100%);
+}
+
+.food-page-header-content {
+    position: relative;
+    z-index: 2;
+    padding: 2rem;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.food-page-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    margin-bottom: 0.75rem;
+    transition: color 0.2s;
+}
+
+.food-page-back:hover { color: #d4af37; }
+
+.food-page-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 20px;
+    padding: 0.22rem 0.65rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid;
+}
+
+.food-page-badge.mustfood  { color: #d4af37; background: rgba(212,175,55,0.15); border-color: rgba(212,175,55,0.35); }
+.food-page-badge.foodtruck { color: #93c5fd; background: rgba(96,165,250,0.15); border-color: rgba(96,165,250,0.35); }
+.food-page-badge.streetfood{ color: #fdba74; background: rgba(251,146,60,0.15); border-color: rgba(251,146,60,0.35); }
+.food-page-badge.all       { color: #d4af37; background: rgba(212,175,55,0.15); border-color: rgba(212,175,55,0.35); }
+
+.food-page-title {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+    margin: 0;
+}
+
+/* Category Tabs */
+.food-tabs-wrap {
+    background: #fff;
+    border-bottom: 1px solid var(--light-gray);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.food-tabs {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    gap: 0;
+}
+
+.food-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 1rem 1.25rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--medium-gray);
+    text-decoration: none;
+    border-bottom: 2.5px solid transparent;
+    transition: all 0.2s;
+    cursor: pointer;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-family: inherit;
+    white-space: nowrap;
+}
+
+.food-tab:hover { color: var(--gold-dark); }
+
+.food-tab.active {
+    color: var(--gold-dark);
+    border-bottom-color: var(--gold-dark);
+}
+
+/* Content Area */
+.food-content-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 4rem;
+}
+
+/* Coming Soon Placeholder */
+.food-coming-soon {
+    text-align: center;
+    padding: 5rem 2rem;
+}
+
+.food-coming-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(212,175,55,0.12), rgba(212,175,55,0.06));
+    border: 1.5px solid rgba(212,175,55,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    color: var(--gold-dark);
+}
+
+.food-coming-title {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+.food-coming-desc {
+    font-size: 0.9rem;
+    color: var(--medium-gray);
+    line-height: 1.7;
+    max-width: 380px;
+    margin: 0 auto 2rem;
+}
+
+.food-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.75rem;
+    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.88rem;
+    border-radius: 12px;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(212,175,55,0.3);
+    transition: all 0.2s;
+}
+
+.food-back-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(212,175,55,0.4);
+}
+
+/* Category info cards */
+.food-category-intro {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+}
+
+.food-cat-card {
+    border-radius: 16px;
+    padding: 1.25rem;
+    border: 1.5px solid;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+    transition: all 0.2s;
+}
+
+.food-cat-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+.food-cat-card.mustfood {
+    background: linear-gradient(135deg, rgba(212,175,55,0.08), rgba(212,175,55,0.03));
+    border-color: rgba(212,175,55,0.25);
+}
+
+.food-cat-card.foodtruck {
+    background: linear-gradient(135deg, rgba(96,165,250,0.08), rgba(96,165,250,0.03));
+    border-color: rgba(96,165,250,0.25);
+}
+
+.food-cat-card.streetfood {
+    background: linear-gradient(135deg, rgba(251,146,60,0.08), rgba(251,146,60,0.03));
+    border-color: rgba(251,146,60,0.25);
+}
+
+.food-cat-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.875rem;
+    font-size: 1.4rem;
+}
+
+.food-cat-card.mustfood  .food-cat-icon { background: rgba(212,175,55,0.12); }
+.food-cat-card.foodtruck .food-cat-icon { background: rgba(96,165,250,0.12); }
+.food-cat-card.streetfood .food-cat-icon { background: rgba(251,146,60,0.12); }
+
+.food-cat-name {
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.3rem;
+}
+
+.food-cat-desc {
+    font-size: 0.78rem;
+    color: var(--medium-gray);
+    line-height: 1.55;
+    margin-bottom: 0.75rem;
+}
+
+.food-cat-link {
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: gap 0.2s;
+}
+
+.food-cat-card.mustfood  .food-cat-link { color: #b8941e; }
+.food-cat-card.foodtruck .food-cat-link { color: #3b82f6; }
+.food-cat-card.streetfood .food-cat-link { color: #ea580c; }
+
+.food-cat-card:hover .food-cat-link { gap: 0.5rem; }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-container">
+        <div class="nav-logo">
+            <h1 class="logo-text">MapNexus</h1>
+            <p class="logo-subtitle">การเดินทางที่มีระดับ</p>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="index.html" class="nav-link">หน้าหลัก</a></li>
+            <li><a href="explore.html" class="nav-link">นำเที่ยว</a></li>
+            <li><a href="checkin.html" class="nav-link">เช็คอิน</a></li>
+            <li><a href="weather.html" class="nav-link">พยากรณ์อากาศ</a></li>
+        </ul>
+        <div class="nav-actions" id="nav-actions">
+            <a href="login.html?tab=register" class="btn-register">สมัครบัญชี</a>
+            <a href="login.html" class="btn-secondary">เข้าสู่ระบบ</a>
+        </div>
+        <button type="button" class="mobile-menu-toggle" aria-label="เมนู">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- Page Header (dynamic) -->
+<div class="food-page-header" id="food-page-header" style="margin-top:80px;">
+    <img class="food-page-header-img" id="food-header-img"
+         src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=80"
+         alt="Local Food นครพนม">
+    <div class="food-page-header-overlay"></div>
+    <div class="food-page-header-content">
+        <a href="index.html" class="food-page-back">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 5l-7 7 7 7"/>
+            </svg>
+            กลับหน้าหลัก
+        </a>
+        <div>
+            <span class="food-page-badge all" id="food-page-badge">
+                🍽️ Local Food
+            </span>
+        </div>
+        <h1 class="food-page-title" id="food-page-title">Local Food นครพนม</h1>
+    </div>
+</div>
+
+<!-- Category Tabs -->
+<div class="food-tabs-wrap">
+    <div class="food-tabs">
+        <button class="food-tab" data-cat="all">ทั้งหมด</button>
+        <button class="food-tab" data-cat="mustfood">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+            Must Food
+        </button>
+        <button class="food-tab" data-cat="foodtruck">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                <circle cx="7" cy="17" r="2"/><circle cx="13" cy="17" r="2"/>
+            </svg>
+            Food Truck
+        </button>
+        <button class="food-tab" data-cat="streetfood">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                <polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+            Street Food
+        </button>
+    </div>
+</div>
+
+<!-- Content -->
+<div class="food-content-wrap">
+
+    <!-- หน้า All — แสดง 3 category cards -->
+    <div id="section-all">
+        <div class="food-category-intro">
+            <a href="food.html?category=mustfood" class="food-cat-card mustfood">
+                <div class="food-cat-icon">🏆</div>
+                <div class="food-cat-name">Must Food</div>
+                <p class="food-cat-desc">เมนูขึ้นชื่อของนครพนมที่ไม่ควรพลาด รสชาติดั้งเดิมแท้ๆ ที่หากินได้เฉพาะที่นี่</p>
+                <span class="food-cat-link">
+                    ดูเมนู
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </span>
+            </a>
+            <a href="food.html?category=foodtruck" class="food-cat-card foodtruck">
+                <div class="food-cat-icon">🚚</div>
+                <div class="food-cat-name">Food Truck</div>
+                <p class="food-cat-desc">ฟู้ดทรัคสุดชิคริมแม่น้ำโขง บรรยากาศดี อาหารอร่อย เปิดยามเย็นถึงดึก</p>
+                <span class="food-cat-link">
+                    ดูเมนู
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </span>
+            </a>
+            <a href="food.html?category=streetfood" class="food-cat-card streetfood">
+                <div class="food-cat-icon">🌮</div>
+                <div class="food-cat-name">Street Food</div>
+                <p class="food-cat-desc">ของกินริมทางและตลาดนัดยามค่ำ รสชาติพื้นบ้านแท้ๆ ราคาเป็นมิตร</p>
+                <span class="food-cat-link">
+                    ดูเมนู
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                        <path d="M5 12h14M12 5l7 7-7 7"/>
+                    </svg>
+                </span>
+            </a>
+        </div>
+    </div>
+
+    <!-- หน้า Must Food -->
+    <div id="section-mustfood" style="display:none;">
+        <div class="food-coming-soon">
+            <div class="food-coming-icon">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+            </div>
+            <h2 class="food-coming-title">Must Food นครพนม</h2>
+            <p class="food-coming-desc">กำลังรวบรวมเมนูอาหารต้องลองของนครพนม<br>เร็วๆ นี้จะมีรายการอาหารให้ดูครับ</p>
+            <a href="index.html" class="food-back-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 5l-7 7 7 7"/>
+                </svg>
+                กลับหน้าหลัก
+            </a>
+        </div>
+    </div>
+
+    <!-- หน้า Food Truck -->
+    <div id="section-foodtruck" style="display:none;">
+        <div class="food-coming-soon">
+            <div class="food-coming-icon">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+                    <circle cx="7" cy="17" r="2"/><circle cx="13" cy="17" r="2"/>
+                </svg>
+            </div>
+            <h2 class="food-coming-title">Food Truck ริมโขง</h2>
+            <p class="food-coming-desc">กำลังรวบรวมรายชื่อ Food Truck ริมแม่น้ำโขง<br>เร็วๆ นี้จะมีรายการให้ดูครับ</p>
+            <a href="index.html" class="food-back-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 5l-7 7 7 7"/>
+                </svg>
+                กลับหน้าหลัก
+            </a>
+        </div>
+    </div>
+
+    <!-- หน้า Street Food -->
+    <div id="section-streetfood" style="display:none;">
+        <div class="food-coming-soon">
+            <div class="food-coming-icon">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                    <polyline points="9 22 9 12 15 12 15 22"/>
+                </svg>
+            </div>
+            <h2 class="food-coming-title">Street Food นครพนม</h2>
+            <p class="food-coming-desc">กำลังรวบรวมของกินริมทางและตลาดนัด<br>เร็วๆ นี้จะมีรายการให้ดูครับ</p>
+            <a href="index.html" class="food-back-btn">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 5l-7 7 7 7"/>
+                </svg>
+                กลับหน้าหลัก
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3 class="footer-logo">NAKHON PHANOM</h3>
+                <p class="footer-tagline">เมืองแห่งมนต์เสน่ห์โขง</p>
+                <p class="footer-description">ค้นพบความงามและวัฒนธรรมอันยาวนาน<br>ของนครพนม เมืองมรดกริมแม่น้ำโขง</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4 class="footer-title">สำรวจ</h4>
+                    <ul class="footer-list">
+                        <li><a href="explore.html">สถานที่ท่องเที่ยว</a></li>
+                        <li><a href="food.html">Local Food</a></li>
+                        <li><a href="checkin.html">เช็คอิน</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-title">ข้อมูล</h4>
+                    <ul class="footer-list">
+                        <li><a href="about.html">เกี่ยวกับเรา</a></li>
+                        <li><a href="#">ติดต่อเรา</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4 class="footer-title">ติดตาม</h4>
+                    <ul class="footer-list">
+                        <li><a href="#">Facebook</a></li>
+                        <li><a href="#">Instagram</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Nakhon Phanom Tourism. All rights reserved.</p>
+            <div class="footer-legal">
+                <a href="#">นโยบายความเป็นส่วนตัว</a>
+                <a href="#">เงื่อนไขการใช้งาน</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script type="module" src="js/auth-state.js"></script>
+<script src="js/mobile-menu.js"></script>
+<script>
+(function() {
+    'use strict';
+
+    // Config แต่ละ category
+    const config = {
+        all: {
+            title: 'Local Food นครพนม',
+            badge: '🍽️ Local Food',
+            badgeClass: 'all',
+            img: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=80'
+        },
+        mustfood: {
+            title: 'Must Food — ต้องลอง',
+            badge: '🏆 Must Food',
+            badgeClass: 'mustfood',
+            img: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=80'
+        },
+        foodtruck: {
+            title: 'Food Truck ริมโขง',
+            badge: '🚚 Food Truck',
+            badgeClass: 'foodtruck',
+            img: 'https://images.unsplash.com/photo-1565123409695-7b5ef63a2efb?w=1200&q=80'
+        },
+        streetfood: {
+            title: 'Street Food นครพนม',
+            badge: '🌮 Street Food',
+            badgeClass: 'streetfood',
+            img: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&q=80'
+        }
+    };
+
+    function init() {
+        const params = new URLSearchParams(location.search);
+        const cat = params.get('category') || 'all';
+        showCategory(cat);
+    }
+
+    function showCategory(cat) {
+        const cfg = config[cat] || config.all;
+
+        // อัปเดต header
+        document.getElementById('food-page-title').textContent = cfg.title;
+        document.getElementById('food-header-img').src = cfg.img;
+        const badge = document.getElementById('food-page-badge');
+        badge.textContent = cfg.badge;
+        badge.className = 'food-page-badge ' + cfg.badgeClass;
+
+        // อัปเดต page title
+        document.title = cfg.title + ' — MapNexus';
+
+        // ซ่อนทุก section แล้วแสดงอันที่ต้องการ
+        ['all', 'mustfood', 'foodtruck', 'streetfood'].forEach(id => {
+            const el = document.getElementById('section-' + id);
+            if (el) el.style.display = (id === cat) ? '' : 'none';
+        });
+
+        // อัปเดต active tab
+        document.querySelectorAll('.food-tab').forEach(tab => {
+            tab.classList.toggle('active', tab.dataset.cat === cat);
+        });
+    }
+
+    // Tab click
+    document.querySelectorAll('.food-tab').forEach(tab => {
+        tab.addEventListener('click', () => {
+            const cat = tab.dataset.cat;
+            history.pushState(null, '', 'food.html' + (cat === 'all' ? '' : '?category=' + cat));
+            showCategory(cat);
+        });
+    });
+
+    // Browser back/forward
+    window.addEventListener('popstate', init);
+
+    // Init
+    document.addEventListener('DOMContentLoaded', init);
+})();
+</script>
+</body>
+</html>
