@@ -327,7 +327,6 @@ body { background: var(--off-white); }
 <!-- Category Tabs -->
 <div class="food-tabs-wrap">
     <div class="food-tabs">
-        <button class="food-tab" data-cat="all">ทั้งหมด</button>
         <button class="food-tab" data-cat="FOODTRY">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
@@ -354,54 +353,15 @@ body { background: var(--off-white); }
 <!-- Content -->
 <div class="food-content-wrap">
 
-    <!-- หน้า All — แสดง 3 category cards -->
-    <div id="section-all">
-        <div class="food-category-intro">
-            <a href="food.html?category=mustfood" class="food-cat-card mustfood">
-                <div class="food-cat-icon">🏆</div>
-                <div class="food-cat-name">Must Food</div>
-                <p class="food-cat-desc">เมนูขึ้นชื่อของนครพนมที่ไม่ควรพลาด รสชาติดั้งเดิมแท้ๆ ที่หากินได้เฉพาะที่นี่</p>
-                <span class="food-cat-link">
-                    ดูเมนู
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                </span>
-            </a>
-            <a href="food.html?category=foodtruck" class="food-cat-card foodtruck">
-                <div class="food-cat-icon">🚚</div>
-                <div class="food-cat-name">Food Truck</div>
-                <p class="food-cat-desc">ฟู้ดทรัคสุดชิคริมแม่น้ำโขง บรรยากาศดี อาหารอร่อย เปิดยามเย็นถึงดึก</p>
-                <span class="food-cat-link">
-                    ดูเมนู
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                </span>
-            </a>
-            <a href="food.html?category=streetfood" class="food-cat-card streetfood">
-                <div class="food-cat-icon">🌮</div>
-                <div class="food-cat-name">Street Food</div>
-                <p class="food-cat-desc">ของกินริมทางและตลาดนัดยามค่ำ รสชาติพื้นบ้านแท้ๆ ราคาเป็นมิตร</p>
-                <span class="food-cat-link">
-                    ดูเมนู
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                </span>
-            </a>
-        </div>
-    </div>
-
-    <!-- หน้า Must Food -->
-    <div id="section-mustfood" style="display:none;">
+    <!-- หน้า FOODTRY -->
+    <div id="section-FOODTRY">
         <div class="food-coming-soon">
             <div class="food-coming-icon">
                 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                     <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                 </svg>
             </div>
-            <h2 class="food-coming-title">Must Food นครพนม</h2>
+            <h2 class="food-coming-title">FOODTRY นครพนม</h2>
             <p class="food-coming-desc">กำลังรวบรวมเมนูอาหารต้องลองของนครพนม<br>เร็วๆ นี้จะมีรายการอาหารให้ดูครับ</p>
             <a href="index.html" class="food-back-btn">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -412,8 +372,8 @@ body { background: var(--off-white); }
         </div>
     </div>
 
-    <!-- หน้า Food Truck -->
-    <div id="section-foodtruck" style="display:none;">
+    <!-- หน้า FOODTRUCK -->
+    <div id="section-FOODTRUCK" style="display:none;">
         <div class="food-coming-soon">
             <div class="food-coming-icon">
                 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -421,7 +381,7 @@ body { background: var(--off-white); }
                     <circle cx="7" cy="17" r="2"/><circle cx="13" cy="17" r="2"/>
                 </svg>
             </div>
-            <h2 class="food-coming-title">Food Truck ริมโขง</h2>
+            <h2 class="food-coming-title">FOODTRUCK ริมโขง</h2>
             <p class="food-coming-desc">กำลังรวบรวมรายชื่อ Food Truck ริมแม่น้ำโขง<br>เร็วๆ นี้จะมีรายการให้ดูครับ</p>
             <a href="index.html" class="food-back-btn">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -432,8 +392,8 @@ body { background: var(--off-white); }
         </div>
     </div>
 
-    <!-- หน้า Street Food -->
-    <div id="section-streetfood" style="display:none;">
+    <!-- หน้า STREETFOOD -->
+    <div id="section-STREETFOOD" style="display:none;">
         <div class="food-coming-soon">
             <div class="food-coming-icon">
                 <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -441,7 +401,7 @@ body { background: var(--off-white); }
                     <polyline points="9 22 9 12 15 12 15 22"/>
                 </svg>
             </div>
-            <h2 class="food-coming-title">Street Food นครพนม</h2>
+            <h2 class="food-coming-title">STREETFOOD นครพนม</h2>
             <p class="food-coming-desc">กำลังรวบรวมของกินริมทางและตลาดนัด<br>เร็วๆ นี้จะมีรายการให้ดูครับ</p>
             <a href="index.html" class="food-back-btn">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -506,27 +466,21 @@ body { background: var(--off-white); }
 
     // Config แต่ละ category
     const config = {
-        all: {
-            title: 'Local Food นครพนม',
-            badge: '🍽️ Local Food',
-            badgeClass: 'all',
-            img: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=80'
-        },
-        mustfood: {
-            title: 'Must Food — ต้องลอง',
-            badge: '🏆 Must Food',
+        FOODTRY: {
+            title: 'FOODTRY — ต้องลอง',
+            badge: '🏆 FOODTRY',
             badgeClass: 'mustfood',
             img: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=80'
         },
-        foodtruck: {
-            title: 'Food Truck ริมโขง',
-            badge: '🚚 Food Truck',
+        FOODTRUCK: {
+            title: 'FOODTRUCK ริมโขง',
+            badge: '🚚 FOODTRUCK',
             badgeClass: 'foodtruck',
             img: 'https://images.unsplash.com/photo-1565123409695-7b5ef63a2efb?w=1200&q=80'
         },
-        streetfood: {
-            title: 'Street Food นครพนม',
-            badge: '🌮 Street Food',
+        STREETFOOD: {
+            title: 'STREETFOOD นครพนม',
+            badge: '🌮 STREETFOOD',
             badgeClass: 'streetfood',
             img: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&q=80'
         }
@@ -534,12 +488,12 @@ body { background: var(--off-white); }
 
     function init() {
         const params = new URLSearchParams(location.search);
-        const cat = params.get('category') || 'all';
+        const cat = params.get('category') || 'FOODTRY';
         showCategory(cat);
     }
 
     function showCategory(cat) {
-        const cfg = config[cat] || config.all;
+        const cfg = config[cat] || config.FOODTRY;
 
         // อัปเดต header
         document.getElementById('food-page-title').textContent = cfg.title;
@@ -552,7 +506,7 @@ body { background: var(--off-white); }
         document.title = cfg.title + ' — MapNexus';
 
         // ซ่อนทุก section แล้วแสดงอันที่ต้องการ
-        ['all', 'mustfood', 'foodtruck', 'streetfood'].forEach(id => {
+        ['FOODTRY', 'FOODTRUCK', 'STREETFOOD'].forEach(id => {
             const el = document.getElementById('section-' + id);
             if (el) el.style.display = (id === cat) ? '' : 'none';
         });
@@ -567,7 +521,7 @@ body { background: var(--off-white); }
     document.querySelectorAll('.food-tab').forEach(tab => {
         tab.addEventListener('click', () => {
             const cat = tab.dataset.cat;
-            history.pushState(null, '', 'food.html' + (cat === 'all' ? '' : '?category=' + cat));
+            history.pushState(null, '', 'food.html?category=' + cat);
             showCategory(cat);
         });
     });
