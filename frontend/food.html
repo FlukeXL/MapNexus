@@ -87,163 +87,187 @@ body { background: var(--off-white); }
     margin: 0;
 }
 
-/* ===== Menu Cards ===== */
+/* ===== Menu Cards — Premium Grid 3 col ===== */
 .food-menu-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(480px, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
     margin-bottom: 0.5rem;
 }
 
 .food-menu-card {
-    display: flex;
     background: #fff;
-    border-radius: 18px;
+    border-radius: 20px;
     overflow: hidden;
     border: 1px solid var(--light-gray);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    box-shadow: 0 2px 16px rgba(0,0,0,0.07);
     cursor: pointer;
     text-decoration: none;
-    transition: transform 0.25s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.25s ease;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s cubic-bezier(0.34,1.4,0.64,1),
+                box-shadow 0.3s ease;
     position: relative;
 }
 
 .food-menu-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+    transform: translateY(-6px);
+    box-shadow: 0 18px 48px rgba(0,0,0,0.14);
 }
 
-/* เส้น accent ด้านซ้าย */
-.food-menu-card::before {
+/* เส้น accent ด้านบน — ปรากฏตอน hover */
+.food-menu-card::after {
     content: '';
     position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 3px;
-    border-radius: 18px 0 0 18px;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 20px 20px 0 0;
     opacity: 0;
-    transition: opacity 0.25s;
+    transition: opacity 0.3s ease;
+    z-index: 2;
 }
 
-.food-menu-card:hover::before { opacity: 1; }
+.food-menu-card:hover::after { opacity: 1; }
 
-.food-menu-card.cat-MUSTTRY::before  { background: linear-gradient(to bottom, #d4af37, #f4e4a1); }
-.food-menu-card.cat-FOODTRUCK::before{ background: linear-gradient(to bottom, #818cf8, #c4b5fd); }
-.food-menu-card.cat-STREETFOOD::before{ background: linear-gradient(to bottom, #fb923c, #fcd34d); }
+.food-menu-card.cat-MUSTTRY::after   { background: linear-gradient(90deg, transparent 5%, #d4af37 40%, #f4e4a1 60%, #d4af37 80%, transparent 95%); }
+.food-menu-card.cat-FOODTRUCK::after { background: linear-gradient(90deg, transparent 5%, #818cf8 40%, #c4b5fd 60%, #818cf8 80%, transparent 95%); }
+.food-menu-card.cat-STREETFOOD::after{ background: linear-gradient(90deg, transparent 5%, #fb923c 40%, #fcd34d 60%, #fb923c 80%, transparent 95%); }
 
-/* รูปอาหาร */
+/* รูปอาหาร — aspect ratio 4:3 เต็มไม่ตัด */
 .fmc-img-wrap {
-    width: 180px;
-    min-width: 180px;
-    height: 160px;
+    width: 100%;
+    aspect-ratio: 4 / 3;
     overflow: hidden;
-    flex-shrink: 0;
     position: relative;
     background: #f0ede8;
+    flex-shrink: 0;
 }
 
 .fmc-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.4s ease;
+    object-position: center;
+    transition: transform 0.5s ease, filter 0.3s ease;
+    display: block;
 }
 
-.food-menu-card:hover .fmc-img { transform: scale(1.06); }
+.food-menu-card:hover .fmc-img {
+    transform: scale(1.04);
+    filter: brightness(0.95);
+}
 
 /* Category badge บนรูป */
 .fmc-cat-badge {
     position: absolute;
-    bottom: 0.6rem;
-    left: 0.6rem;
+    top: 0.75rem;
+    left: 0.75rem;
     font-size: 0.6rem;
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    padding: 0.18rem 0.55rem;
+    padding: 0.22rem 0.65rem;
     border-radius: 20px;
     border: 1px solid;
+    z-index: 1;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
 }
 
-.cat-MUSTTRY  .fmc-cat-badge { color: #b8941e; background: rgba(212,175,55,0.9); border-color: rgba(212,175,55,0.5); }
-.cat-FOODTRUCK .fmc-cat-badge { color: #3730a3; background: rgba(199,210,254,0.9); border-color: rgba(129,140,248,0.5); }
-.cat-STREETFOOD .fmc-cat-badge { color: #9a3412; background: rgba(254,215,170,0.9); border-color: rgba(251,146,60,0.5); }
+.cat-MUSTTRY   .fmc-cat-badge { color: #7a5c00; background: rgba(255,220,80,0.88); border-color: rgba(212,175,55,0.6); }
+.cat-FOODTRUCK .fmc-cat-badge { color: #2e2a8a; background: rgba(199,210,254,0.88); border-color: rgba(129,140,248,0.6); }
+.cat-STREETFOOD .fmc-cat-badge { color: #7c2d12; background: rgba(254,215,170,0.88); border-color: rgba(251,146,60,0.6); }
 
 /* ข้อมูลเมนู */
 .fmc-body {
     flex: 1;
-    padding: 1.1rem 1.25rem;
+    padding: 1.1rem 1.25rem 1.25rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    min-width: 0;
+    gap: 0;
 }
 
-.fmc-top { flex: 1; }
+/* เส้นคั่นบาง */
+.fmc-divider {
+    height: 1px;
+    background: var(--light-gray);
+    margin: 0.75rem 0;
+}
 
 .fmc-menu-name {
     font-family: 'Noto Serif Thai', serif;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--primary);
-    line-height: 1.3;
-    margin-bottom: 0.2rem;
-}
-
-.fmc-shop-name {
-    font-size: 0.78rem;
-    font-weight: 600;
-    color: var(--gold-dark);
-    margin-bottom: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-}
-
-.fmc-desc {
-    font-size: 0.8rem;
-    color: var(--medium-gray);
-    line-height: 1.55;
+    line-height: 1.4;
+    margin-bottom: 0.3rem;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    margin-bottom: 0.75rem;
+}
+
+.fmc-shop-name {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--gold-dark);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    margin-bottom: 0;
 }
 
 .fmc-meta {
     display: flex;
-    align-items: center;
-    gap: 1rem;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-top: 0.1rem;
 }
 
 .fmc-meta-item {
     display: flex;
-    align-items: center;
-    gap: 0.3rem;
+    align-items: flex-start;
+    gap: 0.4rem;
     font-size: 0.72rem;
     color: var(--medium-gray);
+    line-height: 1.45;
 }
 
-.fmc-meta-item svg { color: var(--gold-dark); flex-shrink: 0; }
+.fmc-meta-item svg {
+    color: var(--gold-dark);
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
 
+/* ปุ่มดูรายละเอียด */
 .fmc-detail-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    font-size: 0.72rem;
+    gap: 0.4rem;
+    font-size: 0.75rem;
     font-weight: 700;
     color: var(--gold-dark);
     letter-spacing: 0.04em;
-    margin-top: 0.75rem;
+    margin-top: auto;
+    padding-top: 0.875rem;
     transition: gap 0.2s;
+    border-top: 1px solid var(--light-gray);
 }
 
-.food-menu-card:hover .fmc-detail-btn { gap: 0.55rem; }
-.fmc-detail-btn svg { transition: transform 0.2s; }
-.food-menu-card:hover .fmc-detail-btn svg { transform: translateX(3px); }
+.food-menu-card:hover .fmc-detail-btn { gap: 0.6rem; }
+.fmc-detail-btn svg { transition: transform 0.2s; flex-shrink: 0; }
+.food-menu-card:hover .fmc-detail-btn svg { transform: translateX(4px); }
 
-/* ===== Shop Detail Modal ===== */
+/* placeholder ไม่มีรูป */
+.fmc-img-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f5f2ed, #ede9e2);
+    color: #d4c9b8;
+}
 .sdm-overlay {
     position: fixed;
     inset: 0;
@@ -788,32 +812,29 @@ body { background: var(--off-white); }
     <div id="section-MUSTTRY">
         <div class="food-menu-grid">
 
-            <!-- เมนูที่ 1 — ใส่ข้อมูลได้เลย -->
+            <!-- เมนูที่ 1 -->
             <div class="food-menu-card cat-MUSTTRY" onclick="openShopModal('MUSTTRY-1')">
                 <div class="fmc-img-wrap">
-                    <!-- ใส่ src รูปอาหารได้เลย -->
-                    <img class="fmc-img" src="assets\images\food\musttry\ก๋วยเตี๋ยวเอสโซ่.jpg" alt="เมนู MUSTTRY"
-                         onerror="this.parentElement.innerHTML='<div class=\'fmc-img-placeholder\'><svg width=\'40\' height=\'40\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><path d=\'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\'/></svg></div>'">
+                    <img class="fmc-img" src="assets/images/food/musttry/ก๋วยเตี๋ยวเอสโซ่.jpg" alt="ก๋วยเตี๋ยวเอสโซ่"
+                         onerror="this.style.display='none';this.parentElement.classList.add('fmc-img-placeholder')">
                     <span class="fmc-cat-badge">MUSTTRY</span>
                 </div>
                 <div class="fmc-body">
-                    <div class="fmc-top">
-                        <div class="fmc-menu-name">ก๋วยเตี๋ยวเนื้อเปื่อยน้ำใสหลมหล่อมมากๆ</div>
-                        <div class="fmc-shop-name">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                            ก๋วยเตี๋ยวเอสโซ่ตลาด ป.เป็ด
-                        </div>
-                        <p class="fmc-desc">ก๋วยเตี๋ยวเนื้อเปื่อยน้ำใส เนื้อปื่อยที่มีความเป็นเนื้อ รสชาติของเนื้อเต็มๆ พร้อมกับน้ำใสสูตรดั้งเดิมยาวนานกว่า 50 ปี</p>
-                        <div class="fmc-meta">
-                            <span class="fmc-meta-item">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                                ตลาดป.เป็ด ตำบลในเมือง อำเภอเมืองนครพนม
-                            </span>
-                            <span class="fmc-meta-item">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                ตั้งแต่เวลา 07.00 - 15.00 น.
-                            </span>
-                        </div>
+                    <div class="fmc-menu-name">ก๋วยเตี๋ยวเนื้อเปื่อยน้ำใสหลมหล่อมมากๆ</div>
+                    <div class="fmc-shop-name">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        ก๋วยเตี๋ยวเอสโซ่ตลาด ป.เป็ด
+                    </div>
+                    <div class="fmc-divider"></div>
+                    <div class="fmc-meta">
+                        <span class="fmc-meta-item">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            ตลาดป.เป็ด ตำบลในเมือง อำเภอเมืองนครพนม
+                        </span>
+                        <span class="fmc-meta-item">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            07:00 – 15:00 น. ทุกวัน
+                        </span>
                     </div>
                     <span class="fmc-detail-btn">
                         ดูรายละเอียดร้าน
@@ -821,6 +842,11 @@ body { background: var(--off-white); }
                     </span>
                 </div>
             </div>
+
+            <!-- เมนูที่ 2 — เพิ่มได้ที่นี่ -->
+            <!-- copy การ์ดด้านบนแล้วเปลี่ยน id และข้อมูล -->
+
+            <!-- เมนูที่ 3 — เพิ่มได้ที่นี่ -->
 
         </div>
     </div>
@@ -832,28 +858,26 @@ body { background: var(--off-white); }
             <!-- เมนูที่ 1 -->
             <div class="food-menu-card cat-FOODTRUCK" onclick="openShopModal('foodtruck-1')">
                 <div class="fmc-img-wrap">
-                    <img class="fmc-img" src="assets\images\food\foodtruck\ข้าวเกรียบปากหม้อ ซวดลวด.jpg" alt="เมนู FOODTRUCK"
-                         onerror="this.parentElement.innerHTML='<div class=\'fmc-img-placeholder\'><svg width=\'40\' height=\'40\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><path d=\'M18 8h1a4 4 0 0 1 0 8h-1\'/><path d=\'M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z\'/><circle cx=\'7\' cy=\'17\' r=\'2\'/><circle cx=\'13\' cy=\'17\' r=\'2\'/></svg></div>'">
+                    <img class="fmc-img" src="assets/images/food/foodtruck/ข้าวเกรียบปากหม้อ ซวดลวด.jpg" alt="ข้าวเกรียบปากหม้อ"
+                         onerror="this.style.display='none';this.parentElement.classList.add('fmc-img-placeholder')">
                     <span class="fmc-cat-badge">FOODTRUCK</span>
                 </div>
                 <div class="fmc-body">
-                    <div class="fmc-top">
-                        <div class="fmc-menu-name">ข้าวเกรียบปากหม้อชุดรวม</div>
-                        <div class="fmc-shop-name">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><circle cx="7" cy="17" r="2"/><circle cx="13" cy="17" r="2"/></svg>
-                            ข้าวเกรียบปากหม้อ ซวดลวด
-                        </div>
-                        <p class="fmc-desc">ข้าวเปรียบซวดลวดสูตรดั้งเดิมคนญวน หอม เต็มคำใส้เยอะ อร่อยนุ่มหอมหมูสัพ</p>
-                        <div class="fmc-meta">
-                            <span class="fmc-meta-item">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                                เยื้ยงหน้าวัดมหาธาตุ รถเข็นสีชมพู
-                            </span>
-                            <span class="fmc-meta-item">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                เปิดทุกวัน 17:00 - 23:00
-                            </span>
-                        </div>
+                    <div class="fmc-menu-name">ข้าวเกรียบปากหม้อชุดรวม</div>
+                    <div class="fmc-shop-name">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><circle cx="7" cy="17" r="2"/><circle cx="13" cy="17" r="2"/></svg>
+                        ข้าวเกรียบปากหม้อ ซวดลวด
+                    </div>
+                    <div class="fmc-divider"></div>
+                    <div class="fmc-meta">
+                        <span class="fmc-meta-item">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            เยื้องหน้าวัดมหาธาตุ รถเข็นสีชมพู
+                        </span>
+                        <span class="fmc-meta-item">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            17:00 – 23:00 น. ทุกวัน
+                        </span>
                     </div>
                     <span class="fmc-detail-btn">
                         ดูรายละเอียดร้าน
@@ -861,6 +885,9 @@ body { background: var(--off-white); }
                     </span>
                 </div>
             </div>
+
+            <!-- เมนูที่ 2 — เพิ่มได้ที่นี่ -->
+            <!-- เมนูที่ 3 — เพิ่มได้ที่นี่ -->
 
         </div>
     </div>
@@ -872,32 +899,41 @@ body { background: var(--off-white); }
             <!-- เมนูที่ 1 -->
             <div class="food-menu-card cat-STREETFOOD" onclick="openShopModal('streetfood-1')">
                 <div class="fmc-img-wrap">
-                    <img class="fmc-img" src="assets\images\food\streetfood\ต้มเส้นหอนาฬิกา.jpg" alt="เมนู STREETFOOD"
-                         onerror="this.parentElement.innerHTML='<div class=\'fmc-img-placeholder\'><svg width=\'40\' height=\'40\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1\'><path d=\'M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z\'/><polyline points=\'9 22 9 12 15 12 15 22\'/></svg></div>'">
+                    <img class="fmc-img" src="assets/images/food/streetfood/ต้มเส้นหอนาฬิกา.jpg" alt="ต้มเส้นหอนาฬิกา"
+                         onerror="this.style.display='none';this.parentElement.classList.add('fmc-img-placeholder')">
                     <span class="fmc-cat-badge">STREETFOOD</span>
                 </div>
                 <div class="fmc-body">
-                    <div class="fmc-top">
-                        <div class="fmc-menu-name">ต้มเส้น</div>
-                        <div class="fmc-shop-name">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-                            ต้มเส้นหอนาฬิกา
-                        </div>
-                        <p class="fmc-desc">ต้มเส้นหอนาฬิกา หรือ จั้บญวนที่มาเปิดโดยการทำแบบวิถีคนญวนดั้งเดิมครับ</p>
-                        <div class="fmc-meta">
-                            <span class="fmc-meta-item">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                                 ถนนศรีเทพ ตำบลในเมือง อำเภอเมืองนครพนม (เยื้องกับร้านเฟื่องนคร) ดูแผนที่ผ่าน Google Maps
-                            </span>
-                            <span class="fmc-meta-item">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                                เปิดทุกวัน ตั้งแต่เวลา 16:00 - 22:00
-                            </span>
-                        </div>
+                    <div class="fmc-menu-name">ต้มเส้น (จั้บญวน)</div>
+                    <div class="fmc-shop-name">
+                        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                        ต้มเส้นหอนาฬิกา
+                    </div>
+                    <div class="fmc-divider"></div>
+                    <div class="fmc-meta">
+                        <span class="fmc-meta-item">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            ถนนศรีเทพ ตำบลในเมือง อำเภอเมืองนครพนม
+                        </span>
+                        <span class="fmc-meta-item">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            16:00 – 22:00 น. ทุกวัน
+                        </span>
                     </div>
                     <span class="fmc-detail-btn">
                         ดูรายละเอียดร้าน
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </span>
+                </div>
+            </div>
+
+            <!-- เมนูที่ 2 — เพิ่มได้ที่นี่ -->
+            <!-- เมนูที่ 3 — เพิ่มได้ที่นี่ -->
+
+        </div>
+    </div>
+
+</div>
                     </span>
                 </div>
             </div>
