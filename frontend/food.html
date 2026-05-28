@@ -10,18 +10,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@200;300;400;500;600;700&family=Noto+Serif+Thai:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ===== Food Page ===== */
 body { background: var(--off-white); }
 
-/* Page Header */
+/* ===== Page Header ===== */
 .food-page-header {
     position: relative;
-    height: 280px;
+    height: 260px;
     overflow: hidden;
     display: flex;
     align-items: flex-end;
+    margin-top: 80px;
 }
-
 .food-page-header-img {
     position: absolute;
     inset: 0;
@@ -29,13 +28,11 @@ body { background: var(--off-white); }
     height: 100%;
     object-fit: cover;
 }
-
 .food-page-header-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(10,8,5,0.85) 0%, rgba(10,8,5,0.3) 60%, rgba(10,8,5,0.1) 100%);
+    background: linear-gradient(to top, rgba(10,8,5,0.85) 0%, rgba(10,8,5,0.25) 60%, rgba(10,8,5,0.05) 100%);
 }
-
 .food-page-header-content {
     position: relative;
     z-index: 2;
@@ -44,7 +41,6 @@ body { background: var(--off-white); }
     max-width: 1100px;
     margin: 0 auto;
 }
-
 .food-page-back {
     display: inline-flex;
     align-items: center;
@@ -56,9 +52,9 @@ body { background: var(--off-white); }
     margin-bottom: 0.75rem;
     transition: color 0.2s;
 }
-
 .food-page-back:hover { color: #d4af37; }
-
+</style>
+<style>
 .food-page-badge {
     display: inline-flex;
     align-items: center;
@@ -71,13 +67,10 @@ body { background: var(--off-white); }
     padding: 0.22rem 0.65rem;
     margin-bottom: 0.5rem;
     border: 1px solid;
+    color: #d4af37;
+    background: rgba(212,175,55,0.15);
+    border-color: rgba(212,175,55,0.35);
 }
-
-.food-page-badge.mustfood  { color: #d4af37; background: rgba(212,175,55,0.15); border-color: rgba(212,175,55,0.35); }
-.food-page-badge.foodtruck { color: #93c5fd; background: rgba(96,165,250,0.15); border-color: rgba(96,165,250,0.35); }
-.food-page-badge.streetfood{ color: #fdba74; background: rgba(251,146,60,0.15); border-color: rgba(251,146,60,0.35); }
-.food-page-badge.all       { color: #d4af37; background: rgba(212,175,55,0.15); border-color: rgba(212,175,55,0.35); }
-
 .food-page-title {
     font-family: 'Noto Serif Thai', serif;
     font-size: 2rem;
@@ -87,77 +80,113 @@ body { background: var(--off-white); }
     margin: 0;
 }
 
-/* ===== Menu Cards — Premium Grid 3 col ===== */
+/* ===== Tab Bar ===== */
+.food-tabs-wrap {
+    background: #fff;
+    border-bottom: 1px solid var(--light-gray);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
+.food-tabs {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    gap: 0;
+}
+.food-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 1rem 1.25rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--medium-gray);
+    border-bottom: 2.5px solid transparent;
+    cursor: pointer;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-family: inherit;
+    white-space: nowrap;
+    transition: color 0.2s;
+}
+.food-tab:hover { color: var(--gold-dark); }
+.food-tab.active {
+    color: var(--gold-dark);
+    border-bottom-color: var(--gold-dark);
+}
+
+/* ===== Content ===== */
+.food-content-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem 2rem 4rem;
+}
+
+/* ===== Menu Grid ===== */
 .food-menu-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
-    margin-bottom: 0.5rem;
 }
-
 .food-menu-card {
     background: #fff;
-    border-radius: 20px;
+    border-radius: 18px;
     overflow: hidden;
     border: 1px solid var(--light-gray);
-    box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    box-shadow: 0 2px 14px rgba(0,0,0,0.07);
     cursor: pointer;
-    text-decoration: none;
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s cubic-bezier(0.34,1.4,0.64,1),
-                box-shadow 0.3s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
     position: relative;
 }
-
 .food-menu-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 18px 48px rgba(0,0,0,0.14);
+    transform: translateY(-5px);
+    box-shadow: 0 14px 40px rgba(0,0,0,0.13);
 }
-
-/* เส้น accent ด้านบน — ปรากฏตอน hover */
+</style>
+<style>
+/* accent line top on hover */
 .food-menu-card::after {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 3px;
-    border-radius: 20px 20px 0 0;
+    border-radius: 18px 18px 0 0;
     opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 2;
+    transition: opacity 0.25s;
+    z-index: 1;
+    pointer-events: none;
 }
-
 .food-menu-card:hover::after { opacity: 1; }
+.food-menu-card.cat-MUSTTRY::after   { background: linear-gradient(90deg,transparent 5%,#d4af37 40%,#f4e4a1 60%,#d4af37 80%,transparent 95%); }
+.food-menu-card.cat-FOODTRUCK::after { background: linear-gradient(90deg,transparent 5%,#818cf8 40%,#c4b5fd 60%,#818cf8 80%,transparent 95%); }
+.food-menu-card.cat-STREETFOOD::after{ background: linear-gradient(90deg,transparent 5%,#fb923c 40%,#fcd34d 60%,#fb923c 80%,transparent 95%); }
 
-.food-menu-card.cat-MUSTTRY::after   { background: linear-gradient(90deg, transparent 5%, #d4af37 40%, #f4e4a1 60%, #d4af37 80%, transparent 95%); }
-.food-menu-card.cat-FOODTRUCK::after { background: linear-gradient(90deg, transparent 5%, #818cf8 40%, #c4b5fd 60%, #818cf8 80%, transparent 95%); }
-.food-menu-card.cat-STREETFOOD::after{ background: linear-gradient(90deg, transparent 5%, #fb923c 40%, #fcd34d 60%, #fb923c 80%, transparent 95%); }
-
-/* รูปอาหาร — aspect ratio 4:3 เต็มไม่ตัด */
+/* image */
 .fmc-img-wrap {
     width: 100%;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 4/3;
     overflow: hidden;
     position: relative;
     background: #f0ede8;
     flex-shrink: 0;
 }
-
 .fmc-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center;
-    transition: transform 0.5s ease, filter 0.3s ease;
     display: block;
+    transition: transform 0.4s ease;
 }
+.food-menu-card:hover .fmc-img { transform: scale(1.04); }
 
-.food-menu-card:hover .fmc-img {
-    transform: scale(1.04);
-    filter: brightness(0.95);
-}
-
-/* Category badge บนรูป */
+/* badge */
 .fmc-cat-badge {
     position: absolute;
     top: 0.75rem;
@@ -170,44 +199,33 @@ body { background: var(--off-white); }
     border-radius: 20px;
     border: 1px solid;
     z-index: 1;
-    /* ลบ backdrop-filter ออก — ป้องกัน stacking context บล็อก click */
+    pointer-events: none;
 }
+.cat-MUSTTRY   .fmc-cat-badge { color:#7a5c00; background:rgba(255,220,80,0.92); border-color:rgba(212,175,55,0.6); }
+.cat-FOODTRUCK .fmc-cat-badge { color:#2e2a8a; background:rgba(199,210,254,0.92); border-color:rgba(129,140,248,0.6); }
+.cat-STREETFOOD .fmc-cat-badge { color:#7c2d12; background:rgba(254,215,170,0.92); border-color:rgba(251,146,60,0.6); }
 
-.cat-MUSTTRY   .fmc-cat-badge { color: #7a5c00; background: rgba(255,220,80,0.92); border-color: rgba(212,175,55,0.6); }
-.cat-FOODTRUCK .fmc-cat-badge { color: #2e2a8a; background: rgba(199,210,254,0.92); border-color: rgba(129,140,248,0.6); }
-.cat-STREETFOOD .fmc-cat-badge { color: #7c2d12; background: rgba(254,215,170,0.92); border-color: rgba(251,146,60,0.6); }
-
-/* ข้อมูลเมนู */
+/* body */
 .fmc-body {
     flex: 1;
-    padding: 1.1rem 1.25rem 1.25rem;
+    padding: 1rem 1.1rem 1.1rem;
     display: flex;
     flex-direction: column;
-    gap: 0;
 }
-
-/* เส้นคั่นบาง */
-.fmc-divider {
-    height: 1px;
-    background: var(--light-gray);
-    margin: 0.75rem 0;
-}
-
 .fmc-menu-name {
     font-family: 'Noto Serif Thai', serif;
-    font-size: 1rem;
+    font-size: 0.98rem;
     font-weight: 700;
     color: var(--primary);
     line-height: 1.4;
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.2rem;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
-
 .fmc-shop-name {
-    font-size: 0.75rem;
+    font-size: 0.74rem;
     font-weight: 700;
     color: var(--gold-dark);
     display: flex;
@@ -215,528 +233,106 @@ body { background: var(--off-white); }
     gap: 0.3rem;
     margin-bottom: 0;
 }
-
-.fmc-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    margin-top: 0.1rem;
-}
-
+.fmc-divider { height:1px; background:var(--light-gray); margin:0.6rem 0; }
+.fmc-meta { display:flex; flex-direction:column; gap:0.35rem; }
 .fmc-meta-item {
     display: flex;
     align-items: flex-start;
-    gap: 0.4rem;
-    font-size: 0.72rem;
+    gap: 0.35rem;
+    font-size: 0.7rem;
     color: var(--medium-gray);
-    line-height: 1.45;
+    line-height: 1.4;
 }
-
-.fmc-meta-item svg {
-    color: var(--gold-dark);
-    flex-shrink: 0;
-    margin-top: 0.1rem;
-}
-
-/* ปุ่มดูรายละเอียด */
+.fmc-meta-item svg { color:var(--gold-dark); flex-shrink:0; margin-top:0.1rem; }
 .fmc-detail-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 700;
     color: var(--gold-dark);
-    letter-spacing: 0.04em;
     margin-top: auto;
-    padding-top: 0.875rem;
-    transition: gap 0.2s;
+    padding-top: 0.75rem;
     border-top: 1px solid var(--light-gray);
+    transition: gap 0.2s;
 }
-
 .food-menu-card:hover .fmc-detail-btn { gap: 0.6rem; }
-.fmc-detail-btn svg { transition: transform 0.2s; flex-shrink: 0; }
+.fmc-detail-btn svg { transition: transform 0.2s; }
 .food-menu-card:hover .fmc-detail-btn svg { transform: translateX(4px); }
-
-/* placeholder ไม่มีรูป */
-.fmc-img-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #f5f2ed, #ede9e2);
-    color: #d4c9b8;
-}
-.sdm-overlay {
+</style>
+<style>
+/* ===== Modal ===== */
+#sdm-overlay {
+    display: none;
     position: fixed;
     inset: 0;
-    z-index: 9999;
-    display: none;
+    z-index: 9000;
+    background: rgba(0,0,0,0.55);
     align-items: center;
     justify-content: center;
     padding: 2rem;
 }
-
-.sdm-overlay.is-open {
-    display: flex;
-    background: rgba(0,0,0,0.55);
-    -webkit-backdrop-filter: blur(6px);
-    backdrop-filter: blur(6px);
-    animation: sdm-fade 0.25s ease;
-}
-
-@keyframes sdm-fade {
-    from { opacity: 0; }
-    to   { opacity: 1; }
-}
+#sdm-overlay.open { display: flex; }
 
 .sdm-modal {
     background: #fff;
-    border-radius: 24px;
+    border-radius: 22px;
     width: 100%;
-    max-width: 780px;
+    max-width: 760px;
     max-height: 88vh;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 24px 64px rgba(0,0,0,0.22), 0 0 0 1px rgba(212,175,55,0.12);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
 }
+.sdm-gallery { position:relative; height:240px; flex-shrink:0; background:#111; overflow:hidden; }
+.sdm-gallery-scroll { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; height:100%; scrollbar-width:none; }
+.sdm-gallery-scroll::-webkit-scrollbar { display:none; }
+.sdm-gallery-img { flex:0 0 100%; scroll-snap-align:start; object-fit:cover; width:100%; height:240px; }
+.sdm-dots { position:absolute; bottom:0.75rem; left:50%; transform:translateX(-50%); display:flex; gap:5px; z-index:2; }
+.sdm-dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.45); border:none; cursor:pointer; padding:0; transition:all 0.2s; }
+.sdm-dot.active { background:#fff; width:18px; border-radius:3px; }
+.sdm-counter { position:absolute; top:0.75rem; right:0.75rem; background:rgba(0,0,0,0.5); color:#fff; font-size:0.7rem; font-weight:600; padding:0.22rem 0.6rem; border-radius:20px; z-index:2; }
+.sdm-nav-btn { position:absolute; top:50%; transform:translateY(-50%); width:36px; height:36px; border-radius:50%; background:rgba(255,255,255,0.9); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; z-index:2; color:var(--primary); }
+.sdm-nav-btn.prev { left:0.75rem; }
+.sdm-nav-btn.next { right:0.75rem; }
+.sdm-close-btn { position:absolute; top:0.75rem; left:0.75rem; width:34px; height:34px; border-radius:50%; background:rgba(0,0,0,0.45); border:none; display:flex; align-items:center; justify-content:center; cursor:pointer; color:#fff; z-index:3; }
+.sdm-content { flex:1; overflow-y:auto; padding:1.5rem 1.75rem 1.75rem; }
+.sdm-content::-webkit-scrollbar { width:4px; }
+.sdm-content::-webkit-scrollbar-thumb { background:#e8e6e1; border-radius:2px; }
+.sdm-shop-name { font-family:'Noto Serif Thai',serif; font-size:1.45rem; font-weight:700; color:var(--primary); margin-bottom:0.25rem; }
+.sdm-menu-label { font-size:0.8rem; font-weight:600; color:var(--gold-dark); display:flex; align-items:center; gap:0.3rem; margin-bottom:1.1rem; padding-bottom:1.1rem; border-bottom:1px solid var(--light-gray); }
+.sdm-info-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:0.75rem; margin-bottom:1.1rem; }
+.sdm-info-item { display:flex; align-items:flex-start; gap:0.6rem; padding:0.8rem; background:var(--off-white); border-radius:12px; border:1px solid var(--light-gray); }
+.sdm-info-icon { width:32px; height:32px; border-radius:9px; background:rgba(212,175,55,0.1); display:flex; align-items:center; justify-content:center; color:var(--gold-dark); flex-shrink:0; }
+.sdm-info-label { font-size:0.62rem; font-weight:700; color:#aaa; text-transform:uppercase; letter-spacing:0.07em; margin-bottom:0.18rem; }
+.sdm-info-value { font-size:0.82rem; font-weight:600; color:var(--primary); line-height:1.4; }
+.sdm-info-value a { color:var(--gold-dark); text-decoration:none; font-weight:700; }
+.sdm-about-title { font-size:0.68rem; font-weight:700; color:#aaa; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.45rem; }
+.sdm-about-text { font-size:0.86rem; color:var(--primary); line-height:1.75; }
 
-@keyframes sdm-pop {
-    from { transform: scale(0.92) translateY(20px); opacity: 0; }
-    to   { transform: scale(1) translateY(0); opacity: 1; }
-}
-
-.sdm-modal.closing {
-    animation: sdm-pop-out 0.22s ease forwards;
-}
-
-@keyframes sdm-pop-out {
-    from { transform: scale(1); opacity: 1; }
-    to   { transform: scale(0.94) translateY(12px); opacity: 0; }
-}
-
-/* Gallery รูปร้าน */
-.sdm-gallery {
-    position: relative;
-    height: 260px;
-    flex-shrink: 0;
-    background: #1a1a1a;
-    overflow: hidden;
-}
-
-.sdm-gallery-scroll {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    height: 100%;
-    scrollbar-width: none;
-}
-
-.sdm-gallery-scroll::-webkit-scrollbar { display: none; }
-
-.sdm-gallery-img {
-    flex: 0 0 100%;
-    scroll-snap-align: start;
-    object-fit: cover;
-    width: 100%;
-    height: 260px;
-}
-
-/* Gallery dots */
-.sdm-dots {
-    position: absolute;
-    bottom: 0.875rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 5px;
-    z-index: 2;
-}
-
-.sdm-dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.45);
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    transition: all 0.2s;
-}
-
-.sdm-dot.active {
-    background: #fff;
-    width: 18px;
-    border-radius: 3px;
-}
-
-/* Gallery counter */
-.sdm-counter {
-    position: absolute;
-    top: 0.875rem;
-    right: 0.875rem;
-    background: rgba(0,0,0,0.5);
-    color: #fff;
-    font-size: 0.72rem;
-    font-weight: 600;
-    padding: 0.25rem 0.65rem;
-    border-radius: 20px;
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-    z-index: 2;
-}
-
-/* Gallery nav */
-.sdm-nav-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 38px; height: 38px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.9);
-    border: none;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.2);
-    z-index: 2;
-    color: var(--primary);
-    transition: all 0.2s;
-}
-
-.sdm-nav-btn:hover { background: #fff; transform: translateY(-50%) scale(1.05); }
-.sdm-nav-btn.prev { left: 0.875rem; }
-.sdm-nav-btn.next { right: 0.875rem; }
-
-/* ปุ่มปิด */
-.sdm-close {
-    position: absolute;
-    top: 0.875rem;
-    left: 0.875rem;
-    width: 36px; height: 36px;
-    border-radius: 50%;
-    background: rgba(0,0,0,0.45);
-    -webkit-backdrop-filter: blur(4px);
-    backdrop-filter: blur(4px);
-    border: none;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    color: #fff;
-    z-index: 3;
-    transition: background 0.2s;
-}
-
-.sdm-close:hover { background: rgba(0,0,0,0.65); }
-
-/* Content */
-.sdm-content {
-    flex: 1;
-    overflow-y: auto;
-    padding: 1.5rem 1.75rem 1.75rem;
-}
-
-.sdm-content::-webkit-scrollbar { width: 4px; }
-.sdm-content::-webkit-scrollbar-thumb { background: #e8e6e1; border-radius: 2px; }
-
-/* Header ชื่อร้าน */
-.sdm-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
-    margin-bottom: 1.25rem;
-    padding-bottom: 1.25rem;
-    border-bottom: 1px solid var(--light-gray);
-}
-
-.sdm-shop-name {
-    font-family: 'Noto Serif Thai', serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary);
-    line-height: 1.2;
-    margin-bottom: 0.3rem;
-}
-
-.sdm-menu-name {
-    font-size: 0.85rem;
-    color: var(--gold-dark);
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-}
-
-/* Info grid */
-.sdm-info-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.875rem;
-    margin-bottom: 1.25rem;
-}
-
-.sdm-info-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.65rem;
-    padding: 0.875rem;
-    background: var(--off-white);
-    border-radius: 12px;
-    border: 1px solid var(--light-gray);
-}
-
-.sdm-info-icon {
-    width: 34px; height: 34px;
-    border-radius: 10px;
-    background: rgba(212,175,55,0.1);
-    display: flex; align-items: center; justify-content: center;
-    color: var(--gold-dark);
-    flex-shrink: 0;
-}
-
-.sdm-info-label {
-    font-size: 0.65rem;
-    font-weight: 700;
-    color: #aaa;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    margin-bottom: 0.2rem;
-}
-
-.sdm-info-value {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--primary);
-    line-height: 1.4;
-}
-
-.sdm-info-value a {
-    color: var(--gold-dark);
-    text-decoration: none;
-    font-weight: 700;
-}
-
-.sdm-info-value a:hover { text-decoration: underline; }
-
-/* ประวัติ */
-.sdm-about-title {
-    font-size: 0.72rem;
-    font-weight: 700;
-    color: #aaa;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    margin-bottom: 0.5rem;
-}
-
-.sdm-about-text {
-    font-size: 0.88rem;
-    color: var(--primary);
-    line-height: 1.75;
-}
-
-/* ===== No image placeholder ===== */
-.fmc-img-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #f0ede8, #e8e4dc);
-    color: #ccc;
-}
-
-/* Category Tabs */
-.food-tabs-wrap {
-    background: #fff;
-    border-bottom: 1px solid var(--light-gray);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
-
-.food-tabs {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    display: flex;
-    gap: 0;
-}
-
-.food-tab {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 1rem 1.25rem;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--medium-gray);
-    text-decoration: none;
-    border-bottom: 2.5px solid transparent;
-    transition: all 0.2s;
-    cursor: pointer;
-    background: none;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    font-family: inherit;
-    white-space: nowrap;
-}
-
-.food-tab:hover { color: var(--gold-dark); }
-
-.food-tab.active {
-    color: var(--gold-dark);
-    border-bottom-color: var(--gold-dark);
-}
-
-/* Content Area */
-.food-content-wrap {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 2.5rem 2rem 4rem;
-}
-
-/* Coming Soon Placeholder */
-.food-coming-soon {
-    text-align: center;
-    padding: 5rem 2rem;
-}
-
-.food-coming-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, rgba(212,175,55,0.12), rgba(212,175,55,0.06));
-    border: 1.5px solid rgba(212,175,55,0.2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 1.5rem;
-    color: var(--gold-dark);
-}
-
-.food-coming-title {
-    font-family: 'Noto Serif Thai', serif;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 0.5rem;
-}
-
-.food-coming-desc {
-    font-size: 0.9rem;
-    color: var(--medium-gray);
-    line-height: 1.7;
-    max-width: 380px;
-    margin: 0 auto 2rem;
-}
-
-.food-back-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.75rem;
-    background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-    color: var(--primary);
-    font-weight: 700;
-    font-size: 0.88rem;
-    border-radius: 12px;
-    text-decoration: none;
-    box-shadow: 0 4px 15px rgba(212,175,55,0.3);
-    transition: all 0.2s;
-}
-
-.food-back-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(212,175,55,0.4);
-}
-
-/* Category info cards */
-.food-category-intro {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    margin-bottom: 2.5rem;
-}
-
-.food-cat-card {
-    border-radius: 16px;
-    padding: 1.25rem;
-    border: 1.5px solid;
-    cursor: pointer;
-    text-decoration: none;
-    display: block;
-    transition: all 0.2s;
-}
-
-.food-cat-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-}
-
-.food-cat-card.mustfood {
-    background: linear-gradient(135deg, rgba(212,175,55,0.08), rgba(212,175,55,0.03));
-    border-color: rgba(212,175,55,0.25);
-}
-
-.food-cat-card.foodtruck {
-    background: linear-gradient(135deg, rgba(96,165,250,0.08), rgba(96,165,250,0.03));
-    border-color: rgba(96,165,250,0.25);
-}
-
-.food-cat-card.streetfood {
-    background: linear-gradient(135deg, rgba(251,146,60,0.08), rgba(251,146,60,0.03));
-    border-color: rgba(251,146,60,0.25);
-}
-
-.food-cat-icon {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 0.875rem;
-    font-size: 1.4rem;
-}
-
-.food-cat-card.mustfood  .food-cat-icon { background: rgba(212,175,55,0.12); }
-.food-cat-card.foodtruck .food-cat-icon { background: rgba(96,165,250,0.12); }
-.food-cat-card.streetfood .food-cat-icon { background: rgba(251,146,60,0.12); }
-
-.food-cat-name {
-    font-family: 'Noto Serif Thai', serif;
-    font-size: 1.05rem;
-    font-weight: 700;
-    color: var(--primary);
-    margin-bottom: 0.3rem;
-}
-
-.food-cat-desc {
-    font-size: 0.78rem;
-    color: var(--medium-gray);
-    line-height: 1.55;
-    margin-bottom: 0.75rem;
-}
-
-.food-cat-link {
-    font-size: 0.75rem;
-    font-weight: 700;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    transition: gap 0.2s;
-}
-
-.food-cat-card.mustfood  .food-cat-link { color: #b8941e; }
-.food-cat-card.foodtruck .food-cat-link { color: #3b82f6; }
-.food-cat-card.streetfood .food-cat-link { color: #ea580c; }
-
-.food-cat-card:hover .food-cat-link { gap: 0.5rem; }
+/* ===== Footer ===== */
+.food-cat-card { border-radius:16px; padding:1.25rem; border:1.5px solid; cursor:pointer; text-decoration:none; display:block; transition:all 0.2s; }
+.food-cat-card:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(0,0,0,0.1); }
+.food-cat-card.mustfood { background:linear-gradient(135deg,rgba(212,175,55,0.08),rgba(212,175,55,0.03)); border-color:rgba(212,175,55,0.25); }
+.food-cat-card.foodtruck { background:linear-gradient(135deg,rgba(96,165,250,0.08),rgba(96,165,250,0.03)); border-color:rgba(96,165,250,0.25); }
+.food-cat-card.streetfood { background:linear-gradient(135deg,rgba(251,146,60,0.08),rgba(251,146,60,0.03)); border-color:rgba(251,146,60,0.25); }
+.food-cat-icon { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:0.875rem; font-size:1.4rem; }
+.food-cat-card.mustfood .food-cat-icon { background:rgba(212,175,55,0.12); }
+.food-cat-card.foodtruck .food-cat-icon { background:rgba(96,165,250,0.12); }
+.food-cat-card.streetfood .food-cat-icon { background:rgba(251,146,60,0.12); }
+.food-cat-name { font-family:'Noto Serif Thai',serif; font-size:1.05rem; font-weight:700; color:var(--primary); margin-bottom:0.3rem; }
+.food-cat-desc { font-size:0.78rem; color:var(--medium-gray); line-height:1.55; margin-bottom:0.75rem; }
+.food-cat-link { font-size:0.75rem; font-weight:700; display:inline-flex; align-items:center; gap:0.3rem; transition:gap 0.2s; }
+.food-cat-card.mustfood .food-cat-link { color:#b8941e; }
+.food-cat-card.foodtruck .food-cat-link { color:#3b82f6; }
+.food-cat-card.streetfood .food-cat-link { color:#ea580c; }
+.food-cat-card:hover .food-cat-link { gap:0.5rem; }
 </style>
 </head>
 <body>
 
-<!-- Navigation -->
+<!-- Navbar -->
 <nav class="navbar">
     <div class="nav-container">
         <div class="nav-logo">
@@ -759,11 +355,11 @@ body { background: var(--off-white); }
     </div>
 </nav>
 
-<!-- Page Header (dynamic) -->
-<div class="food-page-header" id="food-page-header" style="margin-top:80px;">
+<!-- Page Header -->
+<div class="food-page-header" id="food-page-header">
     <img class="food-page-header-img" id="food-header-img"
          src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=80"
-         alt="Local Food นครพนม">
+         alt="Local Food">
     <div class="food-page-header-overlay"></div>
     <div class="food-page-header-content">
         <a href="index.html" class="food-page-back">
@@ -773,15 +369,13 @@ body { background: var(--off-white); }
             กลับหน้าหลัก
         </a>
         <div>
-            <span class="food-page-badge all" id="food-page-badge">
-                🍽️ Local Food
-            </span>
+            <span class="food-page-badge" id="food-page-badge">🍽️ LOCAL FOOD</span>
         </div>
         <h1 class="food-page-title" id="food-page-title">Local Food นครพนม</h1>
     </div>
 </div>
 
-<!-- Category Tabs -->
+<!-- Tab Bar -->
 <div class="food-tabs-wrap">
     <div class="food-tabs">
         <button class="food-tab" data-cat="MUSTTRY">
@@ -810,15 +404,12 @@ body { background: var(--off-white); }
 <!-- Content -->
 <div class="food-content-wrap">
 
-    <!-- หน้า MUSTTRY -->
-    <div id="section-MUSTTRY">
+    <!-- MUSTTRY -->
+    <div id="section-MUSTTRY" class="food-section">
         <div class="food-menu-grid">
-
-            <!-- เมนูที่ 1 -->
-            <div class="food-menu-card cat-MUSTTRY" onclick="openShopModal('MUSTTRY-1')">
+            <div class="food-menu-card cat-MUSTTRY" onclick="openModal('MUSTTRY-1')">
                 <div class="fmc-img-wrap">
-                    <img class="fmc-img" src="assets/images/food/musttry/ก๋วยเตี๋ยวเอสโซ่.jpg" alt="ก๋วยเตี๋ยวเอสโซ่"
-                         onerror="this.style.display='none';this.parentElement.classList.add('fmc-img-placeholder')">
+                    <img class="fmc-img" src="assets/images/food/musttry/ก๋วยเตี๋ยวเอสโซ่.jpg" alt="ก๋วยเตี๋ยวเอสโซ่">
                     <span class="fmc-cat-badge">MUSTTRY</span>
                 </div>
                 <div class="fmc-body">
@@ -835,7 +426,7 @@ body { background: var(--off-white); }
                         </span>
                         <span class="fmc-meta-item">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                            07:00 – 15:00 น. ทุกวัน
+                            เปิดทุกวันตั้งแต่ 07:00 - 15:00 น. ทุกวัน
                         </span>
                     </div>
                     <span class="fmc-detail-btn">
@@ -844,24 +435,15 @@ body { background: var(--off-white); }
                     </span>
                 </div>
             </div>
-
-            <!-- เมนูที่ 2 — เพิ่มได้ที่นี่ -->
-            <!-- copy การ์ดด้านบนแล้วเปลี่ยน id และข้อมูล -->
-
-            <!-- เมนูที่ 3 — เพิ่มได้ที่นี่ -->
-
         </div>
     </div>
 
-    <!-- หน้า FOODTRUCK -->
-    <div id="section-FOODTRUCK" style="display:none;">
+    <!-- FOODTRUCK -->
+    <div id="section-FOODTRUCK" class="food-section" style="display:none;">
         <div class="food-menu-grid">
-
-            <!-- เมนูที่ 1 -->
-            <div class="food-menu-card cat-FOODTRUCK" onclick="openShopModal('foodtruck-1')">
+            <div class="food-menu-card cat-FOODTRUCK" onclick="openModal('FOODTRUCK-1')">
                 <div class="fmc-img-wrap">
-                    <img class="fmc-img" src="assets/images/food/foodtruck/ข้าวเกรียบปากหม้อ ซวดลวด.jpg" alt="ข้าวเกรียบปากหม้อ"
-                         onerror="this.style.display='none';this.parentElement.classList.add('fmc-img-placeholder')">
+                    <img class="fmc-img" src="assets/images/food/foodtruck/ข้าวเกรียบปากหม้อ ซวดลวด.jpg" alt="ข้าวเกรียบปากหม้อ">
                     <span class="fmc-cat-badge">FOODTRUCK</span>
                 </div>
                 <div class="fmc-body">
@@ -887,22 +469,15 @@ body { background: var(--off-white); }
                     </span>
                 </div>
             </div>
-
-            <!-- เมนูที่ 2 — เพิ่มได้ที่นี่ -->
-            <!-- เมนูที่ 3 — เพิ่มได้ที่นี่ -->
-
         </div>
     </div>
 
-    <!-- หน้า STREETFOOD -->
-    <div id="section-STREETFOOD" style="display:none;">
+    <!-- STREETFOOD -->
+    <div id="section-STREETFOOD" class="food-section" style="display:none;">
         <div class="food-menu-grid">
-
-            <!-- เมนูที่ 1 -->
-            <div class="food-menu-card cat-STREETFOOD" onclick="openShopModal('streetfood-1')">
+            <div class="food-menu-card cat-STREETFOOD" onclick="openModal('STREETFOOD-1')">
                 <div class="fmc-img-wrap">
-                    <img class="fmc-img" src="assets/images/food/streetfood/ต้มเส้นหอนาฬิกา.jpg" alt="ต้มเส้นหอนาฬิกา"
-                         onerror="this.style.display='none';this.parentElement.classList.add('fmc-img-placeholder')">
+                    <img class="fmc-img" src="assets/images/food/streetfood/ต้มเส้นหอนาฬิกา.jpg" alt="ต้มเส้นหอนาฬิกา">
                     <span class="fmc-cat-badge">STREETFOOD</span>
                 </div>
                 <div class="fmc-body">
@@ -928,65 +503,39 @@ body { background: var(--off-white); }
                     </span>
                 </div>
             </div>
-
-            <!-- เมนูที่ 2 — เพิ่มได้ที่นี่ -->
-            <!-- เมนูที่ 3 — เพิ่มได้ที่นี่ -->
-
-        </div>
-    </div>
-
-</div>
-                    </span>
-                </div>
-            </div>
-
         </div>
     </div>
 
 </div>
 
-<!-- ===== Shop Detail Modal ===== -->
-<div id="sdm-overlay" class="sdm-overlay" onclick="handleOverlayClick(event)">
+<!-- Modal -->
+<div id="sdm-overlay" onclick="if(event.target===this)closeModal()">
     <div class="sdm-modal" id="sdm-modal">
-
-        <!-- Gallery -->
         <div class="sdm-gallery" id="sdm-gallery">
-            <div class="sdm-gallery-scroll" id="sdm-gallery-scroll"></div>
+            <div class="sdm-gallery-scroll" id="sdm-scroll"></div>
             <div class="sdm-dots" id="sdm-dots"></div>
-            <div class="sdm-counter" id="sdm-counter" style="display:none;"></div>
-            <button type="button" class="sdm-nav-btn prev" id="sdm-prev" style="display:none;" aria-label="ก่อนหน้า">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+            <div class="sdm-counter" id="sdm-counter"></div>
+            <button class="sdm-nav-btn prev" id="sdm-prev" onclick="slideGallery(-1)">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
             </button>
-            <button type="button" class="sdm-nav-btn next" id="sdm-next" style="display:none;" aria-label="ถัดไป">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+            <button class="sdm-nav-btn next" id="sdm-next" onclick="slideGallery(1)">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
             </button>
-            <button type="button" class="sdm-close" id="sdm-close" aria-label="ปิด">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <button class="sdm-close-btn" onclick="closeModal()">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                     <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
                 </svg>
             </button>
         </div>
-
-        <!-- Content -->
         <div class="sdm-content">
-            <div class="sdm-header">
-                <div>
-                    <div class="sdm-shop-name" id="sdm-shop-name">ชื่อร้าน</div>
-                    <div class="sdm-menu-name" id="sdm-menu-name">
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                        เมนูแนะนำ
-                    </div>
-                </div>
-            </div>
-
+            <div class="sdm-shop-name" id="sdm-shop-name"></div>
+            <div class="sdm-menu-label" id="sdm-menu-label"></div>
             <div class="sdm-info-grid" id="sdm-info-grid"></div>
-
-            <div id="sdm-about-wrap" style="display:none;">
+            <div id="sdm-about-wrap">
                 <div class="sdm-about-title">ประวัติและเกี่ยวกับร้าน</div>
                 <p class="sdm-about-text" id="sdm-about-text"></p>
             </div>
         </div>
-
     </div>
 </div>
 
@@ -1024,7 +573,6 @@ body { background: var(--off-white); }
                 </div>
             </div>
         </div>
-        <!-- Team Section -->
         <div class="footer-team">
             <div class="footer-team-header">
                 <span class="footer-team-icon">✦</span>
@@ -1032,35 +580,17 @@ body { background: var(--off-white); }
                 <span class="footer-team-icon">✦</span>
             </div>
             <div class="footer-team-grid">
-                <div class="footer-team-member">
-                    <div class="footer-team-avatar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-                    <div class="footer-team-info"><span class="footer-team-name">นายเมธี โพธิกำพล</span><span class="footer-team-role">นักพัฒนา</span></div>
-                </div>
-                <div class="footer-team-member">
-                    <div class="footer-team-avatar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-                    <div class="footer-team-info"><span class="footer-team-name">นางสาวศิริวรรณ พนาพงษ์พิสุทธิ์</span><span class="footer-team-role">นักพัฒนา</span></div>
-                </div>
-                <div class="footer-team-member">
-                    <div class="footer-team-avatar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-                    <div class="footer-team-info"><span class="footer-team-name">นางสาวจิดาภา วงค์ประคำ</span><span class="footer-team-role">นักพัฒนา</span></div>
-                </div>
-                <div class="footer-team-member">
-                    <div class="footer-team-avatar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-                    <div class="footer-team-info"><span class="footer-team-name">นางสาวบุณยาดา ตระกูลศักดิ์ศรี</span><span class="footer-team-role">นักพัฒนา</span></div>
-                </div>
+                <div class="footer-team-member"><div class="footer-team-avatar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="footer-team-info"><span class="footer-team-name">นายเมธี โพธิกำพล</span><span class="footer-team-role">นักพัฒนา</span></div></div>
+                <div class="footer-team-member"><div class="footer-team-avatar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="footer-team-info"><span class="footer-team-name">นางสาวศิริวรรณ พนาพงษ์พิสุทธิ์</span><span class="footer-team-role">นักพัฒนา</span></div></div>
+                <div class="footer-team-member"><div class="footer-team-avatar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="footer-team-info"><span class="footer-team-name">นางสาวจิดาภา วงค์ประคำ</span><span class="footer-team-role">นักพัฒนา</span></div></div>
+                <div class="footer-team-member"><div class="footer-team-avatar"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="footer-team-info"><span class="footer-team-name">นางสาวบุณยาดา ตระกูลศักดิ์ศรี</span><span class="footer-team-role">นักพัฒนา</span></div></div>
             </div>
             <div class="footer-advisor-wrap">
                 <span class="footer-advisor-label">อาจารย์ที่ปรึกษา</span>
                 <div class="footer-advisor-list">
-                    <div class="footer-advisor-item">
-                        <div class="footer-advisor-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-                        <span class="footer-advisor-name">ดร.จรรยารัตน์ พฤกษานันท์</span>
-                    </div>
+                    <div class="footer-advisor-item"><div class="footer-advisor-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><span class="footer-advisor-name">ดร.จรรยารัตน์ พฤกษานันท์</span></div>
                     <div class="footer-advisor-sep">·</div>
-                    <div class="footer-advisor-item">
-                        <div class="footer-advisor-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-                        <span class="footer-advisor-name">อาจารย์นิสากร พุทธวงศ์</span>
-                    </div>
+                    <div class="footer-advisor-item"><div class="footer-advisor-avatar"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><span class="footer-advisor-name">อาจารย์นิสากร พุทธวงศ์</span></div>
                 </div>
             </div>
             <div class="footer-about-btn-wrap">
@@ -1071,7 +601,6 @@ body { background: var(--off-white); }
                 </a>
             </div>
         </div>
-
         <div class="footer-bottom">
             <p>&copy; 2024 Nakhon Phanom Tourism. All rights reserved.</p>
             <div class="footer-legal">
@@ -1085,235 +614,149 @@ body { background: var(--off-white); }
 <script type="module" src="js/auth-state.js"></script>
 <script src="js/mobile-menu.js"></script>
 <script>
-(function() {
-    'use strict';
-
-    function init() {
-        const params = new URLSearchParams(location.search);
-        const cat = params.get('category') || 'MUSTTRY';
-        showCategory(cat);
-    }
-
-    function showCategory(cat) {
-        const cfg = config[cat] || config.MUSTTRY;
-
-        // อัปเดต header
-        document.getElementById('food-page-title').textContent = cfg.title;
-        document.getElementById('food-header-img').src = cfg.img;
-        const badge = document.getElementById('food-page-badge');
-        badge.textContent = cfg.badge;
-        badge.className = 'food-page-badge ' + cfg.badgeClass;
-
-        // อัปเดต page title
-        document.title = cfg.title + ' — MapNexus';
-
-        // ซ่อนทุก section แล้วแสดงอันที่ต้องการ
-        ['MUSTTRY', 'FOODTRUCK', 'STREETFOOD'].forEach(id => {
-            const el = document.getElementById('section-' + id);
-            if (el) el.style.display = (id === cat) ? '' : 'none';
-        });
-
-        // อัปเดต active tab
-        document.querySelectorAll('.food-tab').forEach(tab => {
-            tab.classList.toggle('active', tab.dataset.cat === cat);
-        });
-    }
-
-    // Tab click
-    document.querySelectorAll('.food-tab').forEach(tab => {
-        tab.addEventListener('click', () => {
-            const cat = tab.dataset.cat;
-            history.pushState(null, '', 'food.html?category=' + cat);
-            showCategory(cat);
-        });
-    });
-
-    // Browser back/forward
-    window.addEventListener('popstate', init);
-
-    // Init
-    document.addEventListener('DOMContentLoaded', init);
-})();
-
-// ===================================================
-// SHOP DATA — แก้ไขข้อมูลร้านได้ที่นี่เลยครับ
-// ===================================================
+// ===== Shop Data =====
 const SHOP_DATA = {
-
-    // ===== MUSTTRY =====
     'MUSTTRY-1': {
         shopName: 'ก๋วยเตี๋ยวเอสโซ่ตลาด ป.เป็ด',
-        menuName: 'ก๋วยเตี๋ยวน้ำใสน้ำซุปเข้มข้นหอมกลมกล่อมอร่อย',
+        menuName: 'ก๋วยเตี๋ยวเนื้อเปื่อยน้ำใสหลมหล่อมมากๆ',
         images: ['assets/images/food/musttry/ก๋วยเตี๋ยวเอสโซ่.jpg'],
         address: 'ตลาดป.เป็ด ตำบลในเมือง อำเภอเมืองนครพนม',
         phone: '042-513-515',
-        hours: 'เปิดให้บริการทุกวัน 07:00 – 15:00 น.',
-        founded: 'เปิดมาแล้วนานกว่า 50 ปี สูตรดั้งเดิม',
-        about: 'เดิมทีร้านตั้งขายอยู่ภายในปั๊มน้ำมันเอสโซ่ จึงเป็นที่มาของชื่อ "ก๋วยเตี๋ยวเอสโซ่" ปัจจุบันได้ย้ายเข้ามาเปิดร้านตั้งอยู่ใน ตลาด ป.เป็ด (ถนนเข้าเมือง ก่อนถึงโลตัส) ขึ้นชื่อเรื่องน้ำซุปเข้มข้น เนื้อตุ๋นเปื่อยนุ่มกำลังดี และเนื้อลายลวกจิ้ม เสิร์ฟพร้อมเครื่องเคียงผักสดตามสไตล์ท้องถิ่น และน้ำจิ้มสูตรเฉพาะ'
+        hours: 'เปิดทุกวัน 07:00 – 15:00 น.',
+        founded: 'เปิดมากว่า 50 ปี สูตรดั้งเดิม',
+        about: 'เดิมทีร้านตั้งขายอยู่ภายในปั๊มน้ำมันเอสโซ่ จึงเป็นที่มาของชื่อ "ก๋วยเตี๋ยวเอสโซ่" ปัจจุบันย้ายมาอยู่ในตลาด ป.เป็ด ขึ้นชื่อเรื่องน้ำซุปเข้มข้น เนื้อตุ๋นเปื่อยนุ่มกำลังดี'
     },
-
-    // ===== FOODTRUCK =====
-    'foodtruck-1': {
+    'FOODTRUCK-1': {
         shopName: 'ปากหม้อซวดลวด',
-        menuName: 'ข้าวเกรียบปากหม้อเวียดนาม',
+        menuName: 'ข้าวเกรียบปากหม้อชุดรวม',
         images: ['assets/images/food/foodtruck/ข้าวเกรียบปากหม้อ ซวดลวด.jpg'],
         address: 'หน้าวัดมหาธาตุ ถนนเส้นทางไปท้ายเมือง',
         phone: '061-550-5900 / 098-832-4822',
-        hours: 'เปิดทุกวัน 17:00 – 23:00',
+        hours: 'ทุกวัน 17:00 – 23:00 น.',
         founded: 'พ.ศ. 2565',
-        about: 'ร้านซวดลวดเริ่มต้นจากการเป็นร้านอาหารเช้าและเมนูทานเล่นสไตล์เวียดนาม-อีสาน โดยเน้นความเรียบง่าย เข้าถึงง่าย และรสชาติจัดจ้านแบบท้องถิ่น ปัจจุบันร้านได้มาตั้งหลักแหล่งในรูปแบบ Food Truck (รถสีเขียวสะดุดตา) อยู่ในโซนตลาดริมโขง หน้าวัดมหาธาตุ ซึ่งเป็นจุดชมวิวแม่น้ำโขงที่สวยงาม ทำให้กลายเป็นแลนด์มาร์กเด่นที่คนชอบมานั่งกินลมชมวิวพร้อมทานอาหารร้อนๆ'
+        about: 'ร้านซวดลวดเริ่มต้นจากการเป็นร้านอาหารเช้าและเมนูทานเล่นสไตล์เวียดนาม-อีสาน ปัจจุบันตั้งอยู่ในรูปแบบ Food Truck ริมโขง หน้าวัดมหาธาตุ'
     },
-
-    // ===== STREETFOOD =====
-    'streetfood-1': {
+    'STREETFOOD-1': {
         shopName: 'ต้มเส้นหอนาฬิกา (จั้บญวน)',
         menuName: 'ต้มเส้นสไตล์ญวนของนครพนม',
         images: ['assets/images/food/streetfood/ต้มเส้นหอนาฬิกา.jpg'],
-        address: 'ถนนศรีเทพ ตำบลในเมือง อำเภอเมืองนครพนม (เยื้องกับร้านเฟื่องนคร)',
+        address: 'ถนนศรีเทพ ตำบลในเมือง อำเภอเมืองนครพนม',
         phone: '091-868-8833',
-        hours: 'เปิดทุกวัน 17:00 – 22:00',
+        hours: 'เปิดทุกวัน 17:00 – 22:00 น.',
         founded: 'พ.ศ. 2564',
-        about: 'ร้านตั้งอยู่บริเวณใกล้กับหอนาฬิกาเวียดนามอนุสรณ์ ซึ่งเป็นแลนด์มาร์คสำคัญของเมือง ในอดีตเริ่มขายเป็นรถเข็นเล็กๆ ให้คนท้องถิ่นและผู้คนที่มาเดินเล่นริมโขงได้แวะฝากท้อง จนกลายเป็นสตรีทฟู้ดเจ้าประจำที่ใครมาเที่ยวนครพนมต้องแวะ'
+        about: 'ร้านตั้งอยู่บริเวณใกล้กับหอนาฬิกาเวียดนามอนุสรณ์ เริ่มขายเป็นรถเข็นเล็กๆ จนกลายเป็นสตรีทฟู้ดเจ้าประจำที่ใครมาเที่ยวนครพนมต้องแวะ'
     }
 };
 
-// ===================================================
-// MODAL LOGIC
-// ===================================================
-let sdmCurrentImg = 0;
-let sdmTotalImgs  = 0;
+// ===== Tab Logic =====
+const HEADER_IMGS = {
+    MUSTTRY:    'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=80',
+    FOODTRUCK:  'https://images.unsplash.com/photo-1565123409695-7b5ef63a2efb?w=1200&q=80',
+    STREETFOOD: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1200&q=80'
+};
 
-function openShopModal(id) {
-    const data = SHOP_DATA[id];
-    if (!data) return;
+function showTab(cat) {
+    // sections
+    document.querySelectorAll('.food-section').forEach(s => s.style.display = 'none');
+    const sec = document.getElementById('section-' + cat);
+    if (sec) sec.style.display = '';
 
-    // ชื่อร้าน + เมนู
-    document.getElementById('sdm-shop-name').textContent = data.shopName;
-    document.getElementById('sdm-menu-name').innerHTML =
-        `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> ${data.menuName}`;
+    // tabs
+    document.querySelectorAll('.food-tab').forEach(t => t.classList.toggle('active', t.dataset.cat === cat));
 
-    // Gallery — แสดงเฉพาะรูปที่มี
-    const imgs = (data.images || []).filter(s => s && s.trim() !== '');
-    const galleryScroll = document.getElementById('sdm-gallery-scroll');
-    const dotsEl        = document.getElementById('sdm-dots');
-    const counterEl     = document.getElementById('sdm-counter');
-    const prevBtn       = document.getElementById('sdm-prev');
-    const nextBtn       = document.getElementById('sdm-next');
-    const galleryWrap   = document.getElementById('sdm-gallery');
+    // header
+    const img = HEADER_IMGS[cat];
+    if (img) document.getElementById('food-header-img').src = img;
+    document.getElementById('food-page-title').textContent = cat === 'MUSTTRY' ? 'MUSTTRY นครพนม' : cat === 'FOODTRUCK' ? 'FOODTRUCK ริมโขง' : 'STREETFOOD นครพนม';
 
-    sdmCurrentImg = 0;
-    sdmTotalImgs  = imgs.length;
+    // url
+    history.replaceState(null, '', 'food.html?category=' + cat);
+}
+
+document.querySelectorAll('.food-tab').forEach(tab => {
+    tab.addEventListener('click', () => showTab(tab.dataset.cat));
+});
+
+// init
+(function() {
+    const cat = new URLSearchParams(location.search).get('category') || 'MUSTTRY';
+    showTab(cat);
+})();
+
+// ===== Gallery State =====
+let gCurrent = 0, gTotal = 0;
+
+function slideGallery(dir) {
+    const scroll = document.getElementById('sdm-scroll');
+    if (!scroll) return;
+    gCurrent = Math.max(0, Math.min(gTotal - 1, gCurrent + dir));
+    scroll.scrollTo({ left: gCurrent * scroll.clientWidth, behavior: 'smooth' });
+}
+
+// ===== Modal =====
+function openModal(id) {
+    const d = SHOP_DATA[id];
+    if (!d) return;
+
+    // shop name + menu
+    document.getElementById('sdm-shop-name').textContent = d.shopName;
+    document.getElementById('sdm-menu-label').innerHTML =
+        '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> ' + d.menuName;
+
+    // gallery
+    const imgs = (d.images || []).filter(s => s && s.trim() !== '');
+    const gallery = document.getElementById('sdm-gallery');
+    const scroll  = document.getElementById('sdm-scroll');
+    const dots    = document.getElementById('sdm-dots');
+    const counter = document.getElementById('sdm-counter');
+    const prev    = document.getElementById('sdm-prev');
+    const next    = document.getElementById('sdm-next');
+    gCurrent = 0; gTotal = imgs.length;
 
     if (imgs.length === 0) {
-        // ไม่มีรูป — ซ่อน gallery
-        galleryWrap.style.display = 'none';
+        gallery.style.display = 'none';
     } else {
-        galleryWrap.style.display = 'block';
-        galleryScroll.innerHTML = imgs.map(src =>
-            `<img class="sdm-gallery-img" src="${src}" alt="${data.shopName}" loading="lazy">`
-        ).join('');
-
-        // Dots
-        dotsEl.innerHTML = imgs.length > 1
-            ? imgs.map((_, i) => `<button type="button" class="sdm-dot ${i===0?'active':''}" data-i="${i}"></button>`).join('')
-            : '';
-
-        // Counter + nav buttons
-        if (imgs.length > 1) {
-            counterEl.style.display = 'block';
-            counterEl.textContent = `1 / ${imgs.length}`;
-            prevBtn.style.display = 'flex';
-            nextBtn.style.display = 'flex';
-        } else {
-            counterEl.style.display = 'none';
-            prevBtn.style.display = 'none';
-            nextBtn.style.display = 'none';
-        }
-
-        // Scroll sync
-        galleryScroll.onscroll = () => {
-            sdmCurrentImg = Math.round(galleryScroll.scrollLeft / galleryScroll.clientWidth);
-            dotsEl.querySelectorAll('.sdm-dot').forEach((d,i) => d.classList.toggle('active', i===sdmCurrentImg));
-            counterEl.textContent = `${sdmCurrentImg+1} / ${sdmTotalImgs}`;
-        };
-
-        // Dots click
-        dotsEl.querySelectorAll('.sdm-dot').forEach(d => {
-            d.onclick = () => {
-                const i = parseInt(d.dataset.i);
-                galleryScroll.scrollTo({ left: i * galleryScroll.clientWidth, behavior: 'smooth' });
-            };
-        });
-
-        // Nav buttons
-        prevBtn.onclick = () => {
-            if (sdmCurrentImg > 0)
-                galleryScroll.scrollTo({ left: (sdmCurrentImg-1)*galleryScroll.clientWidth, behavior:'smooth' });
-        };
-        nextBtn.onclick = () => {
-            if (sdmCurrentImg < sdmTotalImgs-1)
-                galleryScroll.scrollTo({ left: (sdmCurrentImg+1)*galleryScroll.clientWidth, behavior:'smooth' });
+        gallery.style.display = 'block';
+        scroll.innerHTML = imgs.map(src => '<img class="sdm-gallery-img" src="' + src + '" alt="' + d.shopName + '">').join('');
+        dots.innerHTML = imgs.length > 1 ? imgs.map((_, i) => '<button class="sdm-dot' + (i===0?' active':'') + '" onclick="slideGallery(' + (i - gCurrent) + ')"></button>').join('') : '';
+        counter.textContent = imgs.length > 1 ? '1 / ' + imgs.length : '';
+        prev.style.display = imgs.length > 1 ? 'flex' : 'none';
+        next.style.display = imgs.length > 1 ? 'flex' : 'none';
+        scroll.onscroll = function() {
+            gCurrent = Math.round(scroll.scrollLeft / scroll.clientWidth);
+            dots.querySelectorAll('.sdm-dot').forEach((dot, i) => dot.classList.toggle('active', i === gCurrent));
+            counter.textContent = (gCurrent + 1) + ' / ' + gTotal;
         };
     }
 
-    // Info grid
-    const infoItems = [
-        { icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`, label: 'ที่อยู่', value: data.address },
-        { icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>`, label: 'เบอร์โทร', value: `<a href="tel:${data.phone}">${data.phone}</a>` },
-        { icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`, label: 'เวลาเปิด-ปิด', value: data.hours },
-        { icon: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`, label: 'ก่อตั้งปี', value: data.founded }
-    ];
+    // info grid
+    document.getElementById('sdm-info-grid').innerHTML = [
+        { icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>', label: 'ที่อยู่', value: d.address },
+        { icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>', label: 'เบอร์โทร', value: '<a href="tel:' + d.phone + '">' + d.phone + '</a>' },
+        { icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>', label: 'เวลาเปิด-ปิด', value: d.hours },
+        { icon: '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>', label: 'ก่อตั้ง', value: d.founded }
+    ].map(item => '<div class="sdm-info-item"><div class="sdm-info-icon">' + item.icon + '</div><div><div class="sdm-info-label">' + item.label + '</div><div class="sdm-info-value">' + item.value + '</div></div></div>').join('');
 
-    document.getElementById('sdm-info-grid').innerHTML = infoItems.map(item => `
-        <div class="sdm-info-item">
-            <div class="sdm-info-icon">${item.icon}</div>
-            <div>
-                <div class="sdm-info-label">${item.label}</div>
-                <div class="sdm-info-value">${item.value}</div>
-            </div>
-        </div>
-    `).join('');
-
-    // ประวัติ
+    // about
     const aboutWrap = document.getElementById('sdm-about-wrap');
-    if (data.about && data.about.trim()) {
-        document.getElementById('sdm-about-text').textContent = data.about;
+    if (d.about) {
+        document.getElementById('sdm-about-text').textContent = d.about;
         aboutWrap.style.display = 'block';
     } else {
         aboutWrap.style.display = 'none';
     }
 
-    // แสดง overlay
-    const overlay = document.getElementById('sdm-overlay');
-    overlay.classList.add('is-open');
-    document.getElementById('sdm-modal').style.animation = 'sdm-pop 0.32s cubic-bezier(0.34,1.4,0.64,1)';
+    // show overlay
+    document.getElementById('sdm-overlay').classList.add('open');
     document.body.style.overflow = 'hidden';
-
-    // ปุ่มปิด
-    document.getElementById('sdm-close').onclick = closeShopModal;
 }
 
-function closeShopModal() {
-    const modal   = document.getElementById('sdm-modal');
-    const overlay = document.getElementById('sdm-overlay');
-    if (!overlay || !overlay.classList.contains('is-open')) return;
-    modal.classList.add('closing');
-    setTimeout(() => {
-        overlay.classList.remove('is-open');
-        modal.classList.remove('closing');
-        modal.style.animation = '';
-        document.body.style.overflow = '';
-    }, 230);
+function closeModal() {
+    document.getElementById('sdm-overlay').classList.remove('open');
+    document.body.style.overflow = '';
 }
 
-function handleOverlayClick(e) {
-    if (e.target === document.getElementById('sdm-overlay')) closeShopModal();
-}
-
-// ปิดด้วย Escape
-document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') closeShopModal();
-});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 </script>
 </body>
 </html>
