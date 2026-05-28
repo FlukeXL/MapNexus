@@ -1934,11 +1934,9 @@
     position: sticky !important;
     top: 0 !important;
     z-index: 100 !important;
-    background: rgba(255,255,255,0.97) !important;
-    -webkit-backdrop-filter: blur(12px) !important;
-    backdrop-filter: blur(12px) !important;
-    border-bottom: 1px solid rgba(0,0,0,0.07) !important;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important;
+    background: #fff !important;
+    border-bottom: 1px solid rgba(0,0,0,0.08) !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
   }
 
   /* Tab container — scroll แนวนอน */
@@ -1997,7 +1995,119 @@
 
   /* Content area */
   .food-content-wrap {
-    padding: 1.5rem 0.875rem 3rem !important;
+    padding: 1.25rem 0.875rem 3rem !important;
+  }
+
+  /* ===== Menu Cards — Mobile Redesign ===== */
+
+  /* Grid → 1 คอลัมน์ กระชับ */
+  .food-menu-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* การ์ด — vertical compact */
+  .food-menu-card {
+    flex-direction: column !important;
+    border-radius: 16px !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.09) !important;
+    transition: opacity 0.18s ease !important;
+    transform: none !important;
+  }
+
+  .food-menu-card:active {
+    opacity: 0.88 !important;
+    transform: scale(0.99) !important;
+  }
+
+  /* รูป — 16:9 เต็ม ไม่ตัด */
+  .fmc-img-wrap {
+    width: 100% !important;
+    aspect-ratio: 16 / 9 !important;
+    height: auto !important;
+    flex-shrink: 0 !important;
+  }
+
+  .fmc-img {
+    object-fit: cover !important;
+    object-position: center center !important;
+    transition: none !important;
+  }
+
+  .food-menu-card:active .fmc-img {
+    transform: none !important;
+    filter: brightness(0.92) !important;
+  }
+
+  /* badge มุมซ้ายบน */
+  .fmc-cat-badge {
+    top: 0.6rem !important;
+    left: 0.6rem !important;
+    font-size: 0.58rem !important;
+    padding: 0.18rem 0.55rem !important;
+  }
+
+  /* body กระชับ */
+  .fmc-body {
+    padding: 0.75rem 0.875rem 0.875rem !important;
+    gap: 0 !important;
+  }
+
+  /* ชื่อเมนู — 1 บรรทัด */
+  .fmc-menu-name {
+    font-size: 0.92rem !important;
+    -webkit-line-clamp: 1 !important;
+    line-clamp: 1 !important;
+    margin-bottom: 0.2rem !important;
+  }
+
+  /* ชื่อร้าน */
+  .fmc-shop-name {
+    font-size: 0.72rem !important;
+    margin-bottom: 0 !important;
+  }
+
+  /* เส้นคั่น */
+  .fmc-divider {
+    margin: 0.5rem 0 !important;
+  }
+
+  /* meta — แนวตั้ง ที่อยู่ truncate 1 บรรทัด */
+  .fmc-meta {
+    gap: 0.3rem !important;
+    margin-top: 0 !important;
+  }
+
+  .fmc-meta-item {
+    font-size: 0.68rem !important;
+    line-height: 1.3 !important;
+    /* truncate 1 บรรทัด */
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .fmc-meta-item svg {
+    flex-shrink: 0 !important;
+    margin-top: 0 !important;
+    width: 11px !important;
+    height: 11px !important;
+  }
+
+  /* ปุ่มดูรายละเอียด */
+  .fmc-detail-btn {
+    font-size: 0.72rem !important;
+    padding-top: 0.6rem !important;
+    margin-top: 0.5rem !important;
+  }
+
+  /* เส้น accent ด้านบน — แสดงตลอด */
+  .food-menu-card::after {
+    opacity: 0.8 !important;
+    height: 2px !important;
   }
 
   /* Category intro cards — 1 คอลัมน์ */
