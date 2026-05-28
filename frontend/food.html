@@ -278,8 +278,13 @@ body { background: var(--off-white); }
     align-items: center;
     justify-content: center;
     padding: 2rem;
-    /* ไม่ใส่ display:flex ที่นี่ — ควบคุมผ่าน JS เท่านั้น */
-    /* animation จะถูกเพิ่มตอนเปิดเท่านั้น */
+    pointer-events: none;
+    visibility: hidden;
+}
+
+.sdm-overlay.is-open {
+    pointer-events: auto;
+    visibility: visible;
 }
 
 @keyframes sdm-fade {
@@ -1285,6 +1290,7 @@ function openShopModal(id) {
     const overlay = document.getElementById('sdm-overlay');
     overlay.style.display = 'flex';
     overlay.style.animation = 'sdm-fade 0.25s ease';
+    overlay.classList.add('is-open');
     document.body.style.overflow = 'hidden';
 
     // ปุ่มปิด
@@ -1294,12 +1300,13 @@ function openShopModal(id) {
 function closeShopModal() {
     const modal   = document.getElementById('sdm-modal');
     const overlay = document.getElementById('sdm-overlay');
-    if (!overlay || overlay.style.display === 'none') return;
+    if (!overlay || !overlay.classList.contains('is-open')) return;
     modal.classList.add('closing');
     overlay.style.animation = 'sdm-fade 0.22s ease reverse';
     setTimeout(() => {
         overlay.style.display = 'none';
         overlay.style.animation = '';
+        overlay.classList.remove('is-open');
         modal.classList.remove('closing');
         document.body.style.overflow = '';
     }, 230);

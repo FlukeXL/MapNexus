@@ -1816,12 +1816,13 @@
 
   /* Section padding กระชับ */
   .local-food-section {
-    padding: 1.75rem 0 2rem !important;
+    padding: 1.5rem 0 2rem !important;
   }
 
   /* Header กึ่งกลาง */
   .local-food-section .lf-header {
-    margin-bottom: 1.1rem !important;
+    margin-bottom: 1rem !important;
+    padding: 0 0.875rem;
   }
 
   .local-food-section .lf-header .section-subtitle {
@@ -1829,35 +1830,53 @@
   }
 
   .local-food-section .lf-header .section-title {
-    font-size: 1.35rem !important;
+    font-size: 1.3rem !important;
   }
 
-  /* Grid → 1 คอลัมน์ เรียงแนวตั้ง */
+  /* ===== Horizontal Scroll Carousel ===== */
   .local-food-grid {
-    grid-template-columns: 1fr !important;
-    gap: 0.55rem !important;
+    /* ยกเลิก grid — เปลี่ยนเป็น flex scroll */
+    display: flex !important;
+    grid-template-columns: unset !important;
+    gap: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x mandatory !important;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none !important;
+    /* padding ซ้ายขวาให้เห็นขอบการ์ดถัดไป */
+    padding: 0.25rem 0.875rem 0.875rem !important;
+    gap: 0.75rem !important;
+    /* ป้องกัน container ตัด */
+    margin: 0 !important;
   }
 
-  /* การ์ด — landscape สูง 175px แสดงรูปแนวนอนเต็ม */
+  .local-food-grid::-webkit-scrollbar { display: none !important; }
+
+  /* การ์ด — แนวนอน เห็น 1.15 การ์ด */
   .lf-card {
-    height: 175px !important;
+    flex: 0 0 82vw !important;
+    min-width: 82vw !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9 !important;
     border-radius: 16px !important;
-    box-shadow: 0 3px 14px rgba(0,0,0,0.16) !important;
+    scroll-snap-align: start !important;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.18) !important;
     transform: none !important;
-    transition: opacity 0.2s ease !important;
+    transition: opacity 0.2s ease, transform 0.2s ease !important;
   }
 
-  /* tap feedback แทน hover */
+  /* tap feedback */
   .lf-card:active {
-    opacity: 0.88;
-    transform: scale(0.99) !important;
+    opacity: 0.9 !important;
+    transform: scale(0.98) !important;
   }
 
-  /* รูปแสดงเต็ม ไม่ขยาย */
+  /* รูปแสดงเต็ม aspect ratio */
   .lf-card-img {
     object-fit: cover !important;
     object-position: center center !important;
-    filter: brightness(0.88) saturate(1.05) !important;
+    filter: brightness(0.9) saturate(1.05) !important;
     transition: none !important;
   }
 
@@ -1865,39 +1884,40 @@
     transform: none !important;
   }
 
-  /* overlay เบามาก — รูปชัด */
+  /* overlay เบา — รูปชัด */
   .lf-card-overlay {
     background: linear-gradient(
       to bottom,
-      rgba(0,0,0,0.04) 0%,
-      rgba(0,0,0,0.06) 60%,
-      rgba(0,0,0,0.22) 100%
+      rgba(0,0,0,0.03) 0%,
+      rgba(0,0,0,0.05) 55%,
+      rgba(0,0,0,0.2) 100%
     ) !important;
   }
 
-  /* เส้น accent ด้านบน — แสดงตลอด ไม่รอ hover */
+  /* เส้น accent ด้านบน — แสดงตลอด */
   .lf-card::after {
-    opacity: 0.7 !important;
+    opacity: 0.75 !important;
     height: 2.5px !important;
   }
 
-  /* Number badge — เล็กลง */
+  /* Number badge */
   .lf-num-badge {
-    top: 0.75rem !important;
-    right: 0.75rem !important;
-    font-size: 0.65rem !important;
-    padding: 0.18rem 0.55rem !important;
+    top: 0.65rem !important;
+    right: 0.65rem !important;
+    font-size: 0.62rem !important;
+    padding: 0.15rem 0.5rem !important;
   }
 }
 
 @media (max-width: 480px) {
   .lf-card {
-    height: 160px !important;
+    flex: 0 0 86vw !important;
+    min-width: 86vw !important;
     border-radius: 14px !important;
   }
 
   .local-food-section {
-    padding: 1.5rem 0 1.75rem !important;
+    padding: 1.25rem 0 1.75rem !important;
   }
 }
 
