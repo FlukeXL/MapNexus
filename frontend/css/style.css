@@ -706,41 +706,53 @@ section {
     color: var(--gold);
 }
 
-/* ========== Local Food Section ========== */
+/* ========== Local Food Section — Premium Redesign ========== */
 .local-food-section {
-    padding: 3.5rem 0;
+    padding: 4rem 0 4.5rem;
     background: var(--off-white);
 }
 
-.local-food-section .section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 2rem;
+/* Header — กึ่งกลาง */
+.local-food-section .lf-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
 }
 
+.local-food-section .lf-header .section-subtitle {
+    display: block;
+    margin-bottom: 0.4rem;
+}
+
+.local-food-section .lf-header .section-title {
+    margin-bottom: 0;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+}
+
+/* Grid 3 คอลัมน์ */
 .local-food-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
+    gap: 1.5rem;
 }
 
-/* การ์ดแต่ละอัน */
+/* ===== การ์ดหลัก ===== */
 .lf-card {
     position: relative;
-    height: 220px;
-    border-radius: 20px;
+    height: 280px;
+    border-radius: 22px;
     overflow: hidden;
     cursor: pointer;
     text-decoration: none;
     display: block;
-    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    background: #111;
+    transition: transform 0.35s cubic-bezier(0.34, 1.4, 0.64, 1),
+                box-shadow 0.35s ease;
+    box-shadow: 0 6px 24px rgba(0,0,0,0.14);
 }
 
 .lf-card:hover {
-    transform: translateY(-6px) scale(1.01);
-    box-shadow: 0 16px 40px rgba(0,0,0,0.2);
+    transform: translateY(-8px);
+    box-shadow: 0 24px 56px rgba(0,0,0,0.22);
 }
 
 /* รูปพื้นหลัง */
@@ -750,161 +762,162 @@ section {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.55s ease, filter 0.35s ease;
+    filter: brightness(0.82) saturate(1.1);
+}
+
+/* placeholder เมื่อยังไม่มีรูป */
+.lf-card-img[src=""] {
+    background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+    opacity: 0;
 }
 
 .lf-card:hover .lf-card-img {
-    transform: scale(1.06);
+    transform: scale(1.07);
+    filter: brightness(0.72) saturate(1.15);
 }
 
-/* Gradient overlay */
+/* Gradient overlay — เข้มด้านล่าง */
 .lf-card-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(
-        to top,
-        rgba(10,8,5,0.88) 0%,
-        rgba(10,8,5,0.45) 50%,
-        rgba(10,8,5,0.1) 100%
+        160deg,
+        rgba(0,0,0,0.08) 0%,
+        rgba(0,0,0,0.18) 35%,
+        rgba(0,0,0,0.72) 70%,
+        rgba(0,0,0,0.92) 100%
     );
-    transition: background 0.3s ease;
+    transition: background 0.35s ease;
+    z-index: 1;
 }
 
 .lf-card:hover .lf-card-overlay {
     background: linear-gradient(
-        to top,
-        rgba(10,8,5,0.92) 0%,
-        rgba(10,8,5,0.55) 55%,
-        rgba(10,8,5,0.15) 100%
+        160deg,
+        rgba(0,0,0,0.12) 0%,
+        rgba(0,0,0,0.28) 35%,
+        rgba(0,0,0,0.80) 70%,
+        rgba(0,0,0,0.96) 100%
     );
 }
 
-/* เส้นประกาย gold ด้านบน */
-.lf-card::before {
+/* เส้น accent ด้านบน — ปรากฏตอน hover */
+.lf-card::after {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
-    height: 2px;
-    z-index: 3;
+    height: 3px;
+    z-index: 4;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.35s ease;
+    border-radius: 22px 22px 0 0;
 }
 
-.lf-card:hover::before {
-    opacity: 1;
+.lf-card:hover::after { opacity: 1; }
+
+.lf-card.foodtruck::after  { background: linear-gradient(90deg, transparent 5%, #d4af37 40%, #f4e4a1 60%, #d4af37 80%, transparent 95%); }
+.lf-card.foodtry::after    { background: linear-gradient(90deg, transparent 5%, #818cf8 40%, #c4b5fd 60%, #818cf8 80%, transparent 95%); }
+.lf-card.streetfood::after { background: linear-gradient(90deg, transparent 5%, #fb923c 40%, #fcd34d 60%, #fb923c 80%, transparent 95%); }
+
+/* Number badge มุมขวาบน — editorial style */
+.lf-num-badge {
+    position: absolute;
+    top: 1.1rem;
+    right: 1.1rem;
+    z-index: 3;
+    font-family: 'Noto Serif Thai', serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: rgba(255,255,255,0.55);
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 50px;
+    padding: 0.22rem 0.7rem;
+    transition: color 0.3s, border-color 0.3s;
 }
 
-.lf-card.mustfood::before  { background: linear-gradient(90deg, transparent, #d4af37, transparent); }
-.lf-card.foodtruck::before { background: linear-gradient(90deg, transparent, #60a5fa, transparent); }
-.lf-card.streetfood::before{ background: linear-gradient(90deg, transparent, #fb923c, transparent); }
+.lf-card:hover .lf-num-badge { color: rgba(255,255,255,0.85); border-color: rgba(255,255,255,0.2); }
 
 /* Content ด้านล่าง */
 .lf-card-body {
     position: absolute;
     bottom: 0; left: 0; right: 0;
-    padding: 1.25rem 1.25rem 1.1rem;
+    padding: 1.5rem 1.4rem 1.3rem;
     z-index: 2;
 }
 
-/* Badge หมวด */
-.lf-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    border-radius: 20px;
-    padding: 0.22rem 0.65rem;
-    margin-bottom: 0.5rem;
-    border: 1px solid;
+/* เส้น accent ซ้ายของชื่อ */
+.lf-accent-line {
+    display: block;
+    width: 28px;
+    height: 2px;
+    border-radius: 2px;
+    margin-bottom: 0.65rem;
+    transition: width 0.3s ease;
 }
 
-.lf-badge.mustfood  {
-    color: #d4af37;
-    background: rgba(212,175,55,0.15);
-    border-color: rgba(212,175,55,0.35);
-}
-.lf-badge.foodtruck {
-    color: #93c5fd;
-    background: rgba(96,165,250,0.15);
-    border-color: rgba(96,165,250,0.35);
-}
-.lf-badge.streetfood {
-    color: #fdba74;
-    background: rgba(251,146,60,0.15);
-    border-color: rgba(251,146,60,0.35);
-}
+.lf-card:hover .lf-accent-line { width: 42px; }
 
-/* ชื่อหมวด */
+.lf-card.foodtruck  .lf-accent-line { background: linear-gradient(90deg, #d4af37, #f4e4a1); }
+.lf-card.foodtry    .lf-accent-line { background: linear-gradient(90deg, #818cf8, #c4b5fd); }
+.lf-card.streetfood .lf-accent-line { background: linear-gradient(90deg, #fb923c, #fcd34d); }
+
+/* ชื่อหมวด — ใหญ่ bold */
 .lf-card-title {
     font-family: 'Noto Serif Thai', serif;
-    font-size: 1.3rem;
+    font-size: 1.55rem;
     font-weight: 700;
     color: #fff;
-    line-height: 1.25;
-    margin-bottom: 0.3rem;
-    letter-spacing: -0.01em;
+    line-height: 1.15;
+    margin-bottom: 0.45rem;
+    letter-spacing: 0.02em;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.4);
 }
 
 /* คำอธิบาย */
 .lf-card-desc {
     font-size: 0.78rem;
-    color: rgba(255,255,255,0.65);
-    line-height: 1.5;
-    margin-bottom: 0.75rem;
+    color: rgba(255,255,255,0.58);
+    line-height: 1.55;
+    margin-bottom: 1rem;
     display: -webkit-box;
-    -webkit-line-clamp: 1;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+    transition: color 0.3s;
 }
 
-/* ปุ่ม */
+.lf-card:hover .lf-card-desc { color: rgba(255,255,255,0.72); }
+
+/* ปุ่ม ดูเมนู */
 .lf-card-btn {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    font-size: 0.75rem;
+    gap: 0.4rem;
+    font-size: 0.72rem;
     font-weight: 700;
-    color: #fff;
-    opacity: 0.75;
-    transition: opacity 0.2s, gap 0.2s;
-    letter-spacing: 0.03em;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    transition: color 0.25s, gap 0.25s;
+    padding: 0;
+    background: none;
+    border: none;
 }
 
-.lf-card:hover .lf-card-btn {
-    opacity: 1;
-    gap: 0.55rem;
-}
+.lf-card:hover .lf-card-btn { color: #fff; gap: 0.6rem; }
 
-.lf-card-btn svg {
-    transition: transform 0.2s;
-}
+.lf-card-btn svg { transition: transform 0.25s; flex-shrink: 0; }
+.lf-card:hover .lf-card-btn svg { transform: translateX(4px); }
 
-.lf-card:hover .lf-card-btn svg {
-    transform: translateX(3px);
-}
-
-/* จำนวนเมนู badge มุมขวาบน */
-.lf-count-badge {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    z-index: 3;
-    background: rgba(0,0,0,0.45);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 20px;
-    padding: 0.25rem 0.65rem;
-    font-size: 0.68rem;
-    font-weight: 600;
-    color: rgba(255,255,255,0.8);
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-}
+/* placeholder background เมื่อยังไม่มีรูป */
+.lf-card.foodtruck  { background: linear-gradient(145deg, #1c1a10, #2d2510, #1a1500); }
+.lf-card.foodtry    { background: linear-gradient(145deg, #0f0f1a, #1a1528, #0d0d1f); }
+.lf-card.streetfood { background: linear-gradient(145deg, #1a0f08, #2d1a0a, #1a0e05); }
 
 /* ========== Experience Section ========== */
 .experience-content {
