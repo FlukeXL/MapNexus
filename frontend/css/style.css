@@ -777,16 +777,15 @@ section {
     filter: brightness(0.72) saturate(1.15);
 }
 
-/* Gradient overlay — เข้มด้านล่าง */
+/* Gradient overlay — เบาลง เพราะไม่มีตัวหนังสือ */
 .lf-card-overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(
         160deg,
-        rgba(0,0,0,0.08) 0%,
-        rgba(0,0,0,0.18) 35%,
-        rgba(0,0,0,0.72) 70%,
-        rgba(0,0,0,0.92) 100%
+        rgba(0,0,0,0.05) 0%,
+        rgba(0,0,0,0.08) 50%,
+        rgba(0,0,0,0.25) 100%
     );
     transition: background 0.35s ease;
     z-index: 1;
@@ -795,10 +794,9 @@ section {
 .lf-card:hover .lf-card-overlay {
     background: linear-gradient(
         160deg,
-        rgba(0,0,0,0.12) 0%,
-        rgba(0,0,0,0.28) 35%,
-        rgba(0,0,0,0.80) 70%,
-        rgba(0,0,0,0.96) 100%
+        rgba(0,0,0,0.08) 0%,
+        rgba(0,0,0,0.15) 50%,
+        rgba(0,0,0,0.35) 100%
     );
 }
 
