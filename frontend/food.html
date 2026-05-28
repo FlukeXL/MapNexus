@@ -285,10 +285,10 @@ body { background: var(--off-white); }
     flex-direction: column;
     box-shadow: 0 20px 60px rgba(0,0,0,0.25);
 }
-.sdm-gallery { position:relative; height:240px; flex-shrink:0; background:#111; overflow:hidden; }
-.sdm-gallery-scroll { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; height:100%; scrollbar-width:none; }
+.sdm-gallery { position:relative; flex-shrink:0; background:#111; overflow:hidden; }
+.sdm-gallery-scroll { display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none; }
 .sdm-gallery-scroll::-webkit-scrollbar { display:none; }
-.sdm-gallery-img { flex:0 0 100%; scroll-snap-align:start; object-fit:cover; width:100%; height:240px; }
+.sdm-gallery-img { flex:0 0 100%; scroll-snap-align:start; object-fit:contain; width:100%; background:#111; display:block; }
 .sdm-dots { position:absolute; bottom:0.75rem; left:50%; transform:translateX(-50%); display:flex; gap:5px; z-index:2; }
 .sdm-dot { width:6px; height:6px; border-radius:50%; background:rgba(255,255,255,0.45); border:none; cursor:pointer; padding:0; transition:all 0.2s; }
 .sdm-dot.active { background:#fff; width:18px; border-radius:3px; }
