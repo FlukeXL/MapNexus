@@ -1805,3 +1805,98 @@
     gap: 1rem !important;
   }
 }
+
+
+/* =============================================
+   LOCAL FOOD SECTION — Mobile
+   เฉพาะมือถือ ไม่แตะ desktop
+   ============================================= */
+
+@media (max-width: 768px) {
+
+  /* Section padding กระชับ */
+  .local-food-section {
+    padding: 1.75rem 0 2rem !important;
+  }
+
+  /* Header กึ่งกลาง */
+  .local-food-section .lf-header {
+    margin-bottom: 1.1rem !important;
+  }
+
+  .local-food-section .lf-header .section-subtitle {
+    font-size: 0.7rem !important;
+  }
+
+  .local-food-section .lf-header .section-title {
+    font-size: 1.35rem !important;
+  }
+
+  /* Grid → 1 คอลัมน์ เรียงแนวตั้ง */
+  .local-food-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.55rem !important;
+  }
+
+  /* การ์ด — landscape สูง 175px แสดงรูปแนวนอนเต็ม */
+  .lf-card {
+    height: 175px !important;
+    border-radius: 16px !important;
+    box-shadow: 0 3px 14px rgba(0,0,0,0.16) !important;
+    transform: none !important;
+    transition: opacity 0.2s ease !important;
+  }
+
+  /* tap feedback แทน hover */
+  .lf-card:active {
+    opacity: 0.88;
+    transform: scale(0.99) !important;
+  }
+
+  /* รูปแสดงเต็ม ไม่ขยาย */
+  .lf-card-img {
+    object-fit: cover !important;
+    object-position: center center !important;
+    filter: brightness(0.88) saturate(1.05) !important;
+    transition: none !important;
+  }
+
+  .lf-card:active .lf-card-img {
+    transform: none !important;
+  }
+
+  /* overlay เบามาก — รูปชัด */
+  .lf-card-overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.04) 0%,
+      rgba(0,0,0,0.06) 60%,
+      rgba(0,0,0,0.22) 100%
+    ) !important;
+  }
+
+  /* เส้น accent ด้านบน — แสดงตลอด ไม่รอ hover */
+  .lf-card::after {
+    opacity: 0.7 !important;
+    height: 2.5px !important;
+  }
+
+  /* Number badge — เล็กลง */
+  .lf-num-badge {
+    top: 0.75rem !important;
+    right: 0.75rem !important;
+    font-size: 0.65rem !important;
+    padding: 0.18rem 0.55rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .lf-card {
+    height: 160px !important;
+    border-radius: 14px !important;
+  }
+
+  .local-food-section {
+    padding: 1.5rem 0 1.75rem !important;
+  }
+}
