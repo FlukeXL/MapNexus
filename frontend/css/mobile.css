@@ -1900,3 +1900,131 @@
     padding: 1.5rem 0 1.75rem !important;
   }
 }
+
+
+/* =============================================
+   FOOD.HTML — Tab Bar Mobile
+   เฉพาะมือถือ ไม่แตะ desktop
+   ============================================= */
+
+@media (max-width: 768px) {
+
+  /* Sticky tab bar */
+  .food-tabs-wrap {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 100 !important;
+    background: rgba(255,255,255,0.97) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    backdrop-filter: blur(12px) !important;
+    border-bottom: 1px solid rgba(0,0,0,0.07) !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06) !important;
+  }
+
+  /* Tab container — scroll แนวนอน */
+  .food-tabs {
+    padding: 0 0.875rem !important;
+    gap: 0 !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    scrollbar-width: none !important;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    /* ไม่ wrap — เลื่อนได้ */
+    flex-wrap: nowrap !important;
+  }
+
+  .food-tabs::-webkit-scrollbar { display: none !important; }
+
+  /* แต่ละ tab */
+  .food-tab {
+    flex-shrink: 0 !important;
+    scroll-snap-align: start;
+    padding: 0.75rem 0.875rem !important;
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+    white-space: nowrap !important;
+    gap: 0.3rem !important;
+    border-bottom-width: 2px !important;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .food-tab svg {
+    width: 12px !important;
+    height: 12px !important;
+    flex-shrink: 0;
+  }
+
+  /* Active tab */
+  .food-tab.active {
+    color: var(--gold-dark) !important;
+    border-bottom-color: var(--gold-dark) !important;
+  }
+
+  /* Page header บน food.html — ลดความสูง */
+  .food-page-header {
+    height: 200px !important;
+    margin-top: 0 !important;
+  }
+
+  .food-page-header-content {
+    padding: 1.25rem 0.875rem !important;
+  }
+
+  .food-page-title {
+    font-size: 1.4rem !important;
+  }
+
+  /* Content area */
+  .food-content-wrap {
+    padding: 1.5rem 0.875rem 3rem !important;
+  }
+
+  /* Category intro cards — 1 คอลัมน์ */
+  .food-category-intro {
+    grid-template-columns: 1fr !important;
+    gap: 0.65rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .food-cat-card {
+    padding: 1rem !important;
+    border-radius: 14px !important;
+  }
+
+  .food-cat-icon {
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 10px !important;
+    margin-bottom: 0.65rem !important;
+    font-size: 1.2rem !important;
+  }
+
+  .food-cat-name {
+    font-size: 0.95rem !important;
+  }
+
+  .food-cat-desc {
+    font-size: 0.75rem !important;
+    margin-bottom: 0.6rem !important;
+  }
+
+  /* Coming soon */
+  .food-coming-soon {
+    padding: 3rem 1rem !important;
+  }
+
+  .food-coming-icon {
+    width: 64px !important;
+    height: 64px !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .food-coming-title {
+    font-size: 1.2rem !important;
+  }
+
+  .food-coming-desc {
+    font-size: 0.82rem !important;
+  }
+}

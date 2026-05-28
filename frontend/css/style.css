@@ -364,6 +364,17 @@ p {
     animation: slowZoom 20s ease-in-out infinite alternate;
 }
 
+/* รูปภาพพื้นหลัง Hero — ใช้แทนหรือสำรองวิดีโอ */
+.hero-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
 @keyframes slowZoom {
     from {
         transform: scale(1);
@@ -509,6 +520,10 @@ section {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .section-subtitle {

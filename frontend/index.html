@@ -130,14 +130,23 @@
     <section class="hero">
         <div class="hero-background">
             <div class="hero-overlay"></div>
-            <video class="hero-video" autoplay muted loop playsinline preload="auto">
-                <!-- ใส่วิดีโอของคุณที่นี่ - เปลี่ยนชื่อไฟล์ให้ตรงกับวิดีโอของคุณ -->
-                <source src="assets\videos\Nakhonphanom.mp4" type="video/mp4">
-                <!-- สำรองถ้ามีไฟล์ WebM -->
-                <source src="assets/videos/hero-video.webm" type="video/webm">
-                <!-- ข้อความสำรองถ้า browser ไม่รองรับวิดีโอ -->
-                <p>เบราว์เซอร์ของคุณไม่รองรับการเล่นวิดีโอ</p>
+
+            <!-- ===== วิดีโอพื้นหลัง ===== -->
+            <!-- ถ้าต้องการใช้รูปภาพแทน ให้ใส่ src ใน hero-img และลบ video ออก -->
+            <!-- ถ้าต้องการใช้วิดีโอ ให้ใส่ src ใน source และลบ hero-img ออก -->
+
+            <video class="hero-video" id="hero-video" autoplay muted loop playsinline preload="auto">
+                <source src="" type="video/mp4">
+                <source src="" type="video/webm">
             </video>
+
+            <!-- ===== รูปภาพพื้นหลัง (สำรอง / ใช้แทนวิดีโอได้) ===== -->
+            <!-- เปลี่ยน src เป็น path รูปของคุณ เช่น assets/images/hero.jpg -->
+            <img class="hero-img" id="hero-img"
+                 src="assets\images\Payasrisut.jpg"
+                 alt="MapNexus Hero"
+                 style="display:none;">
+
         </div>
         <div class="hero-content">
             <div class="hero-text">
@@ -157,6 +166,52 @@
             </div>
         </div>
     </section>
+
+    <script>
+    // ===== Hero Background Auto-Switch =====
+    // ถ้าวิดีโอโหลดไม่ได้ → แสดงรูปภาพแทนอัตโนมัติ
+    (function() {
+        const video = document.getElementById('hero-video');
+        const img   = document.getElementById('hero-img');
+        if (!video || !img) return;
+
+        // ถ้า img มี src → แสดงรูปด้วย (ทั้งคู่พร้อมกัน หรือเลือกอันเดียว)
+        // วิธีใช้:
+        //   - ใช้วิดีโออย่างเดียว: ใส่ src ใน <source> ปล่อย img src=""
+        //   - ใช้รูปอย่างเดียว: ใส่ src ใน img, ลบ src ใน <source> ออก
+        //   - ใช้วิดีโอ + รูปสำรอง: ใส่ทั้งสอง → วิดีโอแสดงก่อน ถ้าโหลดไม่ได้ใช้รูป
+
+        const imgSrc = img.getAttribute('src');
+
+        if (imgSrc && imgSrc.trim() !== '') {
+            // มีรูป — ตรวจว่าวิดีโอมี source ไหม
+            const sources = video.querySelectorAll('source');
+            const hasVideoSrc = Array.from(sources).some(s => s.src && s.src.trim() !== '' && !s.src.endsWith('/'));
+
+            if (!hasVideoSrc) {
+                // ไม่มีวิดีโอ → ใช้รูปอย่างเดียว
+                video.style.display = 'none';
+                img.style.display = 'block';
+            } else {
+                // มีทั้งคู่ → วิดีโอก่อน ถ้า error ใช้รูป
+                video.addEventListener('error', function() {
+                    video.style.display = 'none';
+                    img.style.display = 'block';
+                });
+                // ถ้าวิดีโอ stall นาน → fallback รูป
+                let fallbackTimer = setTimeout(function() {
+                    if (video.readyState < 2) {
+                        video.style.display = 'none';
+                        img.style.display = 'block';
+                    }
+                }, 4000);
+                video.addEventListener('canplay', function() {
+                    clearTimeout(fallbackTimer);
+                });
+            }
+        }
+    })();
+    </script>
 
     <!-- Featured Destinations -->
     <section class="featured-section">
