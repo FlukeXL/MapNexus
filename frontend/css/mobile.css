@@ -2158,3 +2158,95 @@
     font-size: 0.82rem !important;
   }
 }
+
+
+/* =============================================
+   FOOD.HTML — Shop Detail Modal Mobile
+   ============================================= */
+
+@media (max-width: 768px) {
+
+  /* Overlay padding แคบลง */
+  #sdm-overlay {
+    padding: 0.75rem !important;
+    align-items: flex-end !important;
+  }
+
+  /* Modal — bottom sheet style */
+  .sdm-modal {
+    max-width: 100% !important;
+    max-height: 90vh !important;
+    border-radius: 20px 20px 16px 16px !important;
+  }
+
+  /* รูป — สูงพอดี */
+  .sdm-gallery-img {
+    max-height: 220px !important;
+  }
+
+  /* Content padding กระชับ */
+  .sdm-content {
+    padding: 1rem 1rem 1.25rem !important;
+  }
+
+  /* ชื่อร้าน */
+  .sdm-shop-name {
+    font-size: 1.15rem !important;
+    margin-bottom: 0.2rem !important;
+  }
+
+  /* ชื่อเมนู */
+  .sdm-menu-label {
+    font-size: 0.78rem !important;
+    margin-bottom: 0.875rem !important;
+    padding-bottom: 0.875rem !important;
+  }
+
+  /* Info grid — 2 col กระชับ */
+  .sdm-info-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+    margin-bottom: 0.875rem !important;
+  }
+
+  .sdm-info-item {
+    padding: 0.65rem 0.75rem !important;
+    gap: 0.5rem !important;
+    border-radius: 10px !important;
+  }
+
+  .sdm-info-icon {
+    width: 28px !important;
+    height: 28px !important;
+    border-radius: 8px !important;
+    flex-shrink: 0 !important;
+  }
+
+  .sdm-info-icon svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  .sdm-info-label {
+    font-size: 0.58rem !important;
+    margin-bottom: 0.15rem !important;
+  }
+
+  /* ค่าข้อมูล — ไม่ wrap */
+  .sdm-info-value {
+    font-size: 0.78rem !important;
+    line-height: 1.35 !important;
+    word-break: break-word !important;
+  }
+
+  /* ประวัติ */
+  .sdm-about-title {
+    font-size: 0.62rem !important;
+    margin-bottom: 0.35rem !important;
+  }
+
+  .sdm-about-text {
+    font-size: 0.8rem !important;
+    line-height: 1.65 !important;
+  }
+}
