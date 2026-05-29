@@ -1,4 +1,4 @@
-/* =============================================
+﻿/* =============================================
    MapNexus — Mobile Responsive Styles
    เฉพาะมือถือ ไม่แตะ desktop เด็ดขาด
    ============================================= */
@@ -2264,126 +2264,96 @@
 
 
 /* =============================================
-   BENTO GRID — Mobile (สถานที่ยอดนิยม)
+   DISNEY LAYOUT — Mobile (เที่ยวนครพนมไลฟ์สไตล์)
    เฉพาะมือถือ ไม่แตะ desktop
    ============================================= */
 
 @media (max-width: 768px) {
 
-  /* Section padding กระชับ */
   .featured-section {
     padding: 1.25rem 0 1.5rem !important;
-    overflow: hidden !important;
   }
 
   .featured-section .section-header {
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 0.2rem !important;
+    align-items: center !important;
+    text-align: center !important;
     margin-bottom: 0.875rem !important;
     padding: 0 0.875rem !important;
   }
 
   .featured-section .section-title {
-    font-size: 1.3rem !important;
-    margin-bottom: 0 !important;
+    font-size: 1.25rem !important;
   }
 
-  /* ===== เปลี่ยน Bento Grid → Horizontal Scroll ===== */
-  .bento-grid {
-    display: flex !important;
-    flex-direction: row !important;
+  .disney-layout {
+    gap: 0.55rem !important;
+    padding: 0 0.875rem !important;
+  }
+
+  .disney-hero {
+    grid-template-columns: 1fr !important;
+    grid-template-rows: 180px auto !important;
     height: auto !important;
-    gap: 0.65rem !important;
+    border-radius: 14px !important;
+  }
+
+  .disney-hero-img {
+    grid-row: 1 !important;
+    height: 180px !important;
+  }
+
+  .disney-hero-text {
+    grid-row: 2 !important;
+    padding: 0.875rem 1rem 1rem !important;
+    border-radius: 0 0 14px 14px !important;
+  }
+
+  .disney-hero-title {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.35rem !important;
+  }
+
+  .disney-hero-desc {
+    font-size: 0.72rem !important;
+    margin-bottom: 0.65rem !important;
+    -webkit-line-clamp: 2 !important;
+  }
+
+  .disney-hero-btn {
+    font-size: 0.72rem !important;
+    padding: 0.42rem 1rem !important;
+  }
+
+  .disney-cards {
+    display: flex !important;
+    grid-template-columns: unset !important;
     overflow-x: auto !important;
-    overflow-y: hidden !important;
     scroll-snap-type: x mandatory !important;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none !important;
-    padding: 0.25rem 0.875rem 0.875rem !important;
+    gap: 0.55rem !important;
+    padding-bottom: 0.25rem !important;
   }
 
-  .bento-grid::-webkit-scrollbar { display: none !important; }
+  .disney-cards::-webkit-scrollbar { display: none !important; }
 
-  /* ซ่อน bento-right wrapper — แตก card ออกมาตรงๆ */
-  .bento-right {
-    display: contents !important;
-  }
-
-  .bento-row {
-    display: contents !important;
-  }
-
-  /* ทุกการ์ด — ขนาดเท่ากัน เลื่อนได้ */
-  .bento-card {
-    flex: 0 0 72vw !important;
-    min-width: 72vw !important;
-    height: 200px !important;
-    border-radius: 16px !important;
+  .disney-card {
+    flex: 0 0 62vw !important;
+    min-width: 62vw !important;
+    height: 150px !important;
+    border-radius: 12px !important;
     scroll-snap-align: start !important;
-    transform: none !important;
-    transition: opacity 0.2s ease !important;
   }
 
-  .bento-card:active {
-    opacity: 0.88 !important;
-    transform: scale(0.98) !important;
-  }
-
-  /* ยกเลิก large/small/wide ให้เท่ากันหมด */
-  .bento-large,
-  .bento-small,
-  .bento-wide {
-    flex: 0 0 72vw !important;
-    min-width: 72vw !important;
-    height: 200px !important;
-  }
-
-  /* Info — แสดงตลอด ไม่รอ hover */
-  .bento-info {
-    transform: translateY(0) !important;
-    pointer-events: auto !important;
-  }
-
-  .bento-category {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-  }
-
-  .bento-desc,
-  .bento-desc-wide {
-    display: none !important;
-  }
-
-  .bento-btn,
-  .bento-btn-outline {
-    opacity: 1 !important;
-    transform: translateY(0) !important;
-    font-size: 0.68rem !important;
-    padding: 0.32rem 0.75rem !important;
-  }
-
-  .bento-title {
-    font-size: 1rem !important;
-  }
-
-  .bento-title-wide {
-    font-size: 0.95rem !important;
-  }
-
-  /* เส้น accent แสดงตลอด */
-  .bento-card::after {
-    opacity: 0.8 !important;
+  .disney-card-title {
+    font-size: 0.85rem !important;
   }
 }
 
 @media (max-width: 480px) {
-  .bento-card,
-  .bento-large,
-  .bento-small,
-  .bento-wide {
-    flex: 0 0 78vw !important;
-    min-width: 78vw !important;
-    height: 185px !important;
+  .disney-card {
+    flex: 0 0 68vw !important;
+    min-width: 68vw !important;
+    height: 140px !important;
   }
 }
