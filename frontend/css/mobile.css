@@ -368,7 +368,7 @@
   .hero-title { font-size: clamp(1.5rem, 6vw, 2rem) !important; }
 }
 
-/* ---- Featured Section — Disney Carousel Mobile ---- */
+/* ---- Featured Section — SwiperJS Coverflow Mobile ---- */
 @media (max-width: 768px) {
   .featured-section {
     padding: 1.25rem 0 0 !important;
@@ -385,61 +385,22 @@
 
   .featured-section .section-title { font-size: 1.3rem !important; }
 
-  /* Wrapper */
-  .dsc-wrapper {
-    padding-bottom: 2rem !important;
+  /* Slide ขนาดพอดีมือถือ */
+  .featured-slide {
+    width: 78vw !important;
+    height: 220px !important;
+    border-radius: 16px !important;
   }
 
-  /* Track สูงพอดีมือถือ */
-  .dsc-track {
-    min-height: 260px !important;
-    padding: 0.75rem 0 0.5rem !important;
-  }
+  /* ข้อความ */
+  .fs-title { font-size: 1.05rem !important; }
+  .fs-desc  { font-size: 0.72rem !important; -webkit-line-clamp: 2 !important; margin-bottom: 0.6rem !important; }
+  .fs-btn   { font-size: 0.68rem !important; padding: 0.35rem 0.875rem !important; }
+  .fs-info  { padding: 1rem 1.1rem 1.1rem !important; }
 
-  /* ซ่อนปุ่ม ← → บนมือถือ — ใช้ swipe แทน */
-  .dsc-btn {
-    display: none !important;
-  }
-
-  /* Dots */
-  .dsc-dots {
-    bottom: 0.25rem !important;
-  }
-
-  .dsc-dot {
-    width: 6px !important;
-    height: 6px !important;
-  }
-
-  .dsc-dot.active {
-    width: 18px !important;
-  }
-
-  /* ข้อความในการ์ดกลาง */
-  .dsc-category {
-    font-size: 0.6rem !important;
-    margin-bottom: 0.25rem !important;
-  }
-
-  .dsc-title {
-    font-size: 1.1rem !important;
-    margin-bottom: 0.25rem !important;
-  }
-
-  .dsc-desc {
-    font-size: 0.72rem !important;
-    margin-bottom: 0.6rem !important;
-    -webkit-line-clamp: 2 !important;
-  }
-
-  .dsc-link {
-    font-size: 0.7rem !important;
-    padding: 0.38rem 0.875rem !important;
-  }
-
-  .dsc-info {
-    padding: 1rem 1.1rem 1.1rem !important;
-  }
+  /* ซ่อนปุ่ม ← → บนมือถือ */
+  .featured-prev,
+  .featured-next { display: none !important; }
 }
 
 /* ---- Experience Section ---- */
