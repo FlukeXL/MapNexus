@@ -50,6 +50,7 @@ class InfoBarHeader {
     init() {
         this.updatePM25();
         this.updateWeather(); // อัปเดตอุณหภูมิและสภาพอากาศ
+        this.updateWaterLevel(); // อัปเดตระดับน้ำโขง
         this.updateRainForecast(); // พยากรณ์ฝน
         this.updateTraffic(); // ยังใช้ข้อมูลจำลอง
     }
@@ -408,6 +409,32 @@ class InfoBarHeader {
         
         // อัปเดตทุก 2 นาที (Traffic)
         setInterval(() => this.updateTraffic(), 2 * 60 * 1000);
+
+        // อัปเดตทุก 30 นาที (ระดับน้ำโขง)
+        setInterval(() => this.updateWaterLevel(), 30 * 60 * 1000);
+    }
+
+    // ========================================
+    // 🌊 ระดับน้ำแม่น้ำโขง (จำลอง — รอ API จริง)
+    // ========================================
+    updateWaterLevel() {
+        const el = document.getElementById('header-water-level');
+        const pctEl = document.getElementById('header-water-pct');
+        if (!el) return;
+
+        // ข้อมูลจำลอง — ระดับน้ำโขงที่นครพนมปกติ 6-12 ม.
+        const level = (Math.random() * 4 + 7).toFixed(1); // 7.0 - 11.0 ม.
+        const maxLevel = 14; // ระดับสูงสุดอ้างอิง
+        const pct = Math.round((parseFloat(level) / maxLevel) * 100);
+
+        el.textContent = level;
+        if (pctEl) pctEl.textContent = pct + '%';
+
+        // อัปเดต progress ring
+        const circumference = 81.68;
+        const offset = circumference - (pct / 100) * circumference;
+        const ring = document.querySelector('#header-water-status .progress-ring-fill');
+        if (ring) ring.style.strokeDashoffset = offset.toFixed(2);
     }
     
     // ========================================
