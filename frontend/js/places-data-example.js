@@ -11,7 +11,7 @@ const PLACES_DATA = {
             category: 'วัดและศาสนสถาน',
             description: 'พระธาตุศักดิ์สิทธิ์คู่บ้านคู่เมืองนครพนม อายุกว่า 2,000 ปี',
             // ⬇️ แก้ไขตรงนี้ - ใส่ path ของรูปที่คุณวาง
-            image: 'assets/images/places/temples/phra-that-phanom.jpg',
+            image: 'assets\images\places\temples\Phatea Phanom.jpg',
             location: 'อำเภอธาตุพนม',
             rating: 4.9,
             reviews: 2500

@@ -975,30 +975,40 @@ section {
     object-fit: cover;
     display: block;
     transition: transform 0.5s cubic-bezier(0.4,0,0.2,1), filter 0.4s ease;
-    filter: brightness(0.85);
+    filter: brightness(0.92) saturate(1.1);
 }
 .bento-card:hover img {
     transform: scale(1.06);
-    filter: brightness(0.65);
+    filter: brightness(0.72) saturate(1.15);
 }
 .bento-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.0) 100%);
+    background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.72) 0%,
+        rgba(0,0,0,0.18) 45%,
+        rgba(0,0,0,0.0) 100%
+    );
     transition: background 0.4s ease;
     pointer-events: none;
 }
 .bento-card:hover .bento-overlay {
-    background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,0.1) 100%);
+    background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.88) 0%,
+        rgba(0,0,0,0.42) 55%,
+        rgba(0,0,0,0.08) 100%
+    );
 }
-.bento-overlay-dark { background: rgba(0,0,0,0.45) !important; }
-.bento-card:hover .bento-overlay-dark { background: rgba(0,0,0,0.62) !important; }
+.bento-overlay-dark { background: rgba(0,0,0,0.38) !important; }
+.bento-card:hover .bento-overlay-dark { background: rgba(0,0,0,0.58) !important; }
 .bento-info {
     position: absolute;
     bottom: 0; left: 0; right: 0;
-    padding: 1.5rem;
+    padding: 1.25rem 1.4rem 1.3rem;
     z-index: 2;
-    transform: translateY(8px);
+    transform: translateY(0);
     transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
     pointer-events: none;
 }
@@ -1006,27 +1016,34 @@ section {
     transform: translateY(0);
     pointer-events: auto;
 }
+/* category — แสดงตลอด ไม่ซ่อน */
 .bento-category {
-    display: block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
     font-size: 0.6rem;
     font-weight: 700;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 0.3rem;
-    opacity: 0;
-    transform: translateY(6px);
-    transition: opacity 0.3s ease 0.05s, transform 0.3s ease 0.05s;
+    background: rgba(212,175,55,0.18);
+    border: 1px solid rgba(212,175,55,0.35);
+    border-radius: 20px;
+    padding: 0.18rem 0.55rem;
+    margin-bottom: 0.4rem;
+    opacity: 1;
+    transform: translateY(0);
+    transition: none;
 }
 .bento-card:hover .bento-category { opacity: 1; transform: translateY(0); }
 .bento-title {
     font-family: 'Noto Serif Thai', serif;
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     font-weight: 700;
     color: #fff;
     line-height: 1.25;
-    margin-bottom: 0.35rem;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    margin-bottom: 0.4rem;
+    text-shadow: 0 2px 14px rgba(0,0,0,0.5);
 }
 .bento-desc {
     font-size: 0.78rem;
@@ -1042,24 +1059,27 @@ section {
     transition: opacity 0.3s ease 0.08s, transform 0.3s ease 0.08s;
 }
 .bento-card:hover .bento-desc { opacity: 1; transform: translateY(0); }
+/* ปุ่ม — แสดงตลอด */
 .bento-btn {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-weight: 700;
     color: #fff;
-    padding: 0.42rem 0.95rem;
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.3);
+    padding: 0.38rem 0.875rem;
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.28);
     border-radius: 50px;
     letter-spacing: 0.04em;
-    opacity: 0;
-    transform: translateY(6px);
-    transition: opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s, background 0.2s ease;
+    opacity: 1;
+    transform: translateY(0);
+    transition: background 0.2s ease, border-color 0.2s ease;
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
 }
-.bento-card:hover .bento-btn { opacity: 1; transform: translateY(0); }
-.bento-btn:hover { background: rgba(255,255,255,0.25) !important; }
+.bento-card:hover .bento-btn { opacity: 1; transform: translateY(0); background: rgba(255,255,255,0.22); border-color: rgba(255,255,255,0.45); }
+.bento-btn:hover { background: rgba(255,255,255,0.28) !important; }
 .bento-btn-outline {
     background: rgba(255,255,255,0.12);
     border-color: rgba(255,255,255,0.4);
@@ -1068,7 +1088,7 @@ section {
 }
 .bento-large { height: 100%; }
 .bento-small { flex: 1; }
-.bento-small .bento-title { font-size: 1rem; }
+.bento-small .bento-title { font-size: 0.98rem; }
 .bento-wide { flex: 0 0 auto; height: 160px; }
 .bento-info-center {
     display: flex;
