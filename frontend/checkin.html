@@ -6,6 +6,7 @@
     <title>เช็คอิน - Nakhon Phanom</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@200;300;400;500;600;700&family=Noto+Serif+Thai:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
@@ -127,7 +128,7 @@
     </div>
 
     <!-- Page Header -->
-    <section class="page-header checkin-header">
+    <section class="page-header checkin-header" data-aos="fade-down">
         <div class="page-header-bg"></div>
         <div class="page-header-overlay"></div>
         <div class="container">
@@ -140,12 +141,12 @@
     </section>
 
     <!-- Main Content — 2 คอลัมน์ -->
-    <section class="checkin-main-section">
+    <section class="checkin-main-section" data-aos="fade-up">
         <div class="container">
             <div class="checkin-layout">
 
                 <!-- คอลัมน์ซ้าย: ฟอร์มเช็คอิน -->
-                <div class="checkin-form-col">
+                <div class="checkin-form-col" data-aos="fade-right">
                     <div class="checkin-card">
                         <div class="checkin-card-header">
                             <h2 class="checkin-card-title">สร้างเช็คอิน</h2>
@@ -271,7 +272,7 @@
                 </div>
 
                 <!-- คอลัมน์ขวา: เช็คอินล่าสุด -->
-                <div class="checkin-feed-col">
+                <div class="checkin-feed-col" data-aos="fade-left">
                     <div class="checkin-feed-header">
                         <h3 class="checkin-feed-title">เช็คอินล่าสุด</h3>
                         <a href="#" class="checkin-feed-viewall">ดูทั้งหมด →</a>
@@ -475,5 +476,7 @@
     <script src="js/info-bar-header.js"></script>
     <script src="js/checkin.js"></script>
     <script src="js/mobile-menu.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ once: true, duration: 700, easing: 'ease-out-cubic' });</script>
 </body>
 </html>

@@ -6,6 +6,7 @@
 <title id="page-title">รายละเอียดสถานที่ — MapNexus</title>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/mobile.css">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@200;300;400;500;600;700&family=Noto+Serif+Thai:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
@@ -198,7 +199,7 @@ body { background: var(--off-white); }
   </div>
 
   <!-- Gallery -->
-  <div class="place-gallery-section" id="gallery-section">
+  <div class="place-gallery-section" id="gallery-section" data-aos="fade-down">
     <div class="place-gallery-scroll" id="gallery-scroll"></div>
     <button type="button" class="gallery-nav-btn prev" id="gallery-prev" aria-label="ก่อนหน้า">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
@@ -215,7 +216,7 @@ body { background: var(--off-white); }
   </div>
 
   <!-- Main content: 2 columns -->
-  <div id="place-content" style="display:grid;grid-template-columns:1fr 1.6fr;gap:2.5rem;align-items:start;">
+  <div id="place-content" data-aos="fade-up" style="display:grid;grid-template-columns:1fr 1.6fr;gap:2.5rem;align-items:start;">
 
     <!-- Left column -->
     <div>
@@ -381,6 +382,8 @@ body { background: var(--off-white); }
 <script type="module" src="js/auth-state.js"></script>
 <script src="js/mobile-menu.js"></script>
 <script src="js/place-detail.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>AOS.init({ once: true, duration: 700, easing: 'ease-out-cubic' });</script>
 <script>
 (function() {
   'use strict';

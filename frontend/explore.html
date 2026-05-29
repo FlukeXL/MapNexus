@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/map.css">
     <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" 
           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
@@ -135,7 +136,7 @@
     </div>
 
     <!-- Page Header -->
-    <section class="page-header">
+    <section class="page-header" data-aos="fade-down">
         <div class="page-header-bg">
             <div class="page-header-overlay"></div>
         </div>
@@ -149,7 +150,7 @@
     </section>
 
     <!-- Filter Section -->
-    <section class="filter-section">
+    <section class="filter-section" data-aos="fade-up">
         <div class="container">
             <div class="filter-bar">
                 <div class="filter-tabs">
@@ -174,7 +175,7 @@
     </section>
 
     <!-- OpenStreetMap — แสดงเลย ไม่ต้องกด -->
-    <section class="map-section" id="map-section">
+    <section class="map-section" id="map-section" data-aos="fade-up">
         <div class="container">
             <div class="map-header">
                 <h3 class="map-title">แผนที่สถานที่ท่องเที่ยว</h3>
@@ -201,7 +202,7 @@
     </section>
 
     <!-- ========== แนะนำ ========== -->
-    <section class="explore-category-section" data-section="recommended">
+    <section class="explore-category-section" data-aos="fade-up" data-section="recommended">
         <div class="container">
             <div class="explore-category-header">
                 <div class="explore-category-left">
@@ -228,7 +229,7 @@
     </section>
 
     <!-- ========== วัฒนธรรม ========== -->
-    <section class="explore-category-section" data-section="culture">
+    <section class="explore-category-section" data-aos="fade-up" data-section="culture">
         <div class="container">
             <div class="explore-category-header">
                 <div class="explore-category-left">
@@ -255,7 +256,7 @@
     </section>
 
     <!-- ========== คาเฟ่ ========== -->
-    <section class="explore-category-section" data-section="cafe">
+    <section class="explore-category-section" data-aos="fade-up" data-section="cafe">
         <div class="container">
             <div class="explore-category-header">
                 <div class="explore-category-left">
@@ -282,7 +283,7 @@
     </section>
 
     <!-- ========== โรงแรม ========== -->
-    <section class="explore-category-section" data-section="hotel">
+    <section class="explore-category-section" data-aos="fade-up" data-section="hotel">
         <div class="container">
             <div class="explore-category-header">
                 <div class="explore-category-left">
@@ -309,7 +310,7 @@
     </section>
 
     <!-- ========== ธรรมชาติ ========== -->
-    <section class="explore-category-section" data-section="nature">
+    <section class="explore-category-section" data-aos="fade-up" data-section="nature">
         <div class="container">
             <div class="explore-category-header">
                 <div class="explore-category-left">
@@ -457,5 +458,7 @@
     <script src="js/explore-map.js"></script>
     <script src="js/mobile-menu.js"></script>
     <script src="js/place-detail.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ once: true, duration: 700, easing: 'ease-out-cubic' });</script>
 </body>
 </html>

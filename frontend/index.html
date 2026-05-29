@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/mobile.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@200;300;400;500;600;700&family=Noto+Serif+Thai:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
@@ -215,16 +216,16 @@
     </script>
 
     <!-- Local Food Section -->
-    <section class="local-food-section">
+    <section class="local-food-section" data-aos="fade-up">
         <div class="container">
 
             <!-- Header กึ่งกลาง ไม่มีปุ่มดูทั้งหมด -->
-            <div class="lf-header">
+            <div class="lf-header" data-aos="fade-up" data-aos-delay="100">
                 <span class="section-subtitle">อาหารท้องถิ่น</span>
                 <h2 class="section-title">Local Food นครพนม</h2>
             </div>
 
-            <div class="local-food-grid">
+            <div class="local-food-grid" data-aos="fade-up" data-aos-delay="150">
 
                 <!-- FOODTRUCK -->
                 <a href="food.html?category=FOODTRUCK" class="lf-card foodtruck">
@@ -261,9 +262,9 @@
     </section>
 
     <!-- Featured Destinations — Bento Grid -->
-    <section class="featured-section">
+    <section class="featured-section" data-aos="fade-up">
         <div class="container">
-            <div class="section-header">
+            <div class="section-header" data-aos="fade-up" data-aos-delay="50">
                 <div>
                     <span class="section-subtitle">จุดหมายปลายทาง</span>
                     <h2 class="section-title">สถานที่ยอดนิยม</h2>
@@ -277,7 +278,7 @@
             </div>
 
             <!-- Bento Grid -->
-            <div class="bento-grid">
+            <div class="bento-grid" data-aos="fade-up" data-aos-delay="100">
 
                 <!-- การ์ดใหญ่ซ้าย -->
                 <a href="place.html?id=1" class="bento-card bento-large">
@@ -346,10 +347,10 @@
     </section>
 
     <!-- Experience Section - Compact -->
-    <section class="experience-section experience-compact">
+    <section class="experience-section experience-compact" data-aos="fade-up">
         <div class="container-wide">
             <div class="experience-content">
-                <div class="experience-text">
+                <div class="experience-text" data-aos="fade-right">
                     <span class="section-subtitle">ประสบการณ์</span>
                     <h2 class="section-title">สัมผัสเสน่ห์แห่งนครพนม</h2>
                     <p class="experience-description">
@@ -372,7 +373,7 @@
                     </div>
                     <a href="explore.html" class="btn-primary">เริ่มสำรวจ</a>
                 </div>
-                <div class="experience-images">
+                <div class="experience-images" data-aos="fade-left">
                     <div class="exp-image-1">
                         <img src="assets\images\Payasrisut.jpg" alt="วัฒนธรรม">
                     </div>
@@ -385,7 +386,7 @@
     </section>
 
     <!-- Temples Section - วัด 4 แห่ง - Compact -->
-    <section class="places-section places-compact">
+    <section class="places-section places-compact" data-aos="fade-up">
         <div class="container">
             <div class="places-header">
                 <span class="places-subtitle">วัดและศาสนสถาน</span>
@@ -401,7 +402,7 @@
     </section>
 
     <!-- Cafes Section - คาเฟ่ 6 แห่ง - Compact -->
-    <section class="places-section places-compact">
+    <section class="places-section places-compact" data-aos="fade-up">
         <div class="container">
             <div class="places-header">
                 <span class="places-subtitle">คาเฟ่และร้านกาแฟ</span>
@@ -433,7 +434,7 @@
     </section>
 
     <!-- Hotels Section - โรงแรม 3 แห่ง - Compact -->
-    <section class="places-section places-compact">
+    <section class="places-section places-compact" data-aos="fade-up">
         <div class="container">
             <div class="places-header">
                 <span class="places-subtitle">ที่พัก</span>
@@ -452,14 +453,14 @@
     </section>
 
     <!-- Culture Section - Compact -->
-    <section class="culture-section culture-compact">
+    <section class="culture-section culture-compact" data-aos="fade-up">
         <div class="container">
             <div class="section-header centered">
                 <span class="section-subtitle">วัฒนธรรม</span>
                 <h2 class="section-title">มรดกแห่งอารยธรรม</h2>
             </div>
             <div class="culture-grid">
-                <div class="culture-card">
+                <div class="culture-card" data-aos="fade-up" data-aos-delay="0">
                     <div class="culture-icon">
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M12 2L2 7l10 5 10-5-10-5z"/>
@@ -479,7 +480,7 @@
                     <h3 class="culture-title">ประเพณี</h3>
                     <p class="culture-description">งานบุญพระธาตุพนม สืบทอดมา 2,000 ปี</p>
                 </div>
-                <div class="culture-card">
+                <div class="culture-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="culture-icon">
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
@@ -488,7 +489,7 @@
                     <h3 class="culture-title">อาหาร</h3>
                     <p class="culture-description">รสชาติอีสานผสมวัฒนธรรมข้ามแดน</p>
                 </div>
-                <div class="culture-card">
+                <div class="culture-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="culture-icon">
                         <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
@@ -504,7 +505,7 @@
     </section>
 
     <!-- Newsletter Section - Compact -->
-    <section class="newsletter-section newsletter-compact">
+    <section class="newsletter-section newsletter-compact" data-aos="fade-up">
         <div class="container">
             <div class="newsletter-content">
                 <div class="newsletter-text">
@@ -681,6 +682,8 @@
     <script src="js/event-notification.js"></script>
     <script src="js/mobile-menu.js"></script>
     <script src="js/place-detail.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init({ once: true, duration: 700, easing: 'ease-out-cubic' });</script>
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>

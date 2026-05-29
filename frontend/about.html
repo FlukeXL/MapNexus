@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="th">
 <head>
 <meta charset="UTF-8">
@@ -6,6 +6,7 @@
 <title>เกี่ยวกับเรา — MapNexus</title>
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/mobile.css">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@200;300;400;500;600;700&family=Noto+Serif+Thai:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
@@ -87,7 +88,7 @@ img { max-width: 100%; height: auto; display: block; }
 <body>
 
 <!-- Hero -->
-<section class="about-hero">
+<section class="about-hero" data-aos="fade-down">
   <a href="index.html" class="about-back">
     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
     กลับหน้าหลัก
@@ -103,7 +104,7 @@ img { max-width: 100%; height: auto; display: block; }
 <main class="about-container">
 
 <!-- ทีมนักพัฒนา -->
-<section class="about-section" id="team">
+<section class="about-section" id="team" data-aos="fade-up">
   <span class="about-section-label">ทีมพัฒนา</span>
   <h2 class="about-section-title">ผู้อยู่เบื้องหลัง MapNexus</h2>
   <style>
@@ -186,7 +187,7 @@ img { max-width: 100%; height: auto; display: block; }
 </section>
 
 <!-- หัวข้อ 1: ประวัติในการทำผลงาน -->
-<section class="about-section" id="history">
+<section class="about-section" id="history" data-aos="fade-up">
   <span class="about-section-label">หัวข้อที่ 1</span>
   <h2 class="about-section-title">ประวัติในการทำผลงานชิ้นนี้</h2>
   <div class="about-section-body">
@@ -196,7 +197,7 @@ img { max-width: 100%; height: auto; display: block; }
 </section>
 
 <!-- หัวข้อ 2: รูปภาพการทำงาน -->
-<section class="about-section" id="gallery">
+<section class="about-section" id="gallery" data-aos="fade-up">
   <span class="about-section-label">หัวข้อที่ 2</span>
   <h2 class="about-section-title">ภาพการทำงานและทีมงาน</h2>
   <style>
@@ -256,7 +257,7 @@ img { max-width: 100%; height: auto; display: block; }
 </section>
 
 <!-- หัวข้อ 3: ทำไมถึงทำเว็บนี้ -->
-<section class="about-section" id="why">
+<section class="about-section" id="why" data-aos="fade-up">
   <span class="about-section-label">หัวข้อที่ 3</span>
   <h2 class="about-section-title">ทำไมถึงคิดจะทำเว็บนี้ขึ้นมา</h2>
   <div class="about-section-body">
@@ -266,7 +267,7 @@ img { max-width: 100%; height: auto; display: block; }
 </section>
 
 <!-- หัวข้อ 4: แรงบันดาลใจ -->
-<section class="about-section" id="inspiration">
+<section class="about-section" id="inspiration" data-aos="fade-up">
   <span class="about-section-label">หัวข้อที่ 4</span>
   <h2 class="about-section-title">แรงบันดาลใจ</h2>
   <div class="about-section-body">
@@ -276,7 +277,7 @@ img { max-width: 100%; height: auto; display: block; }
 </section>
 
 <!-- หัวข้อ 5: ข้อมูลติดต่อ -->
-<section class="about-section" id="contact">
+<section class="about-section" id="contact" data-aos="fade-up">
   <span class="about-section-label">หัวข้อที่ 5</span>
   <h2 class="about-section-title">ข้อมูลติดต่อ</h2>
   <style>
@@ -348,5 +349,7 @@ img { max-width: 100%; height: auto; display: block; }
 </footer>
 
 <script src="js/mobile-menu.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>AOS.init({ once: true, duration: 700, easing: 'ease-out-cubic' });</script>
 </body>
 </html>
