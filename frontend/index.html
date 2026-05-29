@@ -6,6 +6,7 @@
     <title>MapNexus - การเดินทางที่มีระดับ</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@200;300;400;500;600;700&family=Noto+Serif+Thai:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
@@ -259,7 +260,7 @@
         </div>
     </section>
 
-    <!-- Featured Destinations — Disney Carousel -->
+    <!-- Featured Destinations — SwiperJS Coverflow -->
     <section class="featured-section">
         <div class="container">
             <div class="section-header">
@@ -276,76 +277,46 @@
             </div>
         </div>
 
-        <!-- Carousel Wrapper — full width -->
-        <div class="dsc-wrapper">
-            <button class="dsc-btn dsc-prev" id="dsc-prev" aria-label="ก่อนหน้า">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M15 18l-6-6 6-6"/>
-                </svg>
-            </button>
+        <div class="swiper featured-swiper">
+            <div class="swiper-wrapper">
 
-            <!-- Track — touch/drag scroll on mobile -->
-            <div class="dsc-track" id="dsc-track">
-
-                <!-- ===== ใส่รูปและข้อมูลสถานที่ที่นี่ ===== -->
-
-                <!-- การ์ด 1: พระธาตุพนม -->
-                <a href="place.html?id=1" class="dsc-card" data-index="0">
+                <a class="swiper-slide featured-slide" href="place.html?id=1">
                     <img src="assets/images/places/temples/TreaPhanom.jpg" alt="พระธาตุพนม" loading="lazy">
-                    <div class="dsc-overlay"></div>
-                    <div class="dsc-info">
-                        <span class="dsc-category">วัดและศาสนสถาน</span>
-                        <h3 class="dsc-title">พระธาตุพนม</h3>
-                        <p class="dsc-desc">สัญลักษณ์ศักดิ์สิทธิ์แห่งนครพนม ที่เคารพบูชามากว่า 2,000 ปี</p>
-                        <span class="dsc-link">
-                            สำรวจเพิ่มเติม
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                        </span>
+                    <div class="fs-overlay"></div>
+                    <div class="fs-info">
+                        <span class="fs-category">วัดและศาสนสถาน</span>
+                        <h3 class="fs-title">พระธาตุพนม</h3>
+                        <p class="fs-desc">สัญลักษณ์ศักดิ์สิทธิ์แห่งนครพนม ที่เคารพบูชามากว่า 2,000 ปี</p>
+                        <span class="fs-btn">สำรวจเพิ่มเติม <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
                     </div>
                 </a>
 
-                <!-- การ์ด 2: ริมโขง -->
-                <a href="place.html?id=2" class="dsc-card" data-index="1">
+                <a class="swiper-slide featured-slide" href="place.html?id=2">
                     <img src="assets/images/places/nature/meakhong.jpg" alt="ริมแม่น้ำโขง" loading="lazy">
-                    <div class="dsc-overlay"></div>
-                    <div class="dsc-info">
-                        <span class="dsc-category">ธรรมชาติริมแม่น้ำ</span>
-                        <h3 class="dsc-title">ริมโขง</h3>
-                        <p class="dsc-desc">ชมพระอาทิตย์ขึ้นยามเช้าริมโขงที่สวยงามที่สุด</p>
-                        <span class="dsc-link">
-                            สำรวจเพิ่มเติม
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                        </span>
+                    <div class="fs-overlay"></div>
+                    <div class="fs-info">
+                        <span class="fs-category">ธรรมชาติริมแม่น้ำ</span>
+                        <h3 class="fs-title">ริมโขง</h3>
+                        <p class="fs-desc">ชมพระอาทิตย์ขึ้นยามเช้าริมโขงที่สวยงามที่สุด</p>
+                        <span class="fs-btn">สำรวจเพิ่มเติม <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
                     </div>
                 </a>
 
-                <!-- การ์ด 3: ถนนคนเดิน -->
-                <a href="place.html?id=3" class="dsc-card" data-index="2">
+                <a class="swiper-slide featured-slide" href="place.html?id=3">
                     <img src="assets/images/places/nature/Walking street.jpg" alt="ถนนคนเดินนครพนม" loading="lazy">
-                    <div class="dsc-overlay"></div>
-                    <div class="dsc-info">
-                        <span class="dsc-category">เมืองสโลว์ไลฟ์</span>
-                        <h3 class="dsc-title">ถนนคนเดินนครพนม</h3>
-                        <p class="dsc-desc">สัมผัสเสน่ห์ของกินนครพนม บรรยากาศยามค่ำคืนริมโขง</p>
-                        <span class="dsc-link">
-                            สำรวจเพิ่มเติม
-                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                        </span>
+                    <div class="fs-overlay"></div>
+                    <div class="fs-info">
+                        <span class="fs-category">เมืองสโลว์ไลฟ์</span>
+                        <h3 class="fs-title">ถนนคนเดินนครพนม</h3>
+                        <p class="fs-desc">สัมผัสเสน่ห์ของกินนครพนม บรรยากาศยามค่ำคืนริมโขง</p>
+                        <span class="fs-btn">สำรวจเพิ่มเติม <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
                     </div>
                 </a>
-
-                <!-- เพิ่มการ์ดได้ที่นี่ -->
 
             </div>
-
-            <button class="dsc-btn dsc-next" id="dsc-next" aria-label="ถัดไป">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M9 18l6-6-6-6"/>
-                </svg>
-            </button>
-
-            <!-- Dots -->
-            <div class="dsc-dots" id="dsc-dots"></div>
+            <div class="swiper-button-prev featured-prev"></div>
+            <div class="swiper-button-next featured-next"></div>
+            <div class="swiper-pagination featured-pagination"></div>
         </div>
     </section>
 
@@ -686,210 +657,28 @@
     <script src="js/mobile-menu.js"></script>
     <script src="js/place-detail.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
-// ===== Disney-Style Carousel =====
 (function() {
     'use strict';
-
-    const track   = document.getElementById('dsc-track');
-    const prevBtn = document.getElementById('dsc-prev');
-    const nextBtn = document.getElementById('dsc-next');
-    const dotsEl  = document.getElementById('dsc-dots');
-    if (!track) return;
-
-    const cards = Array.from(track.querySelectorAll('.dsc-card'));
-    const total = cards.length;
-    if (total === 0) return;
-
-    let current = 0;
-    let isAnimating = false;
-
-    // ===== Layout config =====
-    const isMobile = () => window.innerWidth <= 768;
-
-    function getConfig() {
-        if (isMobile()) {
-            return {
-                CARD_W_PCT:   0.78,
-                SIDE_W_PCT:   0.42,
-                SIDE_OFFSET:  0.52,
-                SIDE_SCALE:   0.84,
-                SIDE_OPACITY: 0.5,
-                SIDE_BLUR:    '1.5px',
-                ASPECT:       0.62
-            };
-        }
-        return {
-            CARD_W_PCT:   0.52,
-            SIDE_W_PCT:   0.28,
-            SIDE_OFFSET:  0.38,
-            SIDE_SCALE:   0.82,
-            SIDE_OPACITY: 0.55,
-            SIDE_BLUR:    '2px',
-            ASPECT:       0.58
-        };
-    }
-
-    function getWrapperW() {
-        return track.parentElement.offsetWidth;
-    }
-
-    function applyLayout() {
-        const W = getWrapperW();
-        const cfg = getConfig();
-        const cardW = W * cfg.CARD_W_PCT;
-        const sideW = W * cfg.SIDE_W_PCT;
-        const cardH = cardW * cfg.ASPECT;
-        const sideH = sideW * (cfg.ASPECT + 0.05);
-
-        track.style.height = (cardH + 40) + 'px';
-
-        cards.forEach((card, i) => {
-            const diff = ((i - current) % total + total) % total;
-            const diffSigned = diff > total / 2 ? diff - total : diff;
-
-            let x, scale, opacity, blur, zIndex, pointerEvents;
-
-            if (diffSigned === 0) {
-                // กลาง
-                x = W / 2 - cardW / 2;
-                scale = 1;
-                opacity = 1;
-                blur = '0px';
-                zIndex = 10;
-                pointerEvents = 'auto';
-            } else if (diffSigned === 1 || diffSigned === -1) {
-                // ข้างๆ
-                const side = diffSigned > 0 ? 1 : -1;
-                x = W / 2 + side * (W * cfg.SIDE_OFFSET) - sideW / 2;
-                scale = cfg.SIDE_SCALE;
-                opacity = cfg.SIDE_OPACITY;
-                blur = cfg.SIDE_BLUR;
-                zIndex = 5;
-                pointerEvents = 'auto';
-            } else {
-                // ซ่อน
-                const side = diffSigned > 0 ? 1 : -1;
-                x = W / 2 + side * W * 0.7 - sideW / 2;
-                scale = 0.7;
-                opacity = 0;
-                blur = '4px';
-                zIndex = 1;
-                pointerEvents = 'none';
-            }
-
-            const isCenter = diffSigned === 0;
-            const w = isCenter ? cardW : sideW;
-            const h = isCenter ? cardH : sideH;
-
-            card.style.cssText = `
-                width: ${w}px;
-                height: ${h}px;
-                left: ${x}px;
-                top: ${isCenter ? 0 : (cardH - sideH) / 2}px;
-                transform: scale(${scale});
-                opacity: ${opacity};
-                filter: blur(${blur});
-                z-index: ${zIndex};
-                pointer-events: ${pointerEvents};
-                transform-origin: center center;
-            `;
-
-            card.classList.toggle('active', isCenter);
-
-            // ซ่อน info บนการ์ดข้างๆ
-            const info = card.querySelector('.dsc-info');
-            if (info) info.style.opacity = isCenter ? '1' : '0';
-        });
-
-        updateDots();
-        updateBtns();
-    }
-
-    function goTo(idx) {
-        if (isAnimating) return;
-        isAnimating = true;
-        current = ((idx % total) + total) % total;
-        applyLayout();
-        setTimeout(() => { isAnimating = false; }, 520);
-    }
-
-    function updateDots() {
-        dotsEl.querySelectorAll('.dsc-dot').forEach((d, i) => {
-            d.classList.toggle('active', i === current);
-        });
-    }
-
-    function updateBtns() {
-        prevBtn.style.opacity = total <= 1 ? '0.3' : '1';
-        nextBtn.style.opacity = total <= 1 ? '0.3' : '1';
-    }
-
-    // ===== Init dots =====
-    dotsEl.innerHTML = cards.map((_, i) =>
-        `<button class="dsc-dot${i===0?' active':''}" data-i="${i}"></button>`
-    ).join('');
-
-    dotsEl.querySelectorAll('.dsc-dot').forEach(d => {
-        d.addEventListener('click', () => goTo(parseInt(d.dataset.i)));
+    if (typeof Swiper === 'undefined') return;
+    new Swiper('.featured-swiper', {
+        effect: 'coverflow',
+        grabCursor: true,
+        centeredSlides: true,
+        loop: true,
+        slidesPerView: 'auto',
+        coverflowEffect: {
+            rotate: 0,
+            stretch: 0,
+            depth: 120,
+            modifier: 2.5,
+            slideShadows: false
+        },
+        pagination: { el: '.featured-pagination', clickable: true },
+        navigation: { nextEl: '.featured-next', prevEl: '.featured-prev' },
+        keyboard: { enabled: true }
     });
-
-    // ===== Buttons =====
-    prevBtn.addEventListener('click', () => goTo(current - 1));
-    nextBtn.addEventListener('click', () => goTo(current + 1));
-
-    // ===== Click side cards to navigate =====
-    cards.forEach((card, i) => {
-        card.addEventListener('click', (e) => {
-            if (!card.classList.contains('active')) {
-                e.preventDefault();
-                goTo(i);
-            }
-        });
-    });
-
-    // ===== Touch/Swipe (mobile) =====
-    let touchStartX = 0;
-    let touchStartY = 0;
-    let isDragging = false;
-
-    track.addEventListener('touchstart', e => {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-        isDragging = false;
-    }, { passive: true });
-
-    track.addEventListener('touchmove', e => {
-        const dx = Math.abs(e.touches[0].clientX - touchStartX);
-        const dy = Math.abs(e.touches[0].clientY - touchStartY);
-        if (dx > dy && dx > 8) isDragging = true;
-    }, { passive: true });
-
-    track.addEventListener('touchend', e => {
-        if (!isDragging) return;
-        const diff = e.changedTouches[0].clientX - touchStartX;
-        if (Math.abs(diff) > 40) {
-            goTo(diff < 0 ? current + 1 : current - 1);
-        }
-        isDragging = false;
-    }, { passive: true });
-
-    // ===== Keyboard =====
-    document.addEventListener('keydown', e => {
-        if (e.key === 'ArrowLeft')  goTo(current - 1);
-        if (e.key === 'ArrowRight') goTo(current + 1);
-    });
-
-    // ===== Resize =====
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(applyLayout, 100);
-    });
-
-    // ===== Init =====
-    applyLayout();
-
 })();
 </script>
 </body>
