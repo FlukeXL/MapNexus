@@ -368,28 +368,78 @@
   .hero-title { font-size: clamp(1.5rem, 6vw, 2rem) !important; }
 }
 
-/* ---- Featured Section ---- */
+/* ---- Featured Section — Disney Carousel Mobile ---- */
 @media (max-width: 768px) {
-  .featured-section { padding: 1.25rem 0; }
+  .featured-section {
+    padding: 1.25rem 0 0 !important;
+    overflow: hidden !important;
+  }
 
   .featured-section .section-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.35rem;
-    margin-bottom: 0.875rem;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.25rem !important;
+    margin-bottom: 0.875rem !important;
+    padding: 0 0.875rem !important;
   }
 
   .featured-section .section-title { font-size: 1.3rem !important; }
 
-  .featured-grid { gap: 0.65rem; }
+  /* Wrapper */
+  .dsc-wrapper {
+    padding-bottom: 2rem !important;
+  }
 
-  .card-image { height: 160px !important; }
+  /* Track สูงพอดีมือถือ */
+  .dsc-track {
+    min-height: 260px !important;
+    padding: 0.75rem 0 0.5rem !important;
+  }
 
-  .card-content { padding: 0.75rem 0.875rem 0.875rem; }
-  .card-title { font-size: 0.95rem; }
-  .card-description { font-size: 0.78rem; margin-bottom: 0.5rem; line-height: 1.45; }
-  .card-category { font-size: 0.68rem; }
-  .card-link { font-size: 0.78rem; }
+  /* ซ่อนปุ่ม ← → บนมือถือ — ใช้ swipe แทน */
+  .dsc-btn {
+    display: none !important;
+  }
+
+  /* Dots */
+  .dsc-dots {
+    bottom: 0.25rem !important;
+  }
+
+  .dsc-dot {
+    width: 6px !important;
+    height: 6px !important;
+  }
+
+  .dsc-dot.active {
+    width: 18px !important;
+  }
+
+  /* ข้อความในการ์ดกลาง */
+  .dsc-category {
+    font-size: 0.6rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .dsc-title {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .dsc-desc {
+    font-size: 0.72rem !important;
+    margin-bottom: 0.6rem !important;
+    -webkit-line-clamp: 2 !important;
+  }
+
+  .dsc-link {
+    font-size: 0.7rem !important;
+    padding: 0.38rem 0.875rem !important;
+  }
+
+  .dsc-info {
+    padding: 1rem 1.1rem 1.1rem !important;
+  }
 }
 
 /* ---- Experience Section ---- */
